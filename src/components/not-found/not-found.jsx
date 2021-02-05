@@ -1,6 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Logo from '../logo/logo';
 import Footer from '../footer/footer';
+
 
 const NotFound = () => {
   return (
@@ -12,9 +14,9 @@ const NotFound = () => {
       </header>
 
       <div className="not-found">
-        <a href="index.html" className="not-found__link">
-        Go to the main page
-        </a>
+        <Link to="/" className="not-found__link">
+          Go to the main page
+        </Link>
       </div>
       <Footer />
     </div>
