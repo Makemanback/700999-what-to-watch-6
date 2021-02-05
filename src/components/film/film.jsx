@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 import CardsList from '../cards-list/cards-list';
+import MovieCardButtons from '../movie-card-buttons/movie-card-buttons';
+import UserBlock from '../user-block/user-block';
 
 const Film = ({films}) => {
 
@@ -21,11 +23,7 @@ const Film = ({films}) => {
           <header className="page-header movie-card__head">
             <Logo />
 
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            <UserBlock />
           </header>
 
           <div className="movie-card__wrap">
@@ -36,21 +34,7 @@ const Film = ({films}) => {
                 <span className="movie-card__year">2014</span>
               </p>
 
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"/>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
-              </div>
+              <MovieCardButtons />
             </div>
           </div>
         </div>
