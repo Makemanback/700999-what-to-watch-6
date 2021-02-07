@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
+import filmProp from '../film/film.prop';
 
 const Catalog = ({films}) => {
   return (
@@ -19,7 +20,7 @@ const Catalog = ({films}) => {
 };
 
 Catalog.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 export default Catalog;

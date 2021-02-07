@@ -5,6 +5,7 @@ import Logo from '../logo/logo';
 import CardsList from '../cards-list/cards-list';
 import MovieCardButtons from '../movie-card-buttons/movie-card-buttons';
 import UserBlock from '../user-block/user-block';
+import filmProp from "./film.prop";
 
 const Film = ({films}) => {
 
@@ -96,7 +97,7 @@ const Film = ({films}) => {
 };
 
 Film.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 

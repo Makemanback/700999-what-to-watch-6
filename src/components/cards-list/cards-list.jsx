@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SmallCard from "../small-card/small-card";
+import filmProp from '../film/film.prop';
 
 const CardsList = ({films}) => {
 
@@ -20,7 +21,7 @@ const CardsList = ({films}) => {
 };
 
 CardsList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 export default CardsList;

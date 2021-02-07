@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Footer from '../footer/footer';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
+import filmProp from "../film/film.prop";
 
 const MyList = ({films}) => {
   return (
@@ -32,7 +33,7 @@ const MyList = ({films}) => {
 
 
 MyList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 
