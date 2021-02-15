@@ -1,13 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Logo from '../logo/logo';
 import Rating from "../rating/rating";
+import UserBlock from "../user-block/user-block";
 
-const AddReview = () => {
+const AddReview = ({title}) => {
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -18,7 +20,7 @@ const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="movie-page.html" className="breadcrumbs__link">{title}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -26,15 +28,11 @@ const AddReview = () => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          <UserBlock />
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${title} poster`} width="218" height="327" />
         </div>
       </div>
 
@@ -54,6 +52,10 @@ const AddReview = () => {
 
     </section>
   );
+};
+
+AddReview.propTypes = {
+  title: PropTypes.string.isRequired
 };
 
 export default AddReview;

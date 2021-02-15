@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Footer from '../footer/footer';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
+import filmProp from "../film/film.prop";
+import UserBlock from "../user-block/user-block";
 
 const MyList = ({films}) => {
   return (
@@ -12,11 +14,7 @@ const MyList = ({films}) => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
+        <UserBlock />
       </header>
 
       <section className="catalog">
@@ -32,7 +30,7 @@ const MyList = ({films}) => {
 
 
 MyList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 

@@ -4,6 +4,7 @@ import Footer from '../footer/footer';
 import MovieCard from "../movie-card/movie-card";
 
 import Catalog from "../catalog/catalog";
+import filmProp from "../film/film.prop";
 
 const MainComponent = ({title, genre, year, films}) => {
 
@@ -25,7 +26,7 @@ MainComponent.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 export default MainComponent;

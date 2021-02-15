@@ -8,13 +8,37 @@ import MyList from '../my-list/my-list';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
+import filmProp from '../film/film.prop';
+
+const Path = {
+  default: `/`,
+  login: `/login`,
+  myList: `/mylist`,
+  filmId: `/films/:id`,
+  filmReview: `/films/:id/review`,
+  filmReviews: `/films/:id/reviews`,
+  player: `/player/:id`,
+  filmDetails: `/films/:id/details`
+};
 
 const App = ({title, genre, year, films}) => {
+
+  const renderFilm = (exactPath) => {
+    return (
+      <Route exact path={exactPath}
+        render={({match}) => {
+          const {path} = match;
+          return <Film films={films} path={path} />;
+        }}
+      />
+    );
+  };
+
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/'>
+        <Route exact path={Path.default}>
           <MainComponent
             title={title}
             genre={genre}
@@ -22,23 +46,23 @@ const App = ({title, genre, year, films}) => {
             films={films} />
         </Route>
 
-        <Route exact path='/login'>
+        <Route exact path={Path.login}>
           <SignIn />
         </Route>
 
-        <Route exact path='/mylist'>
+        <Route exact path={Path.myList}>
           <MyList films={films} />
         </Route>
 
-        <Route exact path='/films/:id'>
-          <Film films={films} />
+        {renderFilm(Path.filmId)}
+        {renderFilm(Path.filmDetails)}
+        {renderFilm(Path.filmReviews)}
+
+        <Route exact path={Path.filmReview}>
+          <AddReview title={title} />
         </Route>
 
-        <Route exact path='/films/:id/review'>
-          <AddReview />
-        </Route>
-
-        <Route exact path='/player/:id'>
+        <Route exact path={Path.player}>
           <Player />
         </Route>
 
@@ -54,7 +78,9 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  match: PropTypes.object
 };
 
 export default App;
+export {Path};
