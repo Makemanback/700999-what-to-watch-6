@@ -13,5 +13,5 @@ export default PropTypes.shape({
   }).isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 }).isRequired;

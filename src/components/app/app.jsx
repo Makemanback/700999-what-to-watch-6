@@ -16,10 +16,24 @@ const Path = {
   myList: `/mylist`,
   filmId: `/films/:id`,
   filmReview: `/films/:id/review`,
-  player: `/player/:id`
+  filmReviews: `/films/:id/reviews`,
+  player: `/player/:id`,
+  filmDetails: `/films/:id/details`
 };
 
 const App = ({title, genre, year, films}) => {
+
+  const renderFilm = (exactPath) => {
+    return (
+      <Route exact path={exactPath}
+        render={({match}) => {
+          const {path} = match;
+          return <Film films={films} path={path} />;
+        }}
+      />
+    );
+  };
+
 
   return (
     <BrowserRouter>
@@ -40,12 +54,12 @@ const App = ({title, genre, year, films}) => {
           <MyList films={films} />
         </Route>
 
-        <Route exact path={Path.filmId}>
-          <Film films={films} />
-        </Route>
+        {renderFilm(Path.filmId)}
+        {renderFilm(Path.filmDetails)}
+        {renderFilm(Path.filmReviews)}
 
         <Route exact path={Path.filmReview}>
-          <AddReview />
+          <AddReview title={title} />
         </Route>
 
         <Route exact path={Path.player}>
@@ -64,7 +78,9 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(filmProp).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  match: PropTypes.object
 };
 
 export default App;
+export {Path};
