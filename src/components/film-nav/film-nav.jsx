@@ -5,7 +5,7 @@ import {Path} from "../app/app";
 
 const FilmNav = ({path}) => {
 
-  const {FilmId, MovieDetails, MovieReviews} = Path;
+  const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
   const link = `link`;
   const item = `item`;
 
@@ -14,14 +14,14 @@ const FilmNav = ({path}) => {
   return (
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
-        <li className={getClass(FilmId, item)}>
-          <Link to={FilmId} className={getClass(FilmId, link)}>Overview</Link>
+        <li className={getClass(FILM_ID, item)}>
+          <Link to={FILM_ID} className={getClass(FILM_ID, link)}>Overview</Link>
         </li>
-        <li className={getClass(MovieDetails, item)}>
-          <Link to={MovieDetails} className={getClass(MovieDetails, link)}>Details</Link>
+        <li className={getClass(MOVIE_DETAILS, item)}>
+          <Link to={MOVIE_DETAILS} className={getClass(MOVIE_DETAILS, link)}>Details</Link>
         </li>
-        <li className={getClass(MovieReviews, item)}>
-          <Link to={MovieReviews} className={getClass(MovieReviews, link)}>Reviews</Link>
+        <li className={getClass(MOVIE_REVIEWS, item)}>
+          <Link to={MOVIE_REVIEWS} className={getClass(MOVIE_REVIEWS, link)}>Reviews</Link>
         </li>
       </ul>
     </nav>

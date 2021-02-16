@@ -16,19 +16,19 @@ const Film = ({films, path}) => {
   const {image, title, genre, released, reviews} = films[0];
 
 
-  const {FilmId, MovieDetails, MovieReviews} = Path;
+  const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
 
-  const movieOverview = path === FilmId ? <FilmOverview
+  const movieOverview = path === FILM_ID ? <FilmOverview
     film={films[0]}
     path={path}
   /> : null;
 
-  const movieDetails = path === MovieDetails ? <FilmDetails
+  const movieDetails = path === MOVIE_DETAILS ? <FilmDetails
     film={films[0]}
     path={path}
   /> : null;
 
-  const movieReviews = path === MovieReviews ? <FilmReviews
+  const movieReviews = path === MOVIE_REVIEWS ? <FilmReviews
     path={path}
     reviews={reviews}
   /> : null;
