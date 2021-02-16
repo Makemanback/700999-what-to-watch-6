@@ -1,14 +1,40 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import Video from "../video/video";
 
 const SmallCard = ({image, title}) => {
+
+  const [isVideo, setVideo] = useState(false);
+  let timeOutId = null;
+
+  const _handleHoverCard = () => {
+    if (timeOutId !== null) {
+      clearTimeout(timeOutId);
+    }
+
+    timeOutId = setTimeout(
+        () => {
+          setVideo(true);
+        }, 1000
+    );
+  };
+
+  const _handleHoverOutCard = () => {
+    clearTimeout(timeOutId);
+    timeOutId = null;
+    setVideo(false);
+  };
+
   return (
-    <article className="small-movie-card catalog__movies-card">
+    <article
+      onMouseOver={_handleHoverCard} onMouseLeave={_handleHoverOutCard}
+      className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
-        <img src={image} alt={title} width="280" height="175" />
+        {isVideo ? <Video title={title} /> : <img src={image} alt={title} width="280" height="175" />}
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{title}</a>
+        <Link className="small-movie-card__link" to="films/:id">{title}</Link>
       </h3>
     </article>
   );
