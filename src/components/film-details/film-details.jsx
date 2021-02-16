@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import FilmNav from "../film-nav/film-nav";
 import filmProp from "../film/film.prop";
 
-const FilmDetails = ({films, path}) => {
+const FilmDetails = ({film, path}) => {
 
-  const {genre, released, director, starring, runTime} = films[0];
+  const {genre, released, director, starring, runTime, id} = film;
 
   return (
     <React.Fragment>
-      <FilmNav path={path}/>
+      <FilmNav id={id} path={path}/>
 
       <div className="movie-card__text movie-card__row">
         <div className="movie-card__text-col">
@@ -50,7 +50,7 @@ const FilmDetails = ({films, path}) => {
 
 FilmDetails.propTypes = {
   path: PropTypes.string.isRequired,
-  films: PropTypes.arrayOf(filmProp).isRequired,
+  film: PropTypes.shape(filmProp).isRequired,
 };
 
 export default FilmDetails;

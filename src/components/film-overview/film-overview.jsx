@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import FilmNav from "../film-nav/film-nav";
 import filmProp from "../film/film.prop";
 
-const FilmOverview = ({path, films}) => {
-  const {rating, director, starring, description} = films[0];
+const FilmOverview = ({path, film}) => {
+  const {rating, director, starring, description, id} = film;
   const {score, level, count} = rating;
 
   return (
     <React.Fragment>
-      <FilmNav path={path} />
+      <FilmNav id={id} path={path} />
 
       <div className="movie-rating">
         <div className="movie-rating__score">{score}</div>
@@ -41,7 +41,7 @@ const FilmOverview = ({path, films}) => {
 
 FilmOverview.propTypes = {
   path: PropTypes.string.isRequired,
-  films: PropTypes.arrayOf(filmProp).isRequired,
+  film: PropTypes.shape(filmProp).isRequired,
 };
 
 export default FilmOverview;

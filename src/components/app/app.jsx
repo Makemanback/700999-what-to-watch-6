@@ -11,14 +11,14 @@ import NotFound from "../not-found/not-found";
 import filmProp from '../film/film.prop';
 
 const Path = {
-  default: `/`,
-  login: `/login`,
-  myList: `/mylist`,
-  filmId: `/films/:id`,
-  filmReview: `/films/:id/review`,
-  filmReviews: `/films/:id/reviews`,
-  player: `/player/:id`,
-  filmDetails: `/films/:id/details`
+  DEFAULT: `/`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  FILM_ID: `/films/:id`,
+  FILM_REVIEW: `/films/:id/review`,
+  MOVIE_REVIEWS: `/films/:id/reviews`,
+  PLAYER: `/player/:id`,
+  MOVIE_DETAILS: `/films/:id/details`
 };
 
 const App = ({title, genre, year, films}) => {
@@ -38,7 +38,7 @@ const App = ({title, genre, year, films}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={Path.default}>
+        <Route exact path={Path.DEFAULT}>
           <MainComponent
             title={title}
             genre={genre}
@@ -46,23 +46,23 @@ const App = ({title, genre, year, films}) => {
             films={films} />
         </Route>
 
-        <Route exact path={Path.login}>
+        <Route exact path={Path.LOGIN}>
           <SignIn />
         </Route>
 
-        <Route exact path={Path.myList}>
+        <Route exact path={Path.MY_LIST}>
           <MyList films={films} />
         </Route>
 
-        {renderFilm(Path.filmId)}
-        {renderFilm(Path.filmDetails)}
-        {renderFilm(Path.filmReviews)}
+        {renderFilm(Path.FILM_ID)}
+        {renderFilm(Path.MOVIE_DETAILS)}
+        {renderFilm(Path.MOVIE_REVIEWS)}
 
-        <Route exact path={Path.filmReview}>
+        <Route exact path={Path.FILM_REVIEW}>
           <AddReview title={title} />
         </Route>
 
-        <Route exact path={Path.player}>
+        <Route exact path={Path.PLAYER}>
           <Player />
         </Route>
 

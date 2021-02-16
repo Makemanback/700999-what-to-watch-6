@@ -13,24 +13,25 @@ import FilmReviews from "../film-reviews/film-reviews";
 
 const Film = ({films, path}) => {
   const exactFilms = films.slice(0, 4);
-  const {image, title, genre, released, reviews} = films[0];
+  const {image, title, genre, released, reviews, id} = films[0];
 
 
-  const {filmId, filmDetails, filmReviews} = Path;
+  const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
 
-  const movieOverview = path === filmId ? <FilmOverview
-    films={films}
+  const movieOverview = path === FILM_ID ? <FilmOverview
+    film={films[0]}
     path={path}
   /> : null;
 
-  const movieDetails = path === filmDetails ? <FilmDetails
-    films={films}
+  const movieDetails = path === MOVIE_DETAILS ? <FilmDetails
+    film={films[0]}
     path={path}
   /> : null;
 
-  const movieReviews = path === filmReviews ? <FilmReviews
+  const movieReviews = path === MOVIE_REVIEWS ? <FilmReviews
     path={path}
     reviews={reviews}
+    id={id}
   /> : null;
 
   return (
