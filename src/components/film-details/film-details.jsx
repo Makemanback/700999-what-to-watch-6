@@ -5,11 +5,11 @@ import filmProp from "../film/film.prop";
 
 const FilmDetails = ({film, path}) => {
 
-  const {genre, released, director, starring, runTime} = film;
+  const {genre, released, director, starring, runTime, id} = film;
 
   return (
     <React.Fragment>
-      <FilmNav path={path}/>
+      <FilmNav id={id} path={path}/>
 
       <div className="movie-card__text movie-card__row">
         <div className="movie-card__text-col">

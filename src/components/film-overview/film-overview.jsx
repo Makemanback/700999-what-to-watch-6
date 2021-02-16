@@ -4,12 +4,12 @@ import FilmNav from "../film-nav/film-nav";
 import filmProp from "../film/film.prop";
 
 const FilmOverview = ({path, film}) => {
-  const {rating, director, starring, description} = film;
+  const {rating, director, starring, description, id} = film;
   const {score, level, count} = rating;
 
   return (
     <React.Fragment>
-      <FilmNav path={path} />
+      <FilmNav id={id} path={path} />
 
       <div className="movie-rating">
         <div className="movie-rating__score">{score}</div>

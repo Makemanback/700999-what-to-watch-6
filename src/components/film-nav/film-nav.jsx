@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Path} from "../app/app";
 
-const FilmNav = ({path}) => {
+const FilmNav = ({path, id}) => {
 
   const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
   const link = `link`;
@@ -15,13 +15,13 @@ const FilmNav = ({path}) => {
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
         <li className={getClass(FILM_ID, item)}>
-          <Link to={FILM_ID} className={getClass(FILM_ID, link)}>Overview</Link>
+          <Link to={`/films/${id}`} className={getClass(FILM_ID, link)}>Overview</Link>
         </li>
         <li className={getClass(MOVIE_DETAILS, item)}>
-          <Link to={MOVIE_DETAILS} className={getClass(MOVIE_DETAILS, link)}>Details</Link>
+          <Link to={`/films/${id}/details`} className={getClass(MOVIE_DETAILS, link)}>Details</Link>
         </li>
         <li className={getClass(MOVIE_REVIEWS, item)}>
-          <Link to={MOVIE_REVIEWS} className={getClass(MOVIE_REVIEWS, link)}>Reviews</Link>
+          <Link to={`/films/${id}/reviews`} className={getClass(MOVIE_REVIEWS, link)}>Reviews</Link>
         </li>
       </ul>
     </nav>
@@ -29,7 +29,8 @@ const FilmNav = ({path}) => {
 };
 
 FilmNav.propTypes = {
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default FilmNav;

@@ -13,7 +13,7 @@ import FilmReviews from "../film-reviews/film-reviews";
 
 const Film = ({films, path}) => {
   const exactFilms = films.slice(0, 4);
-  const {image, title, genre, released, reviews} = films[0];
+  const {image, title, genre, released, reviews, id} = films[0];
 
 
   const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
@@ -31,6 +31,7 @@ const Film = ({films, path}) => {
   const movieReviews = path === MOVIE_REVIEWS ? <FilmReviews
     path={path}
     reviews={reviews}
+    id={id}
   /> : null;
 
   return (

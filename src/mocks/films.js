@@ -26,21 +26,21 @@ export default [
         author: `Kate Moss`,
         rating: `2,3`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Starting with React 16.3, the context API involves the use of two special components: <Provider> and <Consumer>. And if one of these names sounds familiar, it’s because Redux also supplies a <Provider> component. In fact, the Redux and React providers both do roughly the same thing. So in a way, context can replace Redux`,
         author: `Sam Samson`,
         rating: `7,3`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `But wait a moment. Redux’s <Provider> component has actually made use of context since 2015, when Redux was first released. And this raises the question: if Redux has been using context all along, how can context replace Redux? The rumors of Redux’s demise have been greatly exaggerated`,
         author: `Steve Watt`,
         rating: `6,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -67,7 +67,7 @@ export default [
         author: `John Jonov`,
         rating: `9,9`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Of course, Redux isn’t the only way to provide data to your components. React’s context API does basically the same thing; it lets you pass global state down the component tree without passing it through props at every level. But that’s all it does.
@@ -75,14 +75,14 @@ export default [
         author: `Kyle Kylovich`,
         rating: `8,8`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `As you can see, context is not a replacement for Redux. Context won’t give you time traveling debugging, configurable middleware, or anything more than a way to get data from one place to another. If you want a tool to help you manage your state, then Redux is a great choice.`,
         author: `Sweet Girl`,
         rating: `4,1`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -113,14 +113,14 @@ export default [
         author: `Cocaine Lsd`,
         rating: `6,0`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Changes this big are guaranteed to cause some excitement. But while they certainly made a splash, they didn’t fundamentally change what context does. The new API, like the old API, just gives you a way to provide data to a component’s descendants. However, amongst the API differences, there was a smaller, less obvious change: the new context API always propagates updates, even past shouldComponentUpdate() or PureComponent.`,
         author: `Joe Cowboy`,
         rating: `7,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -149,21 +149,21 @@ export default [
         author: `Barak Obama`,
         rating: `10`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Whenever you click a <Link> component in the above example, the navigate() method of the app’s <NavigationProvider> component will be called. This causes the <NavigationProvider> component’s state to update, which in turn causes it to re-render.`,
         author: `Donald Trump`,
         rating: `1,9`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `By default, re-rendering a React component will cause its children to re-render, which will cause the children of those children to re-render, and so on. This means that clicking a link will re-render the entire app, with the <Link> and <Route> components picking up the new context in the process.`,
         author: `George Washington`,
         rating: `8,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -190,21 +190,21 @@ export default [
         author: `Vlad Putin`,
         rating: `2,8`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Before React introduced its new context API, you had to make a choice: do you want to be able to tune your app’s performance with PureComponent and shouldComponentUpdate(), or do you want the convenience of being able to provide global state via context? You couldn’t have both. And given the constraints, the choice was clear: performance won hands down.`,
         author: `Dmitry Medvedev`,
         rating: `5,5`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `The thing is, most real world apps do actually need a little performance tuning. But the old context API not only made it impossible to reliably use PureComponent and shouldComponentUpdate(), it also exacerbated the problem by requiring that the entire app be re-rendered each time that any global state changed!`,
         author: `Tim Cook`,
         rating: `6,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -234,7 +234,7 @@ export default [
         author: `Sam Jones`,
         rating: `8,8`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `The above example contains the least moving part of all three of my router implementationsand it’s all thanks to the new context API.
@@ -243,7 +243,7 @@ export default [
         author: `Emmanuel Kign`,
         rating: `2,9`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `In fact, if you’re using context, you’ll want to keep an eye on performancewithout being careful, you can easily re-render the entire app on each update. To learn more, read my guide to context and performance.
@@ -251,7 +251,7 @@ export default [
         author: `Queen Eng`,
         rating: `8,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -278,7 +278,7 @@ export default [
         author: `Pavel Durov`,
         rating: `2,9`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `What Is Flux?
@@ -286,7 +286,7 @@ export default [
         author: `Mark Markov`,
         rating: `8,9`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `This is not like the general MVC that you see in other frameworks. But yes, there are Controllers, but they are mostly Controller views. Views are at the top of the hierarchy and they retire the data and functionality and pass them down to their children.
@@ -294,7 +294,7 @@ export default [
         author: `Stephen King`,
         rating: `10`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
@@ -324,7 +324,7 @@ export default [
         author: `Keanu Reeves`,
         rating: `9,2`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
       {
         description: `Flux keeps code predictable when compared to other MVC frameworks. Developers can build applications without being bothered about complicated interactions between data resources.
@@ -333,7 +333,7 @@ export default [
         author: `Brad Beed`,
         rating: `6,0`,
         date: getRandomDate(),
-        id: nanoid()
+        reviewId: nanoid()
       },
     ]
   },
