@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import Video from "../video/video";
@@ -26,6 +26,12 @@ const SmallCard = ({image, title}) => {
     setVideo(false);
   };
 
+  useEffect(() => {
+    return () => clearTimeout(timeOutId);
+  });
+
+  // const onClick = () => ;
+
   return (
     <article
       onMouseOver={_handleHoverCard} onMouseLeave={_handleHoverOutCard}
@@ -34,7 +40,7 @@ const SmallCard = ({image, title}) => {
         {isVideo ? <Video title={title} /> : <img src={image} alt={title} width="280" height="175" />}
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to="films/:id">{title}</Link>
+        <Link onClick={() => {}} className="small-movie-card__link" to="films/:id">{title}</Link>
       </h3>
     </article>
   );

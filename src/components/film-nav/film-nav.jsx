@@ -15,13 +15,13 @@ const FilmNav = ({path}) => {
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
         <li className={getClass(FilmId, item)}>
-          <Link to="/films/:id" className={getClass(FilmId, link)}>Overview</Link>
+          <Link to={FilmId} className={getClass(FilmId, link)}>Overview</Link>
         </li>
         <li className={getClass(MovieDetails, item)}>
-          <Link to="/films/:id/details" className={getClass(MovieDetails, link)}>Details</Link>
+          <Link to={MovieDetails} className={getClass(MovieDetails, link)}>Details</Link>
         </li>
         <li className={getClass(MovieReviews, item)}>
-          <Link to="/films/:id/reviews" className={getClass(MovieReviews, link)}>Reviews</Link>
+          <Link to={MovieReviews} className={getClass(MovieReviews, link)}>Reviews</Link>
         </li>
       </ul>
     </nav>
