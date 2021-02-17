@@ -40,7 +40,7 @@ const SmallCard = ({id, image, title}) => {
         {isVideo ? <Video title={title} /> : <img src={image} alt={title} width="280" height="175" />}
       </div>
       <h3 className="small-movie-card__title">
-        <Link onClick={() => {}} className="small-movie-card__link" to={`films/${id}`}>{title}</Link>
+        <Link onClick={() => {}} className="small-movie-card__link" to={`/films/${id}`}>{title}</Link>
       </h3>
     </article>
   );
