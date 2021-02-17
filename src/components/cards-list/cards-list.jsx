@@ -11,7 +11,7 @@ const CardsList = ({films}) => {
       {
         films.map(({id, image, title}) => {
           return (
-            <SmallCard key={id} image={image} title={title} />
+            <SmallCard key={id} id={id} image={image} title={title} />
           );
         })
       }
