@@ -1,6 +1,11 @@
 import React from 'react';
+import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 const GENRES_LIST = [
+  `All genres`,
   `Comedies`,
   `Crime`,
   `Documentary`,
@@ -12,18 +17,20 @@ const GENRES_LIST = [
   `Thrillers`
 ];
 
-const GenresList = () => {
+const GenresList = (props) => {
+  const {changeGenre} = props;
+
   return (
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="#" className="catalog__genres-link">All genres</a>
-      </li>
-
       {
         GENRES_LIST.map((genre, index) => {
+          const changeGenreHandler = (evt) => {
+            evt.preventDefault();
+            changeGenre(genre);
+          };
           return (
             <li className="catalog__genres-item" key={index}>
-              <a href="#" className="catalog__genres-link">{genre}</a>
+              <Link onClick={changeGenreHandler} to="#" className="catalog__genres-link">{genre}</Link>
             </li>
           );
         })
@@ -32,4 +39,17 @@ const GenresList = () => {
   );
 };
 
-export default GenresList;
+const mapDispatchToProps = (dispatch) => ({
+  changeGenre(genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+  }
+  // getList(list) {
+  //   dispatch(ActionCreator.getList(list))
+  // }
+});
+
+GenresList.propTypes = {
+  changeGenre: PropTypes.func.isRequired
+};
+
+export default connect(null, mapDispatchToProps)(GenresList);

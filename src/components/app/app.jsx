@@ -43,7 +43,8 @@ const App = ({title, genre, year, films}) => {
             title={title}
             genre={genre}
             year={year}
-            films={films} />
+            films={films}
+          />
         </Route>
 
         <Route exact path={Path.LOGIN}>
