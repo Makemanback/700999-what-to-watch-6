@@ -16,21 +16,34 @@ const Genre = {
 };
 
 const initialState = {
-  genre: Genre.ALL_GENRES,
-  list: films,
+  activeGenre: Genre.ALL_GENRES,
+  allFilms: films,
+  filteredFilms: films
+};
+
+const filterFilms = (payload) => {
+  let {allFilms, filteredFilms} = initialState;
+  if (payload === Genre.ALL_GENRES) {
+    return allFilms;
+  } else {
+    filteredFilms = allFilms.filter((film) => {
+      return film.genre === payload;
+    });
+    return filteredFilms;
+  }
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE:
       return extend(state, {
-        genre: action.payload,
-        list: films.filter((film) => film.genre === action.payload),
+        activeGenre: action.payload,
+        filteredFilms: filterFilms(action.payload)
       });
 
     case ActionType.GET_LIST:
       return extend(state, {
-        list: action.payload,
+        allFilms: action.payload,
       });
   }
 

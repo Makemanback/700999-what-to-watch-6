@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -19,22 +19,29 @@ const GENRES_LIST = [
 
 const GenresList = (props) => {
   const {changeGenre} = props;
+  const passiveItemClass = `catalog__genres-item`;
+  const activeItemClass = `catalog__genres-item catalog__genres-item--active`;
+  const [activeTab, setActive] = useState(0);
+  const changeGenreHandler = (evt) => {
+    evt.preventDefault();
+    const {target} = evt;
+    changeGenre(target.innerText);
+  };
 
   return (
     <ul className="catalog__genres-list">
-      {
-        GENRES_LIST.map((genre, index) => {
-          const changeGenreHandler = (evt) => {
-            evt.preventDefault();
-            changeGenre(genre);
-          };
-          return (
-            <li className="catalog__genres-item" key={index}>
-              <Link onClick={changeGenreHandler} to="#" className="catalog__genres-link">{genre}</Link>
-            </li>
-          );
-        })
-      }
+      {GENRES_LIST.map((genre, index) => {
+        const itemClass = activeTab === index ? activeItemClass : passiveItemClass;
+        const actived = () => setActive(index);
+        return (
+          <li
+            className={itemClass}
+            key={index}
+            onClick={actived}>
+            <Link onClick={changeGenreHandler} to="#" className="catalog__genres-link">{genre}</Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };
@@ -43,9 +50,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeGenre(genre) {
     dispatch(ActionCreator.changeGenre(genre));
   }
-  // getList(list) {
-  //   dispatch(ActionCreator.getList(list))
-  // }
 });
 
 GenresList.propTypes = {

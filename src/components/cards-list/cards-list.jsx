@@ -1,11 +1,10 @@
 import React from "react";
-// import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import SmallCard from "../small-card/small-card";
 import filmProp from '../film/film.prop';
 
-const CardsList = (props) => {
-  const {films} = props;
+const CardsList = ({films}) => {
 
   return (
     <div className="catalog__movies-list">
@@ -26,16 +25,10 @@ CardsList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired
 };
 
-// const mapDispatchToProps = (dispatch) => ({
-//   changeGenre(genre) {
-//     dispatch(ActionCreator.changeGenre({
-//       genre,
+const mapStateToProps = ({filteredFilms}) => ({
+  films: filteredFilms
+});
 
-//     }));
-//   }
-// });
 
-// export default connect(null, mapDispatchToProps)(CardsList);
-
-export default CardsList;
+export default connect(mapStateToProps)(CardsList);
 
