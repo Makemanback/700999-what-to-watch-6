@@ -9,7 +9,7 @@ export default [
     image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Knocking on heavens door`,
-    genre: `Road movie`,
+    genre: `Comedies`,
     released: 1997,
     rating: {
       score: 7.6,
@@ -50,7 +50,7 @@ export default [
     image: `img/bohemian-rhapsody.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Forrest Gump`,
-    genre: `Drama`,
+    genre: `Dramas`,
     released: 1994,
     rating: {
       score: 4.6,
@@ -92,7 +92,7 @@ export default [
     image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Titanic`,
-    genre: `Romantic`,
+    genre: `Documentary`,
     released: 1992,
     rating: {
       score: 9.6,
@@ -130,7 +130,7 @@ export default [
     image: `img/bohemian-rhapsody.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Green mile`,
-    genre: `Drama`,
+    genre: `Horror`,
     released: 1995,
     rating: {
       score: 10,
@@ -173,7 +173,7 @@ export default [
     image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Scent of woman`,
-    genre: `Romantic`,
+    genre: `Kids & Family`,
     released: 1988,
     rating: {
       score: 2.2,
@@ -214,7 +214,7 @@ export default [
     image: `img/bohemian-rhapsody.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Trip to America`,
-    genre: `Comedy`,
+    genre: `Romance`,
     released: 1985,
     rating: {
       score: 6.6,
@@ -261,7 +261,7 @@ export default [
     image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Saw`,
-    genre: `Horror`,
+    genre: `Sci-Fi`,
     released: 2001,
     rating: {
       score: 7.2,
@@ -304,7 +304,7 @@ export default [
     image: `img/bohemian-rhapsody.jpg`,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Avatar`,
-    genre: `Fantastic`,
+    genre: `Thrillers`,
     released: 2008,
     rating: {
       score: 10,

@@ -6,6 +6,7 @@ import CatalogMore from '../catalog-more/catalog-more';
 import filmProp from '../film/film.prop';
 
 const Catalog = ({films}) => {
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
