@@ -25,10 +25,6 @@ CardsList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired
 };
 
-const mapStateToProps = ({filteredFilms}) => ({
-  films: filteredFilms
-});
 
-
-export default connect(mapStateToProps)(CardsList);
+export default CardsList;
 

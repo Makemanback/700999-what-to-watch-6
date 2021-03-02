@@ -4,23 +4,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-const GENRES_LIST = [
-  `All genres`,
-  `Comedies`,
-  `Crime`,
-  `Documentary`,
-  `Dramas`,
-  `Horror`,
-  `Kids & Family`,
-  `Romance`,
-  `Sci-Fi`,
-  `Thrillers`
-];
-
 const GenresList = (props) => {
-  const {changeGenre} = props;
-  const passiveItemClass = `catalog__genres-item`;
-  const activeItemClass = `catalog__genres-item catalog__genres-item--active`;
+  const {changeGenre, genres} = props;
+
   const [activeTab, setActive] = useState(0);
   const changeGenreHandler = (evt) => {
     evt.preventDefault();
@@ -30,14 +16,13 @@ const GenresList = (props) => {
 
   return (
     <ul className="catalog__genres-list">
-      {GENRES_LIST.map((genre, index) => {
-        const itemClass = activeTab === index ? activeItemClass : passiveItemClass;
-        const actived = () => setActive(index);
+      {genres.map((genre, index) => {
+        const itemClass = activeTab === index ? `catalog__genres-item--active` : ``;
         return (
           <li
-            className={itemClass}
+            className={`catalog__genres-item ${itemClass}`}
             key={index}
-            onClick={actived}>
+            onClick={() => setActive(index)}>
             <Link onClick={changeGenreHandler} to="#" className="catalog__genres-link">{genre}</Link>
           </li>
         );
@@ -52,8 +37,14 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+const mapStateToProps = ({genres}) => ({
+  genres
+});
+
+
 GenresList.propTypes = {
-  changeGenre: PropTypes.func.isRequired
+  changeGenre: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-export default connect(null, mapDispatchToProps)(GenresList);
+export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
