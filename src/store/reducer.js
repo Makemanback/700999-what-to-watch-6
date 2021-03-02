@@ -2,6 +2,8 @@ import {extend} from "../utils";
 import {ActionType} from "./action";
 import films from "../mocks/films";
 
+const FILMS_ON_SCREEN = 8;
+
 const Genre = {
   ALL_GENRES: `All genres`,
   COMEDIES: `Comedies`,
@@ -18,8 +20,8 @@ const Genre = {
 const initialState = {
   activeGenre: Genre.ALL_GENRES,
   allFilms: films,
-  filteredFilms: films.slice(0, 8),
-  showedFilms: 8,
+  filteredFilms: films,
+  showedFilms: FILMS_ON_SCREEN,
   genres: Object.values(Genre)
 };
 
@@ -29,17 +31,14 @@ const filterFilms = (genre, allFilms) => {
     allFilms.filter((film) => film.genre === genre);
 };
 
-const sliceFilms = (allFilms) => {
-  return allFilms.length > 8 ? allFilms.slice(0, 8) : allFilms;
-};
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE:
       return extend(state, {
         ...state,
         activeGenre: action.payload,
-        filteredFilms: filterFilms(action.payload, state.allFilms)
+        filteredFilms: filterFilms(action.payload, state.allFilms),
+        showedFilms: FILMS_ON_SCREEN
       });
 
     case ActionType.GET_LIST:
@@ -49,14 +48,9 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.SHOW_MORE:
-      const extraFilms = filterFilms(state.activeGenre, state.allFilms)
-        .slice(state.showedFilms + 8);
-
-
       return extend(state, {
         ...state,
-        filteredFilms: [...extraFilms],
-        showedFilms: state.showedFilms + 8
+        showedFilms: state.showedFilms + FILMS_ON_SCREEN
       });
   }
 

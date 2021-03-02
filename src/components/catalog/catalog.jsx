@@ -7,7 +7,8 @@ import CatalogMore from '../catalog-more/catalog-more';
 import filmProp from '../film/film.prop';
 import {ActionCreator} from '../../store/action';
 
-const Catalog = ({films, onShowMore}) => {
+const Catalog = ({films, onShowMore, showedFilms}) => {
+  const filmsToSHow = films.slice(0, showedFilms);
 
   return (
     <section className="catalog">
@@ -15,16 +16,21 @@ const Catalog = ({films, onShowMore}) => {
 
       <GenresList />
 
-      <CardsList films={films} />
+      <CardsList films={filmsToSHow} />
 
-      <CatalogMore onShowMore={() => onShowMore()}/>
+      <CatalogMore
+        films={films}
+        showedFilms={showedFilms}
+        onShowMore={() => onShowMore()}
+      />
     </section>
   );
 };
 
-const mapStateToProps = ({filteredFilms}) => {
+const mapStateToProps = ({filteredFilms, showedFilms}) => {
   return {
-    films: filteredFilms
+    films: filteredFilms,
+    showedFilms
   };
 };
 
@@ -36,7 +42,9 @@ const mapDispatchToProps = (dispatch) => {
 
 
 Catalog.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  showedFilms: PropTypes.number.isRequired,
+  onShowMore: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
