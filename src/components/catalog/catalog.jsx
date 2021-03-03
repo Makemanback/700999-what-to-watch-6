@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
 import filmProp from '../film/film.prop';
+import {ActionCreator} from '../../store/action';
 
-const Catalog = ({films}) => {
+const Catalog = ({films, onShowMore, showedFilms}) => {
+  const filmsToSHow = films.slice(0, showedFilms);
 
   return (
     <section className="catalog">
@@ -13,15 +16,35 @@ const Catalog = ({films}) => {
 
       <GenresList />
 
-      <CardsList films={films} />
+      <CardsList films={filmsToSHow} />
 
-      <CatalogMore />
+      <CatalogMore
+        films={films}
+        showedFilms={showedFilms}
+        onShowMore={() => onShowMore()}
+      />
     </section>
   );
 };
 
-Catalog.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired
+const mapStateToProps = ({filteredFilms, showedFilms}) => {
+  return {
+    films: filteredFilms,
+    showedFilms
+  };
 };
 
-export default Catalog;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onShowMore: () => dispatch(ActionCreator.showMore())
+  };
+};
+
+
+Catalog.propTypes = {
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  showedFilms: PropTypes.number.isRequired,
+  onShowMore: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
