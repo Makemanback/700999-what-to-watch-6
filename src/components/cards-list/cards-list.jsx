@@ -1,17 +1,55 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import SmallCard from "../small-card/small-card";
-import filmProp from '../film/film.prop';
+import {connect} from "react-redux";
+import ApiService from "../../store/api-actions";
 
-const CardsList = ({films}) => {
+import filmProp from '../film/film.prop';
+import LoadingScreen from '../loading-screen/loading-screen';
+import SmallCardContainer from "../small-card/small-card";
+
+const apiSevice = new ApiService();
+
+const CardsList = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
+
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+
+  const filmsShow = films
+    .map(ApiService.adaptToClient)
+    .slice(0, filmsToShow);
+
+  // filmsShow.map(({genre}) => {
+  //   switch (genre) {
+  //     case genre === 'Comedy':
+  //       genre = 'Comedies';
+  //     case genre === 'Action':
+  //       genre === '';
+  //     case genre === 'Drama':
+  //       genre === 'Dramas';
+  //     case genre === 'Crime':
+  //       genre === 'Crime';
+  //     case genre === 'Dramas':
+  //   }
+  // })
 
   return (
     <div className="catalog__movies-list">
 
       {
-        films.map(({id, image, title}) => {
+        filmsShow.map(({id, image, title}) => {
           return (
-            <SmallCard key={id} id={id} image={image} title={title} />
+            <SmallCardContainer key={id} id={id} image={image} title={title} />
           );
         })
       }
@@ -20,10 +58,26 @@ const CardsList = ({films}) => {
   );
 };
 
-CardsList.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired
+const mapStateToProps = ({filteredFilms, isDataLoaded, filmsToShow}) => {
+  return {
+    films: filteredFilms,
+    isDataLoaded,
+    filmsToShow,
+  };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(apiSevice.fetchFilmsList());
+  },
+});
 
-export default CardsList;
+CardsList.propTypes = {
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  filmsToShow: PropTypes.number.isRequired,
+  onLoadData: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsList);
 

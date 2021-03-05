@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import filmProp from '../film/film.prop';
+import {connect} from "react-redux";
+import {ActionCreator} from '../../store/action';
 
-const CatalogMore = ({films, showedFilms, onShowMore}) => {
+const CatalogMore = ({films, filmsToShow, onShowMore}) => {
 
-  if (showedFilms > films.length) {
+  if (filmsToShow > films.length) {
     return null;
   }
 
@@ -17,10 +19,24 @@ const CatalogMore = ({films, showedFilms, onShowMore}) => {
   );
 };
 
+const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => {
+  return {
+    films: filteredFilms,
+    filmsToShow,
+    onShowMore
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onShowMore: () => dispatch(ActionCreator.showMore())
+  };
+};
+
 CatalogMore.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
-  showedFilms: PropTypes.number.isRequired,
+  filmsToShow: PropTypes.number.isRequired,
   onShowMore: PropTypes.func.isRequired
 };
 
-export default CatalogMore;
+export default connect(mapStateToProps, mapDispatchToProps)(CatalogMore);

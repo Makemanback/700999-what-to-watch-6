@@ -23,7 +23,12 @@ const GenresList = (props) => {
             className={`catalog__genres-item ${itemClass}`}
             key={index}
             onClick={() => setActive(index)}>
-            <Link onClick={changeGenreHandler} to="#" className="catalog__genres-link">{genre}</Link>
+            <Link
+              onClick={changeGenreHandler}
+              to="#"
+              className="catalog__genres-link">
+              {genre}
+            </Link>
           </li>
         );
       })}
