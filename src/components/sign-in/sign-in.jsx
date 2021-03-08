@@ -12,8 +12,8 @@ const api = new ApiService();
 const SignIn = ({onSubmit}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
-
   const history = useHistory();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -64,9 +64,14 @@ const SignIn = ({onSubmit}) => {
             </div>
             <div className="sign-in__submit">
               <button
-                onClick={() => history.push(`/`)}
+
+                onClick={() => history.push(`/films/2`)}
+
                 className="sign-in__btn"
-                type="submit">Sign in</button>
+                type="submit"
+              >
+                Sign in
+              </button>
             </div>
           </form>
         </div>

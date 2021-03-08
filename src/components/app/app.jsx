@@ -10,17 +10,7 @@ import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
 import filmProp from '../film/film.prop';
 import PrivateRoute from '../private-route/private-route';
-
-const Path = {
-  DEFAULT: `/`,
-  LOGIN: `/login`,
-  MY_LIST: `/mylist`,
-  FILM_ID: `/films/:id`,
-  FILM_REVIEW: `/films/:id/review`,
-  MOVIE_REVIEWS: `/films/:id/reviews`,
-  PLAYER: `/player/:id`,
-  MOVIE_DETAILS: `/films/:id/details`
-};
+import {Path} from '../../const';
 
 const App = ({title, genre, year, films}) => {
 

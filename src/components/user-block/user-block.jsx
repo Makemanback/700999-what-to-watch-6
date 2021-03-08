@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, Path} from '../../const';
 
 const UserBlock = ({authorizationStatus}) => {
 
@@ -14,7 +14,7 @@ const UserBlock = ({authorizationStatus}) => {
         </div>
       );
     }
-    return <a href="sign-in.html" className="user-block__link">Sign in</a>;
+    return <Link to={Path.LOGIN} className="user-block__link">Sign in</Link>;
   };
 
   return (
