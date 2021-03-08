@@ -1,29 +1,18 @@
 import {extend} from "../utils";
 import {ActionType} from "./action";
-import films from "../mocks/films";
-
-const FILMS_ON_SCREEN = 8;
-
-const Genre = {
-  ALL_GENRES: `All genres`,
-  COMEDIES: `Comedies`,
-  CRIME: `Crime`,
-  DOCUMENTARY: `Documentary`,
-  DRAMAS: `Dramas`,
-  HORROR: `Horror`,
-  KIDS_FAMILY: `Kids & Family`,
-  ROMANCE: `Romance`,
-  SCI_FI: `Sci-Fi`,
-  THRILLERS: `Thrillers`
-};
+import {FILMS_ON_SCREEN, Genre, AuthorizationStatus} from '../const';
 
 const initialState = {
   activeGenre: Genre.ALL_GENRES,
-  allFilms: films,
-  filteredFilms: films,
-  showedFilms: FILMS_ON_SCREEN,
-  genres: Object.values(Genre)
+  allFilms: [],
+  filteredFilms: [],
+  filmsToShow: FILMS_ON_SCREEN,
+  genres: Object.values(Genre),
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  // authorizationStatus: AuthorizationStatus.AUTH,
+  isDataLoaded: false
 };
+
 
 const filterFilms = (genre, allFilms) => {
   return genre === Genre.ALL_GENRES ?
@@ -33,12 +22,20 @@ const filterFilms = (genre, allFilms) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_FILMS:
+      return extend(state, {
+        ...state,
+        allFilms: action.payload,
+        filteredFilms: action.payload,
+        isDataLoaded: true
+      });
+
     case ActionType.CHANGE_GENRE:
       return extend(state, {
         ...state,
         activeGenre: action.payload,
         filteredFilms: filterFilms(action.payload, state.allFilms),
-        showedFilms: FILMS_ON_SCREEN
+        filmsToShow: FILMS_ON_SCREEN
       });
 
     case ActionType.GET_LIST:
@@ -50,11 +47,18 @@ const reducer = (state = initialState, action) => {
     case ActionType.SHOW_MORE:
       return extend(state, {
         ...state,
-        showedFilms: state.showedFilms + FILMS_ON_SCREEN
+        filmsToShow: state.filmsToShow + FILMS_ON_SCREEN
       });
-  }
 
-  return state;
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+
+    default:
+      return state;
+  }
 };
 
 
