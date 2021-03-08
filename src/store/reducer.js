@@ -9,6 +9,7 @@ const initialState = {
   filmsToShow: FILMS_ON_SCREEN,
   genres: Object.values(Genre),
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  // authorizationStatus: AuthorizationStatus.AUTH,
   isDataLoaded: false
 };
 

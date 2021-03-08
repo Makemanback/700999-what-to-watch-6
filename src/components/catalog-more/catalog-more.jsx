@@ -19,19 +19,17 @@ const CatalogMore = ({films, filmsToShow, onShowMore}) => {
   );
 };
 
-const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => {
-  return {
-    films: filteredFilms,
-    filmsToShow,
-    onShowMore
-  };
-};
+const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => ({
+  films: filteredFilms,
+  filmsToShow,
+  onShowMore
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onShowMore: () => dispatch(ActionCreator.showMore())
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onShowMore() {
+    dispatch(ActionCreator.showMore());
+  }
+});
 
 CatalogMore.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,

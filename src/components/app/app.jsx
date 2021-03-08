@@ -9,6 +9,7 @@ import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
 import filmProp from '../film/film.prop';
+import PrivateRoute from '../private-route/private-route';
 
 const Path = {
   DEFAULT: `/`,
@@ -25,7 +26,7 @@ const App = ({title, genre, year, films}) => {
 
   const renderFilm = (exactPath) => {
     return (
-      <Route exact path={exactPath}
+      <PrivateRoute exact path={exactPath}
         render={({match}) => {
           const {path} = match;
           return <Film films={films} path={path} />;
@@ -51,21 +52,21 @@ const App = ({title, genre, year, films}) => {
           <SignIn />
         </Route>
 
-        <Route exact path={Path.MY_LIST}>
+        <PrivateRoute exact path={Path.MY_LIST}>
           <MyList films={films} />
-        </Route>
+        </PrivateRoute>
 
         {renderFilm(Path.FILM_ID)}
         {renderFilm(Path.MOVIE_DETAILS)}
         {renderFilm(Path.MOVIE_REVIEWS)}
 
-        <Route exact path={Path.FILM_REVIEW}>
+        <PrivateRoute exact path={Path.FILM_REVIEW}>
           <AddReview title={title} />
-        </Route>
+        </PrivateRoute>
 
-        <Route exact path={Path.PLAYER}>
+        <PrivateRoute exact path={Path.PLAYER}>
           <Player />
-        </Route>
+        </PrivateRoute>
 
         <Route>
           <NotFound />

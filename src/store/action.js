@@ -22,7 +22,7 @@ export const ActionCreator = {
   showMore: () => ({
     type: ActionType.SHOW_MORE,
   }),
-  requiredAuthorization: (status) => ({
+  requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
   })

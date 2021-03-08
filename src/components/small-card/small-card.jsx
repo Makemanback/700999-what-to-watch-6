@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import Video from "../video/video";
 
-const SmallCard = ({id, image, title, _handleHoverCard, _handleHoverOutCard, isVideo}) => {
+const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVideo}) => {
 
   return (
     <article
-      onMouseOver={_handleHoverCard}
-      onMouseLeave={_handleHoverOutCard}
+      onMouseOver={handleHoverCard}
+      onMouseLeave={handleHoverOutCard}
       className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
         {isVideo ?
@@ -35,7 +35,7 @@ const SmallCardContainer = ({id, image, title}) => {
   const [isVideo, setVideo] = useState(false);
   let timeOutId = null;
 
-  const _handleHoverCard = () => {
+  const handleHoverCard = () => {
     if (timeOutId !== null) {
       clearTimeout(timeOutId);
     }
@@ -47,7 +47,7 @@ const SmallCardContainer = ({id, image, title}) => {
     );
   };
 
-  const _handleHoverOutCard = () => {
+  const handleHoverOutCard = () => {
     clearTimeout(timeOutId);
     timeOutId = null;
     setVideo(false);
@@ -62,8 +62,8 @@ const SmallCardContainer = ({id, image, title}) => {
       id={id}
       image={image}
       title={title}
-      _handleHoverCard={_handleHoverCard}
-      _handleHoverOutCard={_handleHoverOutCard}
+      handleHoverCard={handleHoverCard}
+      handleHoverOutCard={handleHoverOutCard}
       isVideo={isVideo} />
   );
 };
@@ -73,8 +73,8 @@ SmallCard.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  _handleHoverCard: PropTypes.func.isRequired,
-  _handleHoverOutCard: PropTypes.func.isRequired,
+  handleHoverCard: PropTypes.func.isRequired,
+  handleHoverOutCard: PropTypes.func.isRequired,
   isVideo: PropTypes.bool.isRequired
 };
 
