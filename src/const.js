@@ -17,3 +17,15 @@ export const Genre = {
   SCI_FI: `Sci-Fi`,
   THRILLERS: `Thrillers`
 };
+
+
+export const Path = {
+  DEFAULT: `/`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  FILM_ID: `/films/:id`,
+  FILM_REVIEW: `/films/:id/review`,
+  MOVIE_REVIEWS: `/films/:id/reviews`,
+  PLAYER: `/player/:id`,
+  MOVIE_DETAILS: `/films/:id/details`
+};
