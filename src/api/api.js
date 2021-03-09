@@ -23,7 +23,7 @@ export const createAPI = (onUnauthorized) => {
       onUnauthorized();
     }
 
-    throw err +' hi';
+    throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);
