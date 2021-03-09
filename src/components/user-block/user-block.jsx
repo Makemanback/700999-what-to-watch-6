@@ -4,17 +4,23 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import {AuthorizationStatus, Path} from '../../const';
 
-const UserBlock = ({authorizationStatus}) => {
-
-  const isSignedIn = authorizationStatus === AuthorizationStatus.AUTH ?
+const UserBlockAvatar = () => {
+  return (
     <div className="user-block__avatar">
       <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-    </div> :
-    `Sign In`;
+    </div>
+  );
+};
+
+const UserBlock = ({authorizationStatus}) => {
+
+  const signedIn = authorizationStatus === AuthorizationStatus.AUTH
+    ? <UserBlockAvatar />
+    : `Sign In`;
 
   return (
     <div className="user-block">
-      <Link to={Path.LOGIN} className="user-block__link">{isSignedIn}</Link>
+      <Link to={Path.LOGIN} className="user-block__link">{signedIn}</Link>
     </div>
   );
 };

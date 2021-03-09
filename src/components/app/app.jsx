@@ -13,14 +13,14 @@ import PrivateRoute from '../private-route/private-route';
 import {Path} from '../../const';
 import browserHistory from "../../browser-history";
 
-const App = ({title, genre, year, films}) => {
+const App = () => {
 
   const renderFilm = (exactPath) => {
     return (
-      <PrivateRoute exact path={exactPath}
+      <Route exact path={exactPath}
         render={({match}) => {
           const {path} = match;
-          return <Film films={films} path={path} />;
+          return <Film path={path} />;
         }}
       />
     );
@@ -31,12 +31,7 @@ const App = ({title, genre, year, films}) => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={Path.DEFAULT}>
-          <MainComponent
-            title={title}
-            genre={genre}
-            year={year}
-            films={films}
-          />
+          <MainComponent />
         </Route>
 
         <Route exact path={Path.LOGIN}>
@@ -44,7 +39,7 @@ const App = ({title, genre, year, films}) => {
         </Route>
 
         <PrivateRoute exact path={Path.MY_LIST}>
-          <MyList films={films} />
+          <MyList />
         </PrivateRoute>
 
         {renderFilm(Path.FILM_ID)}
@@ -52,7 +47,7 @@ const App = ({title, genre, year, films}) => {
         {renderFilm(Path.MOVIE_REVIEWS)}
 
         <PrivateRoute exact path={Path.FILM_REVIEW}>
-          <AddReview title={title} />
+          <AddReview />
         </PrivateRoute>
 
         <PrivateRoute exact path={Path.PLAYER}>
@@ -68,9 +63,6 @@ const App = ({title, genre, year, films}) => {
 };
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(filmProp).isRequired,
   match: PropTypes.object
 };

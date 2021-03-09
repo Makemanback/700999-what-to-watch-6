@@ -29,3 +29,11 @@ export const Path = {
   PLAYER: `/player/:id`,
   MOVIE_DETAILS: `/films/:id/details`
 };
+
+export const Level = {
+  AWESOME: `Awesome`,
+  VERY_GOOD: `Very Good`,
+  GOOD: `Good`,
+  NORMAL: `Normal`,
+  BAD: `Bad`,
+};

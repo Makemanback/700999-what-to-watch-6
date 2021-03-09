@@ -1,11 +1,14 @@
 export const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
-  GET_LIST: `GET_LIST`,
   SHOW_MORE: `SHOW_MORE`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   LOAD_FILMS: `LOAD_FILMS`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   SET_GENRES: `SET_GENRES`,
+  GET_FILM: `GET_FILM`,
+  GET_FILM_ID: `GET_FILM_ID`,
+  GET_COMMENTS: `GET_COMMENTS`,
+  GET_PROMO_FILM: `GET_PROMO_FILM`
 };
 
 export const ActionCreator = {
@@ -16,10 +19,6 @@ export const ActionCreator = {
   changeGenre: (activeGenre) => ({
     type: ActionType.CHANGE_GENRE,
     payload: activeGenre,
-  }),
-  getList: (allFilms) => ({
-    type: ActionType.GET_LIST,
-    payload: allFilms,
   }),
   showMore: () => ({
     type: ActionType.SHOW_MORE,
@@ -35,5 +34,21 @@ export const ActionCreator = {
   setGenres: (genres) => ({
     type: ActionType.SET_GENRES,
     payload: genres
+  }),
+  getFilm: (film) => ({
+    type: ActionType.GET_FILM,
+    payload: film
+  }),
+  getFilmId: (id) => ({
+    type: ActionType.GET_FILM_ID,
+    payload: id
+  }),
+  loadPromoFilm: (film) => ({
+    type: ActionType.GET_PROMO_FILM,
+    payload: film
+  }),
+  loadComments: (comments) => ({
+    type: ActionType.GET_COMMENTS,
+    payload: comments
   })
 };

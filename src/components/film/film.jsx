@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 import CardsList from '../cards-list/cards-list';
@@ -10,36 +12,77 @@ import FilmOverview from "../film-overview/film-overview";
 import FilmDetails from "../film-details/film-details";
 import {Path} from "../../const";
 import FilmReviews from "../film-reviews/film-reviews";
+import ApiService from "../../store/api-actions";
+import LoadingScreen from '../loading-screen/loading-screen';
 
-const Film = ({films, path}) => {
-  const exactFilms = films.slice(0, 4);
-  const {image, title, genre, released, reviews, id} = films[0];
+const apiService = new ApiService();
 
+const Film = ({
+  films,
+  currentFilm,
+  path,
+  onLoadData,
+  isDataLoaded,
+  authorizationStatus,
+  currentFilmComments,
+  currentFilmId}) => {
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData(currentFilmId);
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  const film = ApiService.adaptToClient(currentFilm);
+
+  const {
+    title,
+    genre: filmGenre,
+    released,
+    id,
+    background,
+    poster,
+    backgroundImg
+  } = film;
+
+  const exactFilms = films
+    .map(ApiService.adaptToClient)
+    .filter(({genre}) => genre === filmGenre)
+    .slice(0, 4);
 
   const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
 
   const movieOverview = path === FILM_ID ? <FilmOverview
-    film={films[0]}
+    film={film}
     path={path}
   /> : null;
 
   const movieDetails = path === MOVIE_DETAILS ? <FilmDetails
-    film={films[0]}
+    film={film}
     path={path}
   /> : null;
 
   const movieReviews = path === MOVIE_REVIEWS ? <FilmReviews
     path={path}
-    reviews={reviews}
+    reviews={currentFilmComments}
     id={id}
   /> : null;
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section
+        className="movie-card movie-card--full"
+        style={{backgroundColor: background}}
+      >
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={image} alt={title} />
+            <img src={backgroundImg} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -54,11 +97,11 @@ const Film = ({films, path}) => {
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__genre">{filmGenre}</span>
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <MovieCardButtons />
+              <MovieCardButtons authorizationStatus={authorizationStatus} />
             </div>
           </div>
         </div>
@@ -66,7 +109,7 @@ const Film = ({films, path}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={image} alt={`${title} poster`} width="218" height="327" />
+              <img src={poster} alt={`${title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -83,7 +126,7 @@ const Film = ({films, path}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <CardsList films={exactFilms}/>
+          <CardsList exactFilms={exactFilms} path={path} />
 
         </section>
 
@@ -95,8 +138,38 @@ const Film = ({films, path}) => {
 
 Film.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
+  currentFilm: PropTypes.object.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  currentFilmComments: PropTypes.array.isRequired,
+  currentFilmId: PropTypes.number.isRequired
 };
 
+const mapStateToProps = ({
+  filteredFilms,
+  currentFilm,
+  isDataLoaded,
+  authorizationStatus,
+  currentFilmComments,
+  currentFilmId}) => {
+  return {
+    currentFilm,
+    isDataLoaded,
+    films: filteredFilms,
+    authorizationStatus,
+    currentFilmComments,
+    currentFilmId
+  };
+};
 
-export default Film;
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData(id) {
+    dispatch(apiService.fetchFilm(id)),
+    dispatch(apiService.fetchFilmComments(id)),
+    dispatch(apiService.fetchFilmsList());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Film);

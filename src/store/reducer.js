@@ -3,14 +3,19 @@ import {ActionType} from "./action";
 import {FILMS_ON_SCREEN, Genre, AuthorizationStatus} from '../const';
 
 const initialState = {
+  promoFilm: {},
   activeGenre: Genre.ALL_GENRES,
+  initialGenre: Genre.ALL_GENRES,
   allFilms: [],
   filteredFilms: [],
+  currentFilm: {},
+  currentFilmComments: [],
   filmsToShow: FILMS_ON_SCREEN,
-  genres: [Genre.ALL_GENRES],
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  genres: [],
+  // authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.AUTH,
   isDataLoaded: false,
-  email: ``,
+  currentFilmId: 1
 };
 
 
@@ -59,9 +64,39 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_GENRES:
       return extend(state, {
         ...state,
-        genres: [...state.genres, ...action.payload]
+        genres: action.payload
       });
 
+    case ActionType.GET_FILM:
+      return extend(state, {
+        ...state,
+        currentFilm: action.payload,
+        currentFilmId: action.payload.id,
+        isDataLoaded: true,
+      });
+
+    case ActionType.GET_FILM_ID:
+      return extend(state, {
+        ...state,
+        currentFilmComments: action.payload,
+        currentFilmId: action.payload,
+        isDataLoaded: true
+      });
+
+    case ActionType.GET_COMMENTS:
+      return extend(state, {
+        ...state,
+        currentFilmComments: action.payload,
+        currentFilmId: action.payload.id,
+        isDataLoaded: true
+      });
+
+    case ActionType.GET_PROMO_FILM:
+      return extend(state, {
+        ...state,
+        promoFilm: action.payload,
+        isDataLoaded: true
+      });
     default:
       return state;
   }

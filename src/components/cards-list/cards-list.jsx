@@ -9,8 +9,7 @@ import SmallCardContainer from "../small-card/small-card";
 
 const apiService = new ApiService();
 
-const CardsList = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
-
+const CardsList = ({films, isDataLoaded, filmsToShow, onLoadData, exactFilms, path}) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
@@ -25,9 +24,11 @@ const CardsList = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
   }
 
 
-  const filmsShow = films
+  const filmsShow = path === undefined ?
+    films
     .map(ApiService.adaptToClient)
-    .slice(0, filmsToShow);
+    .slice(0, filmsToShow) :
+    exactFilms;
 
   return (
     <div className="catalog__movies-list">
@@ -46,9 +47,11 @@ const CardsList = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
 
 CardsList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
+  exactFilms: PropTypes.arrayOf(filmProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   filmsToShow: PropTypes.number.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 const mapStateToProps = ({filteredFilms, isDataLoaded, filmsToShow}) => {

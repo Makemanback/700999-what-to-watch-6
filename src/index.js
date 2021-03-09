@@ -11,7 +11,6 @@ import {ActionCreator} from './store/action';
 import ApiService from "./store/api-actions";
 import {AuthorizationStatus} from "./const";
 import App from "./components/app/app";
-import films from "./mocks/films";
 import {redirect} from "./store/middlewares/redirect";
 
 
@@ -32,22 +31,9 @@ const store = createStore(
 store.dispatch(apiService.checkAuth());
 
 
-const Settings = {
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  year: 2014
-};
-
-const {title, genre, year} = Settings;
-
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        title={title}
-        genre={genre}
-        year={year}
-        films={films}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

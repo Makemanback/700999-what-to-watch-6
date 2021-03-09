@@ -1,14 +1,21 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import Video from "../video/video";
+import {connect} from "react-redux";
+import ApiService from "../../store/api-actions";
 
-const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVideo}) => {
+import Video from "../video/video";
+import browserHistory from "../../browser-history";
+
+const apiService = new ApiService();
+
+const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, handleClickCard, isVideo}) => {
 
   return (
     <article
       onMouseOver={handleHoverCard}
       onMouseLeave={handleHoverOutCard}
+      onClick={handleClickCard}
       className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
         {isVideo ?
@@ -21,7 +28,6 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVid
       </div>
       <h3 className="small-movie-card__title">
         <Link
-          onClick={() => {}}
           className="small-movie-card__link"
           to={`/films/${id}`}>
           {title}
@@ -31,7 +37,8 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVid
   );
 };
 
-const SmallCardContainer = ({id, image, title}) => {
+const SmallCardContainer = ({id, image, title, onClickFilm}) => {
+
   const [isVideo, setVideo] = useState(false);
   let timeOutId = null;
 
@@ -53,6 +60,16 @@ const SmallCardContainer = ({id, image, title}) => {
     setVideo(false);
   };
 
+  const handleClickCard = () => {
+
+    onClickFilm(id);
+    browserHistory.push(`/films/${id}`);
+    apiService.fetchFilmId(id);
+    apiService.fetchFilm(id);
+    apiService.fetchFilmComments(id);
+
+  };
+
   useEffect(() => {
     return () => clearTimeout(timeOutId);
   });
@@ -64,6 +81,7 @@ const SmallCardContainer = ({id, image, title}) => {
       title={title}
       handleHoverCard={handleHoverCard}
       handleHoverOutCard={handleHoverOutCard}
+      handleClickCard={handleClickCard}
       isVideo={isVideo} />
   );
 };
@@ -75,6 +93,7 @@ SmallCard.propTypes = {
   id: PropTypes.number.isRequired,
   handleHoverCard: PropTypes.func.isRequired,
   handleHoverOutCard: PropTypes.func.isRequired,
+  handleClickCard: PropTypes.func.isRequired,
   isVideo: PropTypes.bool.isRequired
 };
 
@@ -82,8 +101,15 @@ SmallCardContainer.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  handleClickCard: PropTypes.func.isRequired,
+  onClickFilm: PropTypes.func.isRequired
 };
 
-// export default SmallCard;
-export default SmallCardContainer;
+const mapDispatchToProps = (dispatch) => ({
+  onClickFilm(id) {
+    dispatch(apiService.fetchFilm(id));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(SmallCardContainer);
 

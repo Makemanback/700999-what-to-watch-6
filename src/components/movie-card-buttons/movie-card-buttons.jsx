@@ -1,6 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {Link} from 'react-router-dom';
+import {Path, AuthorizationStatus} from '../../const';
 
-const MovieCardButtons = () => {
+const MovieCardButtons = ({authorizationStatus}) => {
+
+  const Authorized = authorizationStatus === AuthorizationStatus.AUTH
+    ? <Link to={Path.FILM_REVIEW} className="btn movie-card__button">Add review</Link>
+    : null;
+
   return (
     <div className="movie-card__buttons">
       <button className="btn btn--play movie-card__button" type="button">
@@ -15,8 +23,13 @@ const MovieCardButtons = () => {
         </svg>
         <span>My list</span>
       </button>
+      {Authorized}
     </div>
   );
+};
+
+MovieCardButtons.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 export default MovieCardButtons;

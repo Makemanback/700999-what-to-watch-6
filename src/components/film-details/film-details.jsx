@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmNav from "../film-nav/film-nav";
 import filmProp from "../film/film.prop";
+import {timeConvert} from '../../utils';
 
 const FilmDetails = ({film, path}) => {
 
@@ -9,7 +10,7 @@ const FilmDetails = ({film, path}) => {
 
   return (
     <React.Fragment>
-      <FilmNav id={id} path={path}/>
+      <FilmNav id={id} path={path} />
 
       <div className="movie-card__text movie-card__row">
         <div className="movie-card__text-col">
@@ -32,7 +33,9 @@ const FilmDetails = ({film, path}) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{runTime}</span>
+            <span className="movie-card__details-value">
+              {timeConvert(runTime)}
+            </span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>

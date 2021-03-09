@@ -8,12 +8,41 @@ export default class ApiService {
         .get(`/films`)
         .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
         .then(({payload}) => {
-          const genres = new Set(
-              payload
+          const genres = Array.from(
+              new Set(
+                  payload
               .map(({genre}) => genre)
-          );
+              ));
           dispatch(ActionCreator.setGenres(genres));
         });
+  }
+
+  fetchFilm(id) {
+    return (dispatch, _getState, api) =>
+      api
+        .get(`/films/${id}`)
+        .then(({data}) => dispatch(ActionCreator.getFilm(data)));
+  }
+
+  fetchFilmId(id) {
+    return (dispatch, _getState, api) =>
+      api
+        .get(`/films/${id}`)
+        .then(({payload}) => dispatch(ActionCreator.getFilmId(payload.id)));
+  }
+
+  fetchFilmComments(id) {
+    return (dispatch, _getState, api) =>
+      api
+        .get(`/comments/${id}`)
+        .then(({data}) => dispatch(ActionCreator.loadComments(data)));
+  }
+
+  fetchPromoFilm() {
+    return (dispatch, _getState, api) =>
+      api
+      .get(`/films/promo`)
+      .then(({data}) => dispatch(ActionCreator.loadPromoFilm(data)));
   }
 
   checkAuth() {
@@ -44,18 +73,39 @@ export default class ApiService {
           image: film.preview_image,
           video: film.preview_video_link,
           title: film.name,
-          rating: {
-            score: film.rating,
-          },
           runTime: film.run_time,
+          background: film.background_color,
+          backgroundImg: film.background_image,
+          isFavorite: film.is_favorite,
+          poster: film.poster_image,
+          scoresCount: film.scores_count,
+          videoLink: film.video_link
         });
 
     delete adaptedFilm.preview_image;
     delete adaptedFilm.preview_video_link;
     delete adaptedFilm.name;
-    delete adaptedFilm.rating;
     delete adaptedFilm.run_time;
+    delete adaptedFilm.background_color;
+    delete adaptedFilm.background_image;
+    delete adaptedFilm.is_favorite;
+    delete adaptedFilm.poster_image;
+    delete adaptedFilm.scores_count;
+    delete adaptedFilm.video_link;
 
     return adaptedFilm;
+  }
+
+  static adaptReviewToClient(review) {
+    const adaptedReview = Object.assign(
+        {},
+        review,
+        {
+          reviewId: review.id
+        });
+
+    delete adaptedReview.id;
+
+    return adaptedReview;
   }
 }

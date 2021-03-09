@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {Path} from "../../const";
 
+
 const FilmNav = ({path, id}) => {
 
   const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
