@@ -3,7 +3,9 @@ export const ActionType = {
   GET_LIST: `GET_LIST`,
   SHOW_MORE: `SHOW_MORE`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  LOAD_FILMS: `LOAD_FILMS`
+  LOAD_FILMS: `LOAD_FILMS`,
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  SET_GENRES: `SET_GENRES`,
 };
 
 export const ActionCreator = {
@@ -25,5 +27,13 @@ export const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  setGenres: (genres) => ({
+    type: ActionType.SET_GENRES,
+    payload: genres
   })
 };

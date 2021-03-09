@@ -1,18 +1,16 @@
 import React, {useRef} from "react";
 import PropTypes from "prop-types";
-import {useHistory} from 'react-router-dom';
 import {connect} from "react-redux";
 import ApiService from "../../store/api-actions";
 
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
-const api = new ApiService();
+const apiService = new ApiService();
 
 const SignIn = ({onSubmit}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -64,9 +62,6 @@ const SignIn = ({onSubmit}) => {
             </div>
             <div className="sign-in__submit">
               <button
-
-                onClick={() => history.push(`/films/2`)}
-
                 className="sign-in__btn"
                 type="submit"
               >
@@ -88,7 +83,7 @@ SignIn.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
-    dispatch(api.login(authData));
+    dispatch(apiService.login(authData));
   }
 });
 

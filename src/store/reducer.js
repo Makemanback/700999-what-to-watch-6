@@ -7,10 +7,10 @@ const initialState = {
   allFilms: [],
   filteredFilms: [],
   filmsToShow: FILMS_ON_SCREEN,
-  genres: Object.values(Genre),
+  genres: [Genre.ALL_GENRES],
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  // authorizationStatus: AuthorizationStatus.AUTH,
-  isDataLoaded: false
+  isDataLoaded: false,
+  email: ``,
 };
 
 
@@ -55,6 +55,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload,
       };
+
+    case ActionType.SET_GENRES:
+      return extend(state, {
+        ...state,
+        genres: [...state.genres, ...action.payload]
+      });
 
     default:
       return state;

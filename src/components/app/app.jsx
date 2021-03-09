@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import MainComponent from "../main/main";
 import AddReview from '../add-review/add-review';
 import Film from '../film/film';
@@ -11,6 +11,7 @@ import NotFound from "../not-found/not-found";
 import filmProp from '../film/film.prop';
 import PrivateRoute from '../private-route/private-route';
 import {Path} from '../../const';
+import browserHistory from "../../browser-history";
 
 const App = ({title, genre, year, films}) => {
 
@@ -27,7 +28,7 @@ const App = ({title, genre, year, films}) => {
 
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={Path.DEFAULT}>
           <MainComponent
@@ -75,4 +76,3 @@ App.propTypes = {
 };
 
 export default App;
-export {Path};

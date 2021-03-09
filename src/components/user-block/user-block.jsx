@@ -6,20 +6,15 @@ import {AuthorizationStatus, Path} from '../../const';
 
 const UserBlock = ({authorizationStatus}) => {
 
-  const checkSignIn = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </div>
-      );
-    }
-    return <Link to={Path.LOGIN} className="user-block__link">Sign in</Link>;
-  };
+  const isSignedIn = authorizationStatus === AuthorizationStatus.AUTH ?
+    <div className="user-block__avatar">
+      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+    </div> :
+    `Sign In`;
 
   return (
     <div className="user-block">
-      {checkSignIn()}
+      <Link to={Path.LOGIN} className="user-block__link">{isSignedIn}</Link>
     </div>
   );
 };
@@ -29,7 +24,7 @@ UserBlock.propTypes = {
 };
 
 const mapStateToProps = ({authorizationStatus}) => ({
-  authorizationStatus
+  authorizationStatus,
 });
 
 export default connect(mapStateToProps)(UserBlock);

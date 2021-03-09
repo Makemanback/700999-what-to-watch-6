@@ -6,7 +6,14 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films`)
-        .then(({data}) => dispatch(ActionCreator.loadFilms(data)));
+        .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
+        .then(({payload}) => {
+          const genres = new Set(
+              payload
+              .map(({genre}) => genre)
+          );
+          dispatch(ActionCreator.setGenres(genres));
+        });
   }
 
   checkAuth() {
@@ -18,11 +25,12 @@ export default class ApiService {
     );
   }
 
-  login() {
-    return ({login: email, password}) => (dispatch, _getState, api) => (
-      api
-      .post(`/login`, {email, password})
-      .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+  login({login: email, password}) {
+
+    return (dispatch, _getState, api) => (
+      api.post(`/login`, {email, password})
+        .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+        .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
     );
   }
 

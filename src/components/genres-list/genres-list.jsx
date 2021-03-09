@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import filmProp from '../film/film.prop';
 
-const GenresList = ({changeGenre, films}) => {
+const GenresList = ({changeGenre, genres}) => {
 
   const [activeTab, setActive] = useState(0);
 
@@ -15,18 +15,9 @@ const GenresList = ({changeGenre, films}) => {
     changeGenre(target.innerText);
   };
 
-  const genresList = Array.from(
-      new Set(
-          films
-        .map(({genre}) => genre)
-      )
-  );
-
-  genresList.unshift(`All genres`);
-
   return (
     <ul className="catalog__genres-list">
-      {genresList.map((genre, index) => {
+      {genres.map((genre, index) => {
         const itemClass = activeTab === index ? `catalog__genres-item--active` : ``;
         return (
           <li
@@ -49,6 +40,7 @@ const GenresList = ({changeGenre, films}) => {
 GenresList.propTypes = {
   changeGenre: PropTypes.func.isRequired,
   films: PropTypes.arrayOf(filmProp).isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -57,8 +49,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({allFilms}) => ({
-  films: allFilms
+const mapStateToProps = ({allFilms, genres}) => ({
+  films: allFilms,
+  genres
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenresList);

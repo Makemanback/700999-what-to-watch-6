@@ -8,7 +8,7 @@ import UserBlock from '../user-block/user-block';
 import filmProp from "./film.prop";
 import FilmOverview from "../film-overview/film-overview";
 import FilmDetails from "../film-details/film-details";
-import {Path} from "../app/app";
+import {Path} from "../../const";
 import FilmReviews from "../film-reviews/film-reviews";
 
 const Film = ({films, path}) => {
