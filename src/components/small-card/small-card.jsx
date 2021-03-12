@@ -1,19 +1,33 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import Video from "../video/video";
 
-const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVideo}) => {
+import Video from "../video/video";
+import browserHistory from "../../browser-history";
+
+
+const SmallCard = ({
+  id,
+  image,
+  title,
+  video,
+  handleHoverCard,
+  handleHoverOutCard,
+  handleClickCard,
+  isVideo}) => {
 
   return (
     <article
       onMouseOver={handleHoverCard}
       onMouseLeave={handleHoverOutCard}
+      onClick={handleClickCard}
       className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
-        {isVideo ?
-          <Video title={title} /> :
-          <img
+        {isVideo
+          ? <Video
+            title={title}
+            video={video} />
+          : <img
             src={image}
             alt={title}
             width="280"
@@ -21,7 +35,6 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVid
       </div>
       <h3 className="small-movie-card__title">
         <Link
-          onClick={() => {}}
           className="small-movie-card__link"
           to={`/films/${id}`}>
           {title}
@@ -31,7 +44,7 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, isVid
   );
 };
 
-const SmallCardContainer = ({id, image, title}) => {
+const SmallCardContainer = ({id, image, title, video}) => {
   const [isVideo, setVideo] = useState(false);
   let timeOutId = null;
 
@@ -53,6 +66,10 @@ const SmallCardContainer = ({id, image, title}) => {
     setVideo(false);
   };
 
+  const handleClickCard = () => {
+    return browserHistory.push(`/films/${id}`);
+  };
+
   useEffect(() => {
     return () => clearTimeout(timeOutId);
   });
@@ -62,8 +79,10 @@ const SmallCardContainer = ({id, image, title}) => {
       id={id}
       image={image}
       title={title}
+      video={video}
       handleHoverCard={handleHoverCard}
       handleHoverOutCard={handleHoverOutCard}
+      handleClickCard={handleClickCard}
       isVideo={isVideo} />
   );
 };
@@ -72,9 +91,11 @@ const SmallCardContainer = ({id, image, title}) => {
 SmallCard.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  video: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   handleHoverCard: PropTypes.func.isRequired,
   handleHoverOutCard: PropTypes.func.isRequired,
+  handleClickCard: PropTypes.func.isRequired,
   isVideo: PropTypes.bool.isRequired
 };
 
@@ -82,8 +103,8 @@ SmallCardContainer.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  video: PropTypes.string.isRequired,
 };
 
-// export default SmallCard;
 export default SmallCardContainer;
 

@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Video = (props) => {
+const Video = ({title, video}) => {
+
   return (
-    <video muted autoPlay src='https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4' alt={props.title} width="280" height="175"></video>
+    <video muted autoPlay src={video} alt={title} width="280" height="175"></video>
   );
 };
 
 Video.propTypes = {
   title: PropTypes.string.isRequired,
+  video: PropTypes.string.isRequired,
 };
 
 export default Video;

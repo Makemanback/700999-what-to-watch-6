@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Path} from "../app/app";
+import {Path} from "../../const";
+
 
 const FilmNav = ({path, id}) => {
 
