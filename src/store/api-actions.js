@@ -1,5 +1,5 @@
 import {ActionCreator} from "./action";
-import {AuthorizationStatus} from "../const";
+import {AuthorizationStatus, Genre} from "../const";
 
 export default class ApiService {
   fetchFilmsList() {
@@ -8,11 +8,11 @@ export default class ApiService {
         .get(`/films`)
         .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
         .then(({payload}) => {
-          const genres = Array.from(
-              new Set(
-                  payload
-              .map(({genre}) => genre)
-              ));
+          const genres = [...new Set(
+              payload
+          .map(({genre}) => genre)
+          )];
+          genres.unshift(Genre.ALL_GENRES);
           dispatch(ActionCreator.setGenres(genres));
         });
   }
@@ -28,7 +28,7 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films/${id}`)
-        .then(({payload}) => dispatch(ActionCreator.getFilmId(payload.id)));
+        .then(({data}) => dispatch(ActionCreator.getFilmId(data.id)));
   }
 
   fetchFilmComments(id) {

@@ -8,7 +8,9 @@ export const ActionType = {
   GET_FILM: `GET_FILM`,
   GET_FILM_ID: `GET_FILM_ID`,
   GET_COMMENTS: `GET_COMMENTS`,
-  GET_PROMO_FILM: `GET_PROMO_FILM`
+  GET_PROMO_FILM: `GET_PROMO_FILM`,
+  LOADING: `LOADING`,
+  RESET_FILM: `RESET_FILM`
 };
 
 export const ActionCreator = {
@@ -50,5 +52,11 @@ export const ActionCreator = {
   loadComments: (comments) => ({
     type: ActionType.GET_COMMENTS,
     payload: comments
+  }),
+  loading: () => ({
+    type: ActionType.LOADING
+  }),
+  resetFilm: () => ({
+    type: ActionType.RESET_FILM
   })
 };

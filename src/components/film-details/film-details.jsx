@@ -53,7 +53,7 @@ const FilmDetails = ({film, path}) => {
 
 FilmDetails.propTypes = {
   path: PropTypes.string.isRequired,
-  film: PropTypes.shape(filmProp).isRequired,
+  film: filmProp.isRequired,
 };
 
 export default FilmDetails;

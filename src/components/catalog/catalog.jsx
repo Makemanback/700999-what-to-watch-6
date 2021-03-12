@@ -1,21 +1,51 @@
 import React from 'react';
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
+import ApiService from "../../store/api-actions";
+import filmProp from '../film/film.prop';
 
+const apiService = new ApiService();
 
-const Catalog = () => {
+const Catalog = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
+
+  const filmsShow = films
+        .map(ApiService.adaptToClient)
+        .slice(0, filmsToShow);
 
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <GenresList />
-      <CardsList />
+      <CardsList films={filmsShow} isDataLoaded={isDataLoaded} filmsToShow={filmsToShow} onLoadData={onLoadData} />
       <CatalogMore />
 
     </section>
   );
 };
 
-export default Catalog;
+Catalog.propTypes = {
+  films: PropTypes.arrayOf(filmProp).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  filmsToShow: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = ({filteredFilms, isDataLoaded, filmsToShow}) => {
+  return {
+    films: filteredFilms,
+    isDataLoaded,
+    filmsToShow,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(apiService.fetchFilmsList());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Catalog);

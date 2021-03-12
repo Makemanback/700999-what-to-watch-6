@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
-import ApiService from "../../store/api-actions";
 
 import Video from "../video/video";
 import browserHistory from "../../browser-history";
 
-const apiService = new ApiService();
 
-const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, handleClickCard, isVideo}) => {
+const SmallCard = ({
+  id,
+  image,
+  title,
+  video,
+  handleHoverCard,
+  handleHoverOutCard,
+  handleClickCard,
+  isVideo}) => {
 
   return (
     <article
@@ -18,9 +23,11 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, handl
       onClick={handleClickCard}
       className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
-        {isVideo ?
-          <Video title={title} /> :
-          <img
+        {isVideo
+          ? <Video
+            title={title}
+            video={video} />
+          : <img
             src={image}
             alt={title}
             width="280"
@@ -37,8 +44,7 @@ const SmallCard = ({id, image, title, handleHoverCard, handleHoverOutCard, handl
   );
 };
 
-const SmallCardContainer = ({id, image, title, onClickFilm}) => {
-
+const SmallCardContainer = ({id, image, title, video}) => {
   const [isVideo, setVideo] = useState(false);
   let timeOutId = null;
 
@@ -61,13 +67,7 @@ const SmallCardContainer = ({id, image, title, onClickFilm}) => {
   };
 
   const handleClickCard = () => {
-
-    onClickFilm(id);
-    browserHistory.push(`/films/${id}`);
-    apiService.fetchFilmId(id);
-    apiService.fetchFilm(id);
-    apiService.fetchFilmComments(id);
-
+    return browserHistory.push(`/films/${id}`);
   };
 
   useEffect(() => {
@@ -79,6 +79,7 @@ const SmallCardContainer = ({id, image, title, onClickFilm}) => {
       id={id}
       image={image}
       title={title}
+      video={video}
       handleHoverCard={handleHoverCard}
       handleHoverOutCard={handleHoverOutCard}
       handleClickCard={handleClickCard}
@@ -90,6 +91,7 @@ const SmallCardContainer = ({id, image, title, onClickFilm}) => {
 SmallCard.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  video: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   handleHoverCard: PropTypes.func.isRequired,
   handleHoverOutCard: PropTypes.func.isRequired,
@@ -101,15 +103,8 @@ SmallCardContainer.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  handleClickCard: PropTypes.func.isRequired,
-  onClickFilm: PropTypes.func.isRequired
+  video: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickFilm(id) {
-    dispatch(apiService.fetchFilm(id));
-  }
-});
-
-export default connect(null, mapDispatchToProps)(SmallCardContainer);
+export default SmallCardContainer;
 

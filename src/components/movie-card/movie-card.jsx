@@ -10,15 +10,15 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const MovieCard = ({promoFilm, isDataLoaded, onLoadData}) => {
+const MovieCard = ({promoFilm, onLoadData, authorizationStatus}) => {
 
   useEffect(() => {
-    if (!isDataLoaded) {
+    if (!promoFilm) {
       onLoadData();
     }
-  }, [isDataLoaded]);
+  }, [promoFilm]);
 
-  if (!isDataLoaded) {
+  if (!promoFilm) {
     return (
       <LoadingScreen />
     );
@@ -52,24 +52,22 @@ const MovieCard = ({promoFilm, isDataLoaded, onLoadData}) => {
         genre={genre}
         year={released}
         poster={poster}
+        authorizationStatus={authorizationStatus}
       />
     </section>
   );
 };
 
 MovieCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-  promoFilm: PropTypes.object.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  promoFilm: PropTypes.object,
+  onLoadData: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({promoFilm, isDataLoaded}) => {
+const mapStateToProps = ({promoFilm, authorizationStatus}) => {
   return {
     promoFilm,
-    isDataLoaded,
+    authorizationStatus
   };
 };
 

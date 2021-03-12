@@ -3,19 +3,18 @@ import {ActionType} from "./action";
 import {FILMS_ON_SCREEN, Genre, AuthorizationStatus} from '../const';
 
 const initialState = {
-  promoFilm: {},
+  promoFilm: null,
   activeGenre: Genre.ALL_GENRES,
-  initialGenre: Genre.ALL_GENRES,
   allFilms: [],
   filteredFilms: [],
-  currentFilm: {},
+  currentFilm: null,
   currentFilmComments: [],
+  currentFilmId: null,
   filmsToShow: FILMS_ON_SCREEN,
   genres: [],
-  // authorizationStatus: AuthorizationStatus.NO_AUTH,
   authorizationStatus: AuthorizationStatus.AUTH,
   isDataLoaded: false,
-  currentFilmId: 1
+  isFilmLoaded: false
 };
 
 
@@ -43,12 +42,6 @@ const reducer = (state = initialState, action) => {
         filmsToShow: FILMS_ON_SCREEN
       });
 
-    case ActionType.GET_LIST:
-      return extend(state, {
-        ...state,
-        allFilms: action.payload,
-      });
-
     case ActionType.SHOW_MORE:
       return extend(state, {
         ...state,
@@ -72,23 +65,21 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentFilm: action.payload,
         currentFilmId: action.payload.id,
-        isDataLoaded: true,
+        isFilmLoaded: true
       });
 
     case ActionType.GET_FILM_ID:
+
       return extend(state, {
         ...state,
-        currentFilmComments: action.payload,
         currentFilmId: action.payload,
-        isDataLoaded: true
+
       });
 
     case ActionType.GET_COMMENTS:
       return extend(state, {
         ...state,
         currentFilmComments: action.payload,
-        currentFilmId: action.payload.id,
-        isDataLoaded: true
       });
 
     case ActionType.GET_PROMO_FILM:
@@ -97,6 +88,20 @@ const reducer = (state = initialState, action) => {
         promoFilm: action.payload,
         isDataLoaded: true
       });
+
+    case ActionType.LOADING:
+      return extend(state, {
+        ...state,
+        isDataLoaded: false
+      });
+
+    case ActionType.RESET_FILM:
+      return extend(state, {
+        ...state,
+        isFilmLoaded: false,
+        currentFilm: initialState.currentFilm
+      });
+
     default:
       return state;
   }
