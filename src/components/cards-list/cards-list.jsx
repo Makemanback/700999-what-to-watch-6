@@ -5,13 +5,15 @@ import filmProp from '../film/film.prop';
 import LoadingScreen from '../loading-screen/loading-screen';
 import SmallCardContainer from "../small-card/small-card";
 
-const CardsList = ({films, isDataLoaded, onLoadData}) => {
+const CardsList = ({films, isDataLoaded, loadFilmsData, loadFilmData, filmId}) => {
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      loadFilmData();
+      loadFilmsData(filmId);
     }
   }, [isDataLoaded]);
+
 
   if (!isDataLoaded) {
     return (
@@ -37,7 +39,8 @@ const CardsList = ({films, isDataLoaded, onLoadData}) => {
 CardsList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+  // loadData: PropTypes.func.isRequired,
+  filmId: PropTypes.number,
 };
 
 export default CardsList;

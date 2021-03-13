@@ -19,7 +19,8 @@ import {ActionCreator} from "../../store/action";
 const apiService = new ApiService();
 
 const Film = ({
-  onLoadData,
+  filmId,
+  loadFilmsData,
   authorizationStatus,
   filmsToShow,
   exactFilms,
@@ -87,7 +88,12 @@ const Film = ({
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <CardsList films={exactFilms} isDataLoaded={isDataLoaded} filmsToShow={filmsToShow} onLoadData={onLoadData} />
+          <CardsList
+            films={exactFilms}
+            isDataLoaded={isDataLoaded}
+            filmsToShow={filmsToShow}
+            loadFilmsData={loadFilmsData}
+            filmId={filmId} />
 
         </section>
 
@@ -101,7 +107,7 @@ const FilmContainer = ({
   films,
   currentFilm,
   path,
-  onLoadData,
+  loadFilmsData,
   isFilmLoaded,
   authorizationStatus,
   currentFilmComments,
@@ -113,7 +119,7 @@ const FilmContainer = ({
 
   useEffect(() => {
     if (!currentFilm) {
-      onLoadData(filmId);
+      loadFilmsData(filmId);
     }
   }, [currentFilm, filmId]);
 
@@ -177,18 +183,19 @@ const FilmContainer = ({
       poster={poster}
       exactFilms={exactFilms}
       authorizationStatus={authorizationStatus}
-      onLoadData={onLoadData}
+      loadFilmsData={loadFilmsData}
       filmsToShow={filmsToShow}
       isDataLoaded={isDataLoaded}
       movieOverview={movieOverview}
       movieReviews={movieReviews}
-      movieDetails={movieDetails} />
+      movieDetails={movieDetails}
+      filmId={filmId} />
   );
 };
 
 Film.propTypes = {
   currentFilm: filmProp,
-  onLoadData: PropTypes.func.isRequired,
+  loadFilmsData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   filmsToShow: PropTypes.number.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
@@ -202,13 +209,14 @@ Film.propTypes = {
   poster: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
+  filmId: PropTypes.number.isRequired,
 };
 
 FilmContainer.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
   path: PropTypes.string.isRequired,
   currentFilm: filmProp,
-  onLoadData: PropTypes.func.isRequired,
+  loadFilmsData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentFilmComments: PropTypes.array.isRequired,
   isFilmLoaded: PropTypes.bool.isRequired,
@@ -240,7 +248,7 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData(id) {
+  loadFilmsData(id) {
     dispatch(apiService.fetchFilm(id));
     dispatch(apiService.fetchFilmComments(id));
     dispatch(apiService.fetchFilmId(id));

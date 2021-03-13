@@ -6,10 +6,11 @@ import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
 import ApiService from "../../store/api-actions";
 import filmProp from '../film/film.prop';
+import { ActionType } from '../../store/action';
 
 const apiService = new ApiService();
 
-const Catalog = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
+const Catalog = ({films, isDataLoaded, filmsToShow, loadFilmData}) => {
 
   const filmsShow = films
         .map(ApiService.adaptToClient)
@@ -20,7 +21,7 @@ const Catalog = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <GenresList />
-      <CardsList films={filmsShow} isDataLoaded={isDataLoaded} filmsToShow={filmsToShow} onLoadData={onLoadData} />
+      <CardsList films={filmsShow} isDataLoaded={isDataLoaded} filmsToShow={filmsToShow} loadFilmData={loadFilmData} />
       <CatalogMore />
 
     </section>
@@ -30,7 +31,7 @@ const Catalog = ({films, isDataLoaded, filmsToShow, onLoadData}) => {
 Catalog.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
+  loadFilmData: PropTypes.func.isRequired,
   filmsToShow: PropTypes.number.isRequired,
 };
 
@@ -43,7 +44,8 @@ const mapStateToProps = ({filteredFilms, isDataLoaded, filmsToShow}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  // проблема
+  loadFilmData() {
     dispatch(apiService.fetchFilmsList());
   },
 });
