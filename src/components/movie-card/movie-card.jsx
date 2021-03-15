@@ -10,11 +10,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const MovieCard = ({promoFilm, onLoadData, authorizationStatus}) => {
-
+const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus, currentFilm}) => {
   useEffect(() => {
     if (!promoFilm) {
-      onLoadData();
+      loadFilmsData();
     }
   }, [promoFilm]);
 
@@ -30,7 +29,8 @@ const MovieCard = ({promoFilm, onLoadData, authorizationStatus}) => {
     poster,
     released,
     genre,
-    title
+    title,
+    id
   } = film;
 
   return (
@@ -53,6 +53,7 @@ const MovieCard = ({promoFilm, onLoadData, authorizationStatus}) => {
         year={released}
         poster={poster}
         authorizationStatus={authorizationStatus}
+        id={id}
       />
     </section>
   );
@@ -60,19 +61,24 @@ const MovieCard = ({promoFilm, onLoadData, authorizationStatus}) => {
 
 MovieCard.propTypes = {
   promoFilm: PropTypes.object,
-  onLoadData: PropTypes.func.isRequired,
+  loadFilmsData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({promoFilm, authorizationStatus}) => {
+const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
   return {
     promoFilm,
+    currentFilm,
     authorizationStatus
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  loadFilmsData(id) {
+    // dispatch(apiService.fetchFilm(id));
+    // dispatch(apiService.fetchFilmComments(id));
+    // dispatch(apiService.fetchFilmId(id));
+    dispatch(apiService.fetchFilmsList());
     dispatch(apiService.fetchPromoFilm());
   },
 });

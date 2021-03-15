@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
-import {Path, AuthorizationStatus} from '../../const';
+import {AuthorizationStatus} from '../../const';
 
-const MovieCardButtons = ({authorizationStatus}) => {
-
+const MovieCardButtons = ({authorizationStatus, id}) => {
   const Authorized = authorizationStatus === AuthorizationStatus.AUTH
-    ? <Link to={Path.FILM_REVIEW} className="btn movie-card__button">Add review</Link>
+    ? <Link
+      to={`/films/${id}/review`}
+      className="btn movie-card__button">
+          Add review
+    </Link>
     : null;
 
   return (

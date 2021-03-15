@@ -3,18 +3,24 @@ import {ActionType} from "./action";
 import {FILMS_ON_SCREEN, Genre, AuthorizationStatus} from '../const';
 
 const initialState = {
-  promoFilm: null,
   activeGenre: Genre.ALL_GENRES,
+  filmsToShow: FILMS_ON_SCREEN,
+  authorizationStatus: AuthorizationStatus.AUTH,
+
   allFilms: [],
   filteredFilms: [],
-  currentFilm: null,
-  currentFilmComments: [],
-  currentFilmId: null,
-  filmsToShow: FILMS_ON_SCREEN,
   genres: [],
-  authorizationStatus: AuthorizationStatus.AUTH,
+
+  promoFilm: null,
+  currentFilm: null,
+  currentFilmComments: null,
+  currentFilmId: null,
+  pushingCommentRating: null,
+  pushingCommentText: null,
+
   isDataLoaded: false,
-  isFilmLoaded: false
+  isFilmLoaded: false,
+  isFilmFound: true,
 };
 
 
@@ -65,7 +71,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentFilm: action.payload,
         currentFilmId: action.payload.id,
-        isFilmLoaded: true
+        isFilmLoaded: true,
+        isFilmFound: true,
       });
 
     case ActionType.GET_FILM_ID:
@@ -73,20 +80,22 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         ...state,
         currentFilmId: action.payload,
-
+        isFilmFound: true,
       });
 
     case ActionType.GET_COMMENTS:
       return extend(state, {
         ...state,
         currentFilmComments: action.payload,
+        isFilmFound: true,
       });
 
     case ActionType.GET_PROMO_FILM:
       return extend(state, {
         ...state,
         promoFilm: action.payload,
-        isDataLoaded: true
+        isDataLoaded: true,
+        isFilmFound: true,
       });
 
     case ActionType.LOADING:
@@ -100,6 +109,30 @@ const reducer = (state = initialState, action) => {
         ...state,
         isFilmLoaded: false,
         currentFilm: initialState.currentFilm
+      });
+
+    case ActionType.NOT_FOUND:
+      return extend(state, {
+        ...state,
+        isFilmFound: false,
+      });
+
+    case ActionType.POST_COMMENT:
+      return extend(state, {
+        ...state,
+        currentFilmComments: [...state.currentFilmComments, action.payload]
+      });
+
+    case ActionType.SET_COMMENT_RATING:
+      return extend(state, {
+        ...state,
+        pushingCommentRating: action.payload
+      });
+
+    case ActionType.SET_COMMENT_TEXT:
+      return extend(state, {
+        ...state,
+        pushingCommentText: action.payload
       });
 
     default:

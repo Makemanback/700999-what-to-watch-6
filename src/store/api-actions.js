@@ -1,5 +1,6 @@
 import {ActionCreator} from "./action";
 import {AuthorizationStatus, Genre} from "../const";
+import rating from "../components/rating/rating";
 
 export default class ApiService {
   fetchFilmsList() {
@@ -21,7 +22,8 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films/${id}`)
-        .then(({data}) => dispatch(ActionCreator.getFilm(data)));
+        .then(({data}) => dispatch(ActionCreator.getFilm(data)))
+        .catch(() => dispatch(ActionCreator.notFound()));
   }
 
   fetchFilmId(id) {
@@ -63,6 +65,14 @@ export default class ApiService {
     );
   }
 
+  pushComment(commentData) {
+    console.log(commentData)
+    return (dispatch, _getState, api) => (
+      api.post(`/comments/${filmId}`, {pushingCommentRating, pushingCommentText})
+        // .then(() => console.log(id, pushingCommentRating, pushingCommentText))
+        .then(() => dispatch(ActionCreator.postComment(comment)))
+    );
+  }
 
   static adaptToClient(film) {
 
@@ -97,11 +107,26 @@ export default class ApiService {
   }
 
   static adaptReviewToClient(review) {
+
     const adaptedReview = Object.assign(
         {},
         review,
         {
           reviewId: review.id
+        });
+
+    delete adaptedReview.id;
+
+    return adaptedReview;
+  }
+
+  static adaptReviewToServer(review) {
+
+    const adaptedReview = Object.assign(
+        {},
+        review,
+        {
+          id: review.reviewId
         });
 
     delete adaptedReview.id;

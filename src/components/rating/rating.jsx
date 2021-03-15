@@ -1,26 +1,53 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import {connect} from "react-redux";
 
-const Rating = () => {
+import {ratings} from '../../const';
+import { ActionCreator } from '../../store/action';
+
+const RatingStar = ({item, setCurrentRate}) => {
+  return (
+    <>
+      <input
+        onClick={setCurrentRate}
+        className="rating__input"
+        id={`star-${item}`}
+        type="radio"
+        name="rating"
+        value={item}/>
+      <label
+        className="rating__label"
+        htmlFor={`star-${item}`}>
+          Rating {item}
+      </label>
+    </>
+  )
+};
+
+const Rating = ({setRating}) => {
+
+  const setCurrentRate = (evt) => setRating(evt.target.value);
+
   return (
     <div className="rating">
       <div className="rating__stars">
-        <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-        <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-        <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-        <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-        <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
-        <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-        <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-        <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-        <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-        <label className="rating__label" htmlFor="star-5">Rating 5</label>
+        {ratings.map((item, index) => {
+          return (
+            <RatingStar key={index} item={item} setCurrentRate={setCurrentRate} />
+          )
+        })}
       </div>
     </div>
   );
 };
 
-export default Rating;
+// const mapStateToProps = ({pushingCommentRating}) => ({
+//   pushingCommentRating
+// })
+
+const mapDispatchToProps = (dispatch) => ({
+  setRating(rating) {
+    dispatch(ActionCreator.setCommentRating(rating))
+  }
+})
+
+export default connect(null, mapDispatchToProps)(Rating);
