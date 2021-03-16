@@ -1,5 +1,3 @@
-import Rating from "../components/rating/rating";
-
 export const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE: `SHOW_MORE`,

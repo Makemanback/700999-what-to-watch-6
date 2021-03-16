@@ -235,7 +235,8 @@ FilmContainer.propTypes = {
   filmId: PropTypes.number.isRequired,
   resetFilm: PropTypes.func.isRequired,
   filmsToShow: PropTypes.number.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired
+  isDataLoaded: PropTypes.bool.isRequired,
+  isFilmFound: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = ({

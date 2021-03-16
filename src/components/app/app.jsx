@@ -31,14 +31,14 @@ const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        {/* <Route exact path={Path.DEFAULT}
-        render={({match}) => {
-          const {path} = match;
-          const filmId = +match.params.id;
+        <Route exact path={Path.DEFAULT}
+          render={({match}) => {
+            const {path} = match;
+            const filmId = +match.params.id;
 
-          return <Main path={path} filmId={filmId} />;
-        }}
-        /> */}
+            return <Main path={path} filmId={filmId} />;
+          }}
+        />
 
         <Route exact path={Path.DEFAULT}>
           <Main />;
@@ -56,7 +56,7 @@ const App = () => {
         {renderFilm(Path.MOVIE_DETAILS)}
         {renderFilm(Path.MOVIE_REVIEWS)}
 
-        <Route exact path={Path.FILM_REVIEW}
+        <PrivateRoute exact path={Path.FILM_REVIEW}
           render={({match}) => {
             const {path} = match;
             const filmId = +match.params.id;

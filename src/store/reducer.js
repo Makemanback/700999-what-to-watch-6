@@ -120,7 +120,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.POST_COMMENT:
       return extend(state, {
         ...state,
-        currentFilmComments: [...state.currentFilmComments, action.payload]
+        currentFilmComments: state.currentFilmComments === null
+          ? [action.payload]
+          : [...state.currentFilmComments, action.payload],
+        isFilmFound: true
       });
 
     case ActionType.SET_COMMENT_RATING:

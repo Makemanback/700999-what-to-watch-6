@@ -8,9 +8,9 @@ import reviewsProp from "./reviews.prop";
 import FilmNav from "../film-nav/film-nav";
 
 const FilmReviews = ({path, reviews, id}) => {
-
+  // console.log(reviews)
   if (!reviews) {
-    return <FilmNav id={id} path={path} />
+    return <FilmNav id={id} path={path} />;
   }
 
   const comments = reviews
@@ -24,24 +24,24 @@ const FilmReviews = ({path, reviews, id}) => {
       <FilmNav id={id} path={path} />
       <div className="movie-card__reviews movie-card__row">
         {comments.length === 1
-        ? <div className="movie-card__reviews-col">
-          {comments.map(({comment, user, rating, date, reviewId}) => (
-            <div className="review" key={reviewId}>
-              <blockquote className="review__quote">
-                <p className="review__text">{comment}</p>
+          ? <div className="movie-card__reviews-col">
+            {comments.map(({comment, user, rating, date, reviewId}) => (
+              <div className="review" key={reviewId}>
+                <blockquote className="review__quote">
+                  <p className="review__text">{comment}</p>
 
-                <footer className="review__details">
-                  <cite className="review__user">{user.name}</cite>
-                  <time className="review__date" dateTime={moment(date).format()}>{moment(date).format(`MMMM Do YYYY`)}</time>
-                </footer>
-              </blockquote>
+                  <footer className="review__details">
+                    <cite className="review__user">{user.name}</cite>
+                    <time className="review__date" dateTime={moment(date).format()}>{moment(date).format(`MMMM Do YYYY`)}</time>
+                  </footer>
+                </blockquote>
 
-              <div className="review__rating">{rating}</div>
-            </div>
+                <div className="review__rating">{rating}</div>
+              </div>
 
-          ))}
-        </div>
-        : <React.Fragment>
+            ))}
+          </div>
+          : <React.Fragment>
             <div className="movie-card__reviews-col">
               {startReviews.map(({comment, user, rating, date, reviewId}) => (
                 <div className="review" key={reviewId}>

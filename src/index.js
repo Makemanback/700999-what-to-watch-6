@@ -28,8 +28,7 @@ const store = createStore(
     )
 );
 
-// store.dispatch(apiService.checkAuth());
-
+store.dispatch(apiService.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

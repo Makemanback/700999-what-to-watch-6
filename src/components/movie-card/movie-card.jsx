@@ -10,7 +10,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus, currentFilm}) => {
+const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
   useEffect(() => {
     if (!promoFilm) {
       loadFilmsData();
@@ -74,10 +74,7 @@ const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadFilmsData(id) {
-    // dispatch(apiService.fetchFilm(id));
-    // dispatch(apiService.fetchFilmComments(id));
-    // dispatch(apiService.fetchFilmId(id));
+  loadFilmsData() {
     dispatch(apiService.fetchFilmsList());
     dispatch(apiService.fetchPromoFilm());
   },

@@ -1,14 +1,16 @@
 import React, {useEffect, useRef} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ApiService from "../../store/api-actions";
+import filmProp from "../film/film.prop";
+import {ActionCreator} from "../../store/action";
 
 import Logo from '../logo/logo';
 import Rating from "../rating/rating";
 import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
-import { ActionCreator } from "../../store/action";
 
 const apiService = new ApiService();
 
@@ -40,6 +42,16 @@ const AddReview = ({
 
   const changeCommentText = (evt) => setCommentText(evt.target.value);
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    postComment({
+      id: filmId,
+      comment: pushingCommentText,
+      rating: +pushingCommentRating,
+    });
+  };
+
   return (
     <section
       className="movie-card movie-card--full"
@@ -58,7 +70,7 @@ const AddReview = ({
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">{title}</a>
+                <Link to={`/films/${filmId}`} className="breadcrumbs__link">{title}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -78,7 +90,7 @@ const AddReview = ({
         <form
           action=""
           className="add-review__form"
-          onSubmit={() => postComment({filmId, pushingCommentRating, pushingCommentText})}>
+          onSubmit={handleSubmit}>
           <Rating />
 
           <div className="add-review__text">
@@ -106,18 +118,26 @@ const AddReview = ({
 };
 
 AddReview.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  currentFilm: filmProp,
+  loadFilmsData: PropTypes.func.isRequired,
+  isFilmLoaded: PropTypes.bool.isRequired,
+  postComment: PropTypes.func.isRequired,
+  setCommentText: PropTypes.func.isRequired,
+  pushingCommentRating: PropTypes.number,
+  pushingCommentText: PropTypes.string,
+  filmId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = ({
-    currentFilm,
-    isFilmLoaded,
-    pushingCommentRating,
-    pushingCommentText}) => ({
   currentFilm,
   isFilmLoaded,
   pushingCommentRating,
-  pushingCommentText
+  pushingCommentText}) => ({
+  currentFilm,
+  isFilmLoaded,
+  pushingCommentRating,
+  pushingCommentText,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -126,11 +146,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(apiService.fetchFilmId(id));
     dispatch(apiService.fetchFilmsList());
   },
-  postComment({id, rating, comment}) {
-    dispatch(apiService.pushComment({id, rating, comment}))
+  postComment(commentData) {
+    dispatch(apiService.pushComment(commentData));
   },
   setCommentText(text) {
-    dispatch(ActionCreator.setCommentText(text))
+    dispatch(ActionCreator.setCommentText(text));
   }
 });
 

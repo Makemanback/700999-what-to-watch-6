@@ -6,7 +6,6 @@ import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
 import ApiService from "../../store/api-actions";
 import filmProp from '../film/film.prop';
-import {ActionType} from '../../store/action';
 
 const apiService = new ApiService();
 

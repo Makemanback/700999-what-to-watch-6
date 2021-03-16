@@ -32,7 +32,8 @@ const MovieCardButtons = ({authorizationStatus, id}) => {
 };
 
 MovieCardButtons.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default MovieCardButtons;

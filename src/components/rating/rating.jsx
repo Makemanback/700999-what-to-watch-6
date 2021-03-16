@@ -1,8 +1,9 @@
-import React, {useRef} from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ratings} from '../../const';
-import { ActionCreator } from '../../store/action';
+import {ActionCreator} from '../../store/action';
 
 const RatingStar = ({item, setCurrentRate}) => {
   return (
@@ -20,7 +21,7 @@ const RatingStar = ({item, setCurrentRate}) => {
           Rating {item}
       </label>
     </>
-  )
+  );
 };
 
 const Rating = ({setRating}) => {
@@ -33,21 +34,26 @@ const Rating = ({setRating}) => {
         {ratings.map((item, index) => {
           return (
             <RatingStar key={index} item={item} setCurrentRate={setCurrentRate} />
-          )
+          );
         })}
       </div>
     </div>
   );
 };
 
-// const mapStateToProps = ({pushingCommentRating}) => ({
-//   pushingCommentRating
-// })
+Rating.propTypes = {
+  setRating: PropTypes.func.isRequired
+};
+
+RatingStar.propTypes = {
+  item: PropTypes.number.isRequired,
+  setCurrentRate: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = (dispatch) => ({
   setRating(rating) {
-    dispatch(ActionCreator.setCommentRating(rating))
+    dispatch(ActionCreator.setCommentRating(rating));
   }
-})
+});
 
 export default connect(null, mapDispatchToProps)(Rating);
