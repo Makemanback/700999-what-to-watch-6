@@ -1,10 +1,11 @@
-import React from "react";
+import React, {memo} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus} from '../../const';
 
 const MovieCardButtons = ({authorizationStatus, id}) => {
-  const Authorized = authorizationStatus === AuthorizationStatus.AUTH
+
+  const addReview = authorizationStatus === AuthorizationStatus.AUTH
     ? <Link
       to={`/films/${id}/review`}
       className="btn movie-card__button">
@@ -26,7 +27,7 @@ const MovieCardButtons = ({authorizationStatus, id}) => {
         </svg>
         <span>My list</span>
       </button>
-      {Authorized}
+        {addReview}
     </div>
   );
 };
@@ -36,4 +37,9 @@ MovieCardButtons.propTypes = {
   id: PropTypes.number.isRequired
 };
 
-export default MovieCardButtons;
+export default memo(
+  MovieCardButtons,
+    ({authorizationStatus, id},
+    {authorizationStatus: nextAuthorizationStatus, id: nextId}) => {
+    return authorizationStatus === nextAuthorizationStatus && id === nextId;
+});

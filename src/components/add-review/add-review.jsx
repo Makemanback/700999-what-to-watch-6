@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -13,6 +13,8 @@ import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
+
+const PageLogo = <Logo />
 
 const AddReview = ({
   currentFilm,
@@ -60,7 +62,7 @@ const AddReview = ({
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
+          {PageLogo}
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">

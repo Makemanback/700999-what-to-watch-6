@@ -19,6 +19,9 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import NotFound from "../not-found/not-found";
 
 const apiService = new ApiService();
+const PageLogo = <Logo />;
+const User = <UserBlock />;
+const PageFooter = <Footer />;
 
 const Film = ({
   filmId,
@@ -52,9 +55,9 @@ const Film = ({
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header movie-card__head">
-            <Logo />
+            {PageLogo}
 
-            <UserBlock />
+            {User}
           </header>
 
           <div className="movie-card__wrap">
@@ -99,7 +102,7 @@ const Film = ({
 
         </section>
 
-        <Footer />
+        {PageFooter}
       </div>
     </React.Fragment>
   );

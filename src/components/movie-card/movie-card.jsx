@@ -9,6 +9,8 @@ import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
+const PageLogo = <Logo />
+const User = <UserBlock />
 
 const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
   useEffect(() => {
@@ -43,9 +45,9 @@ const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header movie-card__head">
-        <Logo />
+        {PageLogo}
 
-        <UserBlock />
+        {User}
       </header>
 
       <MovieCardInfo
@@ -76,7 +78,6 @@ const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmsData() {
-    dispatch(apiService.fetchFilmsList());
     dispatch(apiService.fetchPromoFilm());
   },
 });
