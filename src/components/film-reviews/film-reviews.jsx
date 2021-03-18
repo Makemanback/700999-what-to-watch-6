@@ -2,19 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from 'moment';
 
-import ApiService from "../../store/api-actions";
 import reviewsProp from "./reviews.prop";
 
 import FilmNav from "../film-nav/film-nav";
 
 const FilmReviews = ({path, reviews, id}) => {
-
   if (!reviews) {
     return <FilmNav id={id} path={path} />;
   }
 
-  const comments = reviews
-    .map(ApiService.adaptReviewToClient);
+  const comments = reviews;
 
   const startReviews = comments.slice(0, Math.round((comments.length / 2)));
   const endReviews = comments.slice(Math.round((comments.length / 2)));
@@ -86,7 +83,7 @@ const FilmReviews = ({path, reviews, id}) => {
 FilmReviews.propTypes = {
   path: PropTypes.string.isRequired,
   reviews: PropTypes.arrayOf(reviewsProp),
-  id: PropTypes.number.isRequired
+  id: PropTypes.number
 };
 
 export default FilmReviews;

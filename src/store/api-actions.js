@@ -8,7 +8,7 @@ export default class ApiService {
       api
         .get(`/films`)
         .then(({data}) => data.map(ApiService.adaptToClient))
-        .then((data) => dispatch(ActionCreator.loadFilms(data)))
+        .then((films) => dispatch(ActionCreator.loadFilms(films)))
         .then(({payload}) => {
           const genres = [...new Set(
               payload
@@ -24,7 +24,7 @@ export default class ApiService {
       api
         .get(`/films/${id}`)
         .then(({data}) => ApiService.adaptToClient(data))
-        .then((data) => dispatch(ActionCreator.getFilm(data)))
+        .then((film) => dispatch(ActionCreator.getFilm(film)))
         .catch(() => dispatch(ActionCreator.notFound()));
   }
 
@@ -39,7 +39,8 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/comments/${id}`)
-        .then(({data}) => dispatch(ActionCreator.loadComments(data)));
+        .then(({data}) => data.map(ApiService.adaptReviewToClient))
+        .then((comments) => dispatch(ActionCreator.loadComments(comments)));
   }
 
   fetchPromoFilm() {
@@ -72,7 +73,7 @@ export default class ApiService {
     const {id, comment, rating} = commentData;
     return (dispatch, _getState, api) => (
       api.post(`/comments/${id}`, {comment, rating})
-        .then(({data}) => data.map(ApiService.adaptReviewToServer))
+        .then(({data}) => data.map(ApiService.adaptReviewToClient))
         .then((comments) => dispatch(ActionCreator.loadComments(comments)))
         .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}/reviews`)))
     );
@@ -124,12 +125,12 @@ export default class ApiService {
     return adaptedReview;
   }
 
-  static adaptReviewToServer(review) {
-    return Object.assign(
-        {},
-        review,
-        {
-          date: new Date().toISOString(),
-        });
-  }
+  // static adaptReviewToServer(review) {
+  //   return Object.assign(
+  //       {},
+  //       review,
+  //       {
+  //         date: new Date().toISOString(),
+  //       });
+  // }
 }
