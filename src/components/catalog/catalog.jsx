@@ -11,9 +11,7 @@ const apiService = new ApiService();
 
 const Catalog = ({films, isDataLoaded, filmsToShow, loadFilmData}) => {
 
-  const filmsShow = films
-        .map(ApiService.adaptToClient)
-        .slice(0, filmsToShow);
+  const filmsShow = films.slice(0, filmsToShow);
 
   return (
     <section className="catalog">

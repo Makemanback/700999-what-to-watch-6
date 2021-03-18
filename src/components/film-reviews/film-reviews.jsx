@@ -8,7 +8,7 @@ import reviewsProp from "./reviews.prop";
 import FilmNav from "../film-nav/film-nav";
 
 const FilmReviews = ({path, reviews, id}) => {
-  // console.log(reviews)
+
   if (!reviews) {
     return <FilmNav id={id} path={path} />;
   }

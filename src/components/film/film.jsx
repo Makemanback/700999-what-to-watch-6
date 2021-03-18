@@ -110,7 +110,6 @@ const FilmContainer = ({
   currentFilm,
   path,
   loadFilmsData,
-  isFilmLoaded,
   authorizationStatus,
   currentFilmComments,
   filmId,
@@ -134,14 +133,13 @@ const FilmContainer = ({
   useEffect(() => () => resetFilm(), [filmId]);
 
 
-  if (!isFilmLoaded) {
+  if (!currentFilm) {
     return (
       <LoadingScreen />
     );
   }
 
-  const film = ApiService.adaptToClient(currentFilm);
-
+  const film = currentFilm;
 
   const {
     title,
@@ -155,7 +153,6 @@ const FilmContainer = ({
 
 
   const exactFilms = films
-    .map(ApiService.adaptToClient)
     .filter(({genre}) => genre === filmGenre)
     .slice(0, 4);
 
@@ -231,7 +228,6 @@ FilmContainer.propTypes = {
   loadFilmsData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentFilmComments: PropTypes.array,
-  isFilmLoaded: PropTypes.bool.isRequired,
   filmId: PropTypes.number.isRequired,
   resetFilm: PropTypes.func.isRequired,
   filmsToShow: PropTypes.number.isRequired,
@@ -242,7 +238,6 @@ FilmContainer.propTypes = {
 const mapStateToProps = ({
   filteredFilms,
   currentFilm,
-  isFilmLoaded,
   authorizationStatus,
   currentFilmComments,
   currentFilmId,
@@ -251,7 +246,6 @@ const mapStateToProps = ({
   isFilmFound}) => {
   return {
     currentFilm,
-    isFilmLoaded,
     films: filteredFilms,
     authorizationStatus,
     currentFilmComments,

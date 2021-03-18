@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
-import {ratings} from '../../const';
-import {ActionCreator} from '../../store/action';
+import {RATINGS} from '../../const';
 
-const RatingStar = ({item, setCurrentRate}) => {
+const RatingStar = ({item, setCommentRating}) => {
+
   return (
     <>
       <input
-        onClick={setCurrentRate}
+        onClick={({target}) => setCommentRating(target.value)}
         className="rating__input"
         id={`star-${item}`}
         type="radio"
@@ -24,16 +23,14 @@ const RatingStar = ({item, setCurrentRate}) => {
   );
 };
 
-const Rating = ({setRating}) => {
-
-  const setCurrentRate = (evt) => setRating(evt.target.value);
+const Rating = ({setCommentRating}) => {
 
   return (
     <div className="rating">
       <div className="rating__stars">
-        {ratings.map((item, index) => {
+        {RATINGS.map((item, index) => {
           return (
-            <RatingStar key={index} item={item} setCurrentRate={setCurrentRate} />
+            <RatingStar key={index} item={item} setCommentRating={setCommentRating} />
           );
         })}
       </div>
@@ -42,18 +39,12 @@ const Rating = ({setRating}) => {
 };
 
 Rating.propTypes = {
-  setRating: PropTypes.func.isRequired
+  setCommentRating: PropTypes.func.isRequired
 };
 
 RatingStar.propTypes = {
   item: PropTypes.number.isRequired,
-  setCurrentRate: PropTypes.func.isRequired
+  setCommentRating: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setRating(rating) {
-    dispatch(ActionCreator.setCommentRating(rating));
-  }
-});
-
-export default connect(null, mapDispatchToProps)(Rating);
+export default Rating;

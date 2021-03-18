@@ -23,7 +23,8 @@ const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
     );
   }
 
-  const film = ApiService.adaptToClient(promoFilm);
+  const film = promoFilm;
+
   const {
     backgroundImg,
     poster,

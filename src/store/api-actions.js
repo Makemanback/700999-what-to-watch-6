@@ -7,7 +7,8 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films`)
-        .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
+        .then(({data}) => data.map(ApiService.adaptToClient))
+        .then((data) => dispatch(ActionCreator.loadFilms(data)))
         .then(({payload}) => {
           const genres = [...new Set(
               payload
@@ -22,7 +23,8 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films/${id}`)
-        .then(({data}) => dispatch(ActionCreator.getFilm(data)))
+        .then(({data}) => ApiService.adaptToClient(data))
+        .then((data) => dispatch(ActionCreator.getFilm(data)))
         .catch(() => dispatch(ActionCreator.notFound()));
   }
 
@@ -44,7 +46,8 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
       .get(`/films/promo`)
-      .then(({data}) => dispatch(ActionCreator.loadPromoFilm(data)));
+      .then(({data}) => ApiService.adaptToClient(data))
+      .then((film) => dispatch(ActionCreator.loadPromoFilm(film)));
   }
 
   checkAuth() {
@@ -69,8 +72,8 @@ export default class ApiService {
     const {id, comment, rating} = commentData;
     return (dispatch, _getState, api) => (
       api.post(`/comments/${id}`, {comment, rating})
-        .then(() => ApiService.adaptReviewToServer(commentData))
-        .then((res) => dispatch(ActionCreator.postComment(res)))
+        .then(({data}) => data.map(ApiService.adaptReviewToServer))
+        .then((comments) => dispatch(ActionCreator.loadComments(comments)))
         .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}/reviews`)))
     );
   }
@@ -122,18 +125,11 @@ export default class ApiService {
   }
 
   static adaptReviewToServer(review) {
-    const date = new Date();
-    const adaptedReview = Object.assign(
+    return Object.assign(
         {},
         review,
         {
-          date: date.toISOString(),
-          user: {
-            id: 1,
-            name: `makeman`
-          }
+          date: new Date().toISOString(),
         });
-
-    return adaptedReview;
   }
 }

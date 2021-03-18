@@ -15,11 +15,8 @@ const initialState = {
   currentFilm: null,
   currentFilmComments: null,
   currentFilmId: null,
-  pushingCommentRating: null,
-  pushingCommentText: null,
 
   isDataLoaded: false,
-  isFilmLoaded: false,
   isFilmFound: true,
 };
 
@@ -71,7 +68,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentFilm: action.payload,
         currentFilmId: action.payload.id,
-        isFilmLoaded: true,
         isFilmFound: true,
       });
 
@@ -107,7 +103,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.RESET_FILM:
       return extend(state, {
         ...state,
-        isFilmLoaded: false,
         currentFilm: initialState.currentFilm
       });
 
@@ -126,17 +121,6 @@ const reducer = (state = initialState, action) => {
         isFilmFound: true
       });
 
-    case ActionType.SET_COMMENT_RATING:
-      return extend(state, {
-        ...state,
-        pushingCommentRating: action.payload
-      });
-
-    case ActionType.SET_COMMENT_TEXT:
-      return extend(state, {
-        ...state,
-        pushingCommentText: action.payload
-      });
 
     default:
       return state;

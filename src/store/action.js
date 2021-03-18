@@ -12,9 +12,6 @@ export const ActionType = {
   LOADING: `LOADING`,
   RESET_FILM: `RESET_FILM`,
   NOT_FOUND: `NOT_FOUND`,
-  POST_COMMENT: `POST_COMMENT`,
-  SET_COMMENT_RATING: `SET_COMMENT_RATING`,
-  SET_COMMENT_TEXT: `SET_COMMENT_TEXT`
 };
 
 export const ActionCreator = {
@@ -66,16 +63,4 @@ export const ActionCreator = {
   notFound: () => ({
     type: ActionType.NOT_FOUND
   }),
-  postComment: (comment) => ({
-    type: ActionType.POST_COMMENT,
-    payload: comment
-  }),
-  setCommentRating: (rating) => ({
-    type: ActionType.SET_COMMENT_RATING,
-    payload: rating
-  }),
-  setCommentText: (text) => ({
-    type: ActionType.SET_COMMENT_TEXT,
-    payload: text
-  })
 };

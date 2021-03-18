@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -18,12 +18,10 @@ const AddReview = ({
   currentFilm,
   filmId,
   loadFilmsData,
-  isFilmLoaded,
-  postComment,
-  setCommentText,
-  pushingCommentRating,
-  pushingCommentText}) => {
-  const commentTextRef = useRef();
+  postComment}) => {
+
+  const [textComment, setTextComment] = useState(null);
+  const [commentRating, setCommentRating] = useState(null);
 
   useEffect(() => {
     if (!currentFilm) {
@@ -31,24 +29,21 @@ const AddReview = ({
     }
   }, [currentFilm, filmId]);
 
-  if (!isFilmLoaded) {
+  if (!currentFilm) {
     return (
       <LoadingScreen />
     );
   }
 
-  const film = ApiService.adaptToClient(currentFilm);
-  const {title, poster, backgroundImg, background} = film;
-
-  const changeCommentText = (evt) => setCommentText(evt.target.value);
+  const {title, poster, backgroundImg, background} = currentFilm;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     postComment({
       id: filmId,
-      comment: pushingCommentText,
-      rating: +pushingCommentRating,
+      comment: textComment,
+      rating: +commentRating
     });
   };
 
@@ -91,12 +86,11 @@ const AddReview = ({
           action=""
           className="add-review__form"
           onSubmit={handleSubmit}>
-          <Rating />
+          <Rating setCommentRating={setCommentRating} />
 
           <div className="add-review__text">
             <textarea
-              ref={commentTextRef}
-              onChange={changeCommentText}
+              onChange={({target}) => setTextComment(target.value)}
               className="add-review__textarea"
               name="review-text"
               id="review-text"
@@ -121,30 +115,18 @@ AddReview.propTypes = {
   title: PropTypes.string,
   currentFilm: filmProp,
   loadFilmsData: PropTypes.func.isRequired,
-  isFilmLoaded: PropTypes.bool.isRequired,
   postComment: PropTypes.func.isRequired,
   setCommentText: PropTypes.func.isRequired,
-  pushingCommentRating: PropTypes.number,
-  pushingCommentText: PropTypes.string,
   filmId: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({
+const mapStateToProps = ({currentFilm}) => ({
   currentFilm,
-  isFilmLoaded,
-  pushingCommentRating,
-  pushingCommentText}) => ({
-  currentFilm,
-  isFilmLoaded,
-  pushingCommentRating,
-  pushingCommentText,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmsData(id) {
     dispatch(apiService.fetchFilm(id));
-    dispatch(apiService.fetchFilmId(id));
-    dispatch(apiService.fetchFilmsList());
   },
   postComment(commentData) {
     dispatch(apiService.pushComment(commentData));
