@@ -1,12 +1,14 @@
 import {ActionCreator} from "./action";
 import {AuthorizationStatus, Genre} from "../const";
 
+
 export default class ApiService {
   fetchFilmsList() {
     return (dispatch, _getState, api) =>
       api
         .get(`/films`)
-        .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
+        .then(({data}) => data.map(ApiService.adaptToClient))
+        .then((films) => dispatch(ActionCreator.loadFilms(films)))
         .then(({payload}) => {
           const genres = [...new Set(
               payload
@@ -21,7 +23,9 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/films/${id}`)
-        .then(({data}) => dispatch(ActionCreator.getFilm(data)));
+        .then(({data}) => ApiService.adaptToClient(data))
+        .then((film) => dispatch(ActionCreator.getFilm(film)))
+        .catch(() => dispatch(ActionCreator.notFound()));
   }
 
   fetchFilmId(id) {
@@ -35,14 +39,16 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(`/comments/${id}`)
-        .then(({data}) => dispatch(ActionCreator.loadComments(data)));
+        .then(({data}) => data.map(ApiService.adaptReviewToClient))
+        .then((comments) => dispatch(ActionCreator.loadComments(comments)));
   }
 
   fetchPromoFilm() {
     return (dispatch, _getState, api) =>
       api
       .get(`/films/promo`)
-      .then(({data}) => dispatch(ActionCreator.loadPromoFilm(data)));
+      .then(({data}) => ApiService.adaptToClient(data))
+      .then((film) => dispatch(ActionCreator.loadPromoFilm(film)));
   }
 
   checkAuth() {
@@ -63,6 +69,15 @@ export default class ApiService {
     );
   }
 
+  pushComment(commentData) {
+    const {id, comment, rating} = commentData;
+    return (dispatch, _getState, api) => (
+      api.post(`/comments/${id}`, {comment, rating})
+        .then(({data}) => data.map(ApiService.adaptReviewToClient))
+        .then((comments) => dispatch(ActionCreator.loadComments(comments)))
+        .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}/reviews`)))
+    );
+  }
 
   static adaptToClient(film) {
 
@@ -97,15 +112,25 @@ export default class ApiService {
   }
 
   static adaptReviewToClient(review) {
+
     const adaptedReview = Object.assign(
         {},
         review,
         {
-          reviewId: review.id
+          reviewId: review.id,
         });
 
     delete adaptedReview.id;
 
     return adaptedReview;
   }
+
+  // static adaptReviewToServer(review) {
+  //   return Object.assign(
+  //       {},
+  //       review,
+  //       {
+  //         date: new Date().toISOString(),
+  //       });
+  // }
 }

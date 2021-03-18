@@ -10,7 +10,8 @@ export const ActionType = {
   GET_COMMENTS: `GET_COMMENTS`,
   GET_PROMO_FILM: `GET_PROMO_FILM`,
   LOADING: `LOADING`,
-  RESET_FILM: `RESET_FILM`
+  RESET_FILM: `RESET_FILM`,
+  NOT_FOUND: `NOT_FOUND`,
 };
 
 export const ActionCreator = {
@@ -58,5 +59,8 @@ export const ActionCreator = {
   }),
   resetFilm: () => ({
     type: ActionType.RESET_FILM
-  })
+  }),
+  notFound: () => ({
+    type: ActionType.NOT_FOUND
+  }),
 };

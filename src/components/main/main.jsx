@@ -4,7 +4,7 @@ import MovieCard from "../movie-card/movie-card";
 
 import Catalog from "../catalog/catalog";
 
-const MainComponent = () => {
+const Main = () => {
 
   return (
     <React.Fragment>
@@ -20,4 +20,4 @@ const MainComponent = () => {
   );
 };
 
-export default MainComponent;
+export default Main;

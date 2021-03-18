@@ -30,7 +30,6 @@ const store = createStore(
 
 store.dispatch(apiService.checkAuth());
 
-
 ReactDOM.render(
     <Provider store={store}>
       <App />
