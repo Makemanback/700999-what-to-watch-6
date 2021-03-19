@@ -8,6 +8,7 @@ import filmProp from '../film/film.prop';
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
+import { allFilms } from '../../store/all-films/all-films';
 
 
 const apiService = new ApiService();
@@ -37,12 +38,26 @@ Catalog.propTypes = {
   filmsToShow: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({filteredFilms, filmsToShow}) => {
+// const mapStateToProps = ({filteredFilms, filmsToShow}) => {
+//   return {
+//     films: filteredFilms,
+//     filmsToShow
+//   };
+// };
+
+const mapStateToProps = ({ALL_FILMS}) => {
   return {
-    films: filteredFilms,
-    filmsToShow,
+    films: ALL_FILMS.filteredFilms,
+    filmsToShow: ALL_FILMS.filmsToShow,
   };
 };
+
+// const mapStateToProps = ({REDUCER}) => {
+//   return {
+//     films: REDUCER.filteredFilms,
+//     filmsToShow: REDUCER.filmsToShow
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmData() {

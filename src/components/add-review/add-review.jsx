@@ -122,9 +122,18 @@ AddReview.propTypes = {
   filmId: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({currentFilm}) => ({
-  currentFilm,
+// const mapStateToProps = ({currentFilm}) => ({
+//   currentFilm
+// });
+
+const mapStateToProps = ({FILM}) => ({
+  currentFilm: FILM.currentFilm,
 });
+
+// const mapStateToProps = ({REDUCER}) => ({
+//   currentFilm: REDUCER.currentFilm,
+// });
+
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmsData(id) {

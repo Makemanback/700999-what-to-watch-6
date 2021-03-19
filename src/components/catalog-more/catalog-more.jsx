@@ -19,11 +19,24 @@ const CatalogMore = ({films, filmsToShow, onShowMore}) => {
   );
 };
 
-const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => ({
-  films: filteredFilms,
-  filmsToShow,
-  onShowMore
+// const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => ({
+//   films: filteredFilms,
+//   filmsToShow,
+//   onShowMore
+// });
+
+const mapStateToProps = ({ALL_FILMS}) => ({
+  films: ALL_FILMS.filteredFilms,
+  filmsToShow: ALL_FILMS.filmsToShow,
+  onShowMore: ALL_FILMS.onShowMore
 });
+
+// const mapStateToProps = ({REDUCER}) => ({
+//   films: REDUCER.filteredFilms,
+//   filmsToShow: REDUCER.filmsToShow,
+//   onShowMore: REDUCER.onShowMore
+// });
+
 
 const mapDispatchToProps = (dispatch) => ({
   onShowMore() {

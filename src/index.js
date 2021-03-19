@@ -7,11 +7,14 @@ import thunk from 'redux-thunk';
 
 import {createAPI} from "./api/api";
 import {reducer} from "./store/reducer";
+import rootReducer from './store/root-reducer';
+
 import {ActionCreator} from './store/action';
 import ApiService from "./store/api-actions";
 import {AuthorizationStatus} from "./const";
-import App from "./components/app/app";
 import {redirect} from "./store/middlewares/redirect";
+
+import App from "./components/app/app";
 
 
 const apiService = new ApiService();
@@ -21,7 +24,8 @@ const api = createAPI(
 );
 
 const store = createStore(
-    reducer,
+  // reducer,
+  rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
         applyMiddleware(redirect)

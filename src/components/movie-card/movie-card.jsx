@@ -68,11 +68,26 @@ MovieCard.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
+// const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
+//   return {
+//     promoFilm,
+//     currentFilm,
+//     authorizationStatus
+//   };
+// };
+
+// const mapStateToProps = ({film, user}) => {
+//   return {
+//     promoFilm: film.promoFilm,
+//     currentFilm: film.currentFilm,
+//     authorizationStatus: user.authorizationStatus
+//   };
+// };
+const mapStateToProps = ({USER, FILM}) => {
   return {
-    promoFilm,
-    currentFilm,
-    authorizationStatus
+    promoFilm: FILM.promoFilm,
+    currentFilm: FILM.currentFilm,
+    authorizationStatus: USER.authorizationStatus
   };
 };
 

@@ -12,7 +12,6 @@ import FilmOverview from "../film-overview/film-overview";
 import FilmDetails from "../film-details/film-details";
 import FilmReviews from "../film-reviews/film-reviews";
 import LoadingScreen from '../loading-screen/loading-screen';
-import NotFound from "../not-found/not-found";
 
 const apiService = new ApiService();
 
@@ -26,13 +25,7 @@ const FilmContainer = ({
   filmId,
   resetFilm,
   filmsToShow,
-  isFilmFound
 }) => {
-
-  console.log(films)
-  // if (!isFilmFound) {
-  //   return <NotFound />;
-  // }
 
   useEffect(() => {
     if (!currentFilm) {
@@ -121,33 +114,52 @@ FilmContainer.propTypes = {
   filmId: PropTypes.number.isRequired,
   resetFilm: PropTypes.func.isRequired,
   filmsToShow: PropTypes.number.isRequired,
-  isFilmFound: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({
-  filteredFilms,
-  currentFilm,
-  authorizationStatus,
-  currentFilmComments,
-  currentFilmId,
-  filmsToShow,
-  isFilmFound}) => {
+// const mapStateToProps = ({
+//   filteredFilms,
+//   currentFilm,
+//   authorizationStatus,
+//   currentFilmComments,
+//   currentFilmId,
+//   filmsToShow}) => {
+//   return {
+//     currentFilm,
+//     films: filteredFilms,
+//     authorizationStatus,
+//     currentFilmComments,
+//     currentFilmId,
+//     filmsToShow,
+//   };
+// };
+
+const mapStateToProps = ({FILM, ALL_FILMS, USER}) => {
   return {
-    currentFilm,
-    films: filteredFilms,
-    authorizationStatus,
-    currentFilmComments,
-    currentFilmId,
-    filmsToShow,
-    isFilmFound
+    currentFilm: FILM.currentFilm,
+    currentFilmComments: FILM.currentFilmComments,
+    currentFilmId: FILM.currentFilmId,
+    films: ALL_FILMS.filteredFilms,
+    filmsToShow: ALL_FILMS.filmsToShow,
+    authorizationStatus: USER.authorizationStatus,
   };
 };
+
+
+// const mapStateToProps = ({REDUCER}) => {
+//   return {
+//     currentFilm: REDUCER.currentFilm,
+//     films: REDUCER.filteredFilms,
+//     authorizationStatus: REDUCER.authorizationStatus,
+//     currentFilmComments: REDUCER.currentFilmComments,
+//     currentFilmId: REDUCER.currentFilmId,
+//     filmsToShow: REDUCER.filmsToShow,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmsData(id) {
     dispatch(apiService.fetchFilm(id));
     dispatch(apiService.fetchFilmComments(id));
-    // dispatch(apiService.fetchFilmId(id));
     dispatch(apiService.fetchFilmsList());
   },
   resetFilm() {

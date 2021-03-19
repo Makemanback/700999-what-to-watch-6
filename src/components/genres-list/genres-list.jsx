@@ -3,28 +3,12 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../store/action';
-import filmProp from '../film/film.prop';
 
 import GenreItem from '../genre-item/genre-item';
-import LoadingScreen from '../loading-screen/loading-screen';
 
-const GenresList = ({changeGenre, genres, films}) => {
-
+const GenresList = ({changeGenre, genres}) => {
 
   const [activeTab, setActive] = useState(0);
-
-  useEffect(() => {
-    if (!films) {
-      loadMovieData(filmId);
-    }
-  }, [films]);
-
-
-  if (!films) {
-    return (
-      <LoadingScreen />
-    );
-  }
 
   const changeGenreHandler = (evt) => {
     evt.preventDefault();
@@ -55,10 +39,15 @@ GenresList.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-const mapStateToProps = ({genres, filteredFilms}) => ({
-  genres,
-  films: filteredFilms,
+// const mapStateToProps = ({genres}) => ({
+//   genres
+// });
+const mapStateToProps = ({GENRES}) => ({
+  genres: GENRES.genres,
 });
+// const mapStateToProps = ({REDUCER}) => ({
+//   genres: REDUCER.genres,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   changeGenre(genre) {
