@@ -6,9 +6,10 @@ const CatalogMore = () => {
 
   const dispatch = useDispatch();
 
-  const {filteredFilms: films, filmsToShow} = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const filmsToShow = useSelector(({ALL_FILMS}) => ALL_FILMS.filmsToShow);
+  const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
 
-  if (filmsToShow > films.length) {
+  if (filmsToShow > filteredFilms.length) {
     return null;
   }
 

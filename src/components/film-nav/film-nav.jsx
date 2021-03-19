@@ -1,28 +1,54 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {Path} from "../../const";
 
+import {Path} from '../../const';
 
-const FilmNav = ({path, id}) => {
+const FilmNav = ({
+  id,
+  movieOverview,
+  movieDetails,
+  movieReviews,
+  activeTab,
+  setActiveTab}) => {
 
-  const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
   const link = `link`;
   const item = `item`;
+  const FilmTab = {
+    OVERVIEW: `FilmOverview`,
+    DETAILS: `FilmDetails`,
+    REVIEWS: `FilmReviews`
+  };
+  const {FILMS} = Path;
 
-  const getClass = (way, name) => path === way ? `movie-nav__${name} movie-nav__item--active` : `movie-nav__${name}`;
+  const getClass = (way, name) => activeTab.type.name === way ? `movie-nav__${name} movie-nav__item--active` : `movie-nav__${name}`;
 
   return (
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
-        <li className={getClass(FILM_ID, item)}>
-          <Link to={`/films/${id}`} className={getClass(FILM_ID, link)}>Overview</Link>
+        <li className={getClass(FilmTab.OVERVIEW, item)}>
+          <Link
+            to={FILMS + id}
+            onClick={() => setActiveTab(movieOverview)}
+            className={getClass(FilmTab.OVERVIEW, link)}>
+              Overview
+          </Link>
         </li>
-        <li className={getClass(MOVIE_DETAILS, item)}>
-          <Link to={`/films/${id}/details`} className={getClass(MOVIE_DETAILS, link)}>Details</Link>
+        <li className={getClass(FilmTab.DETAILS, item)}>
+          <Link
+            to={FILMS + id}
+            onClick={() => setActiveTab(movieDetails)}
+            className={getClass(FilmTab.DETAILS, link)}>
+              Details
+          </Link>
         </li>
-        <li className={getClass(MOVIE_REVIEWS, item)}>
-          <Link to={`/films/${id}/reviews`} className={getClass(MOVIE_REVIEWS, link)}>Reviews</Link>
+        <li className={getClass(FilmTab.REVIEWS, item)}>
+          <Link
+            to={FILMS + id}
+            onClick={() => setActiveTab(movieReviews)}
+            className={getClass(FilmTab.REVIEWS, link)}>
+              Reviews
+          </Link>
         </li>
       </ul>
     </nav>
@@ -30,8 +56,12 @@ const FilmNav = ({path, id}) => {
 };
 
 FilmNav.propTypes = {
-  path: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  movieDetails: PropTypes.object.isRequired,
+  movieOverview: PropTypes.object.isRequired,
+  movieReviews: PropTypes.object.isRequired,
+  activeTab: PropTypes.object.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
 };
 
 export default FilmNav;

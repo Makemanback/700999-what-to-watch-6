@@ -1,17 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import FilmNav from "../film-nav/film-nav";
+
 import filmProp from "../film/film.prop";
 import {timeConvert} from '../../utils';
 
-const FilmDetails = ({film, path}) => {
+const FilmDetails = ({film}) => {
 
-  const {genre, released, director, starring, runTime, id} = film;
+  const {genre, released, director, starring, runTime} = film;
 
   return (
-    <React.Fragment>
-      <FilmNav id={id} path={path} />
-
+    <>
       <div className="movie-card__text movie-card__row">
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
@@ -47,12 +44,11 @@ const FilmDetails = ({film, path}) => {
           </p>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
 FilmDetails.propTypes = {
-  path: PropTypes.string.isRequired,
   film: filmProp.isRequired,
 };
 

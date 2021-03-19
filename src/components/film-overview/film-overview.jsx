@@ -1,16 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-import FilmNav from "../film-nav/film-nav";
 import filmProp from "../film/film.prop";
 import {filmLevel} from '../../utils';
 
-const FilmOverview = ({path, film}) => {
-  const {rating, director, starring, description, id, scoresCount} = film;
+const FilmOverview = ({film}) => {
+  const {rating, director, starring, description, scoresCount} = film;
 
   return (
-    <React.Fragment>
-      <FilmNav id={id} path={path} />
-
+    <>
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
@@ -35,12 +31,11 @@ const FilmOverview = ({path, film}) => {
           </strong>
         </p>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
 FilmOverview.propTypes = {
-  path: PropTypes.string.isRequired,
   film: filmProp.isRequired,
 };
 

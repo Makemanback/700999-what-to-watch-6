@@ -4,19 +4,16 @@ import moment from 'moment';
 
 import reviewsProp from "./reviews.prop";
 
-import FilmNav from "../film-nav/film-nav";
-
-const FilmReviews = ({path, reviews, id}) => {
+const FilmReviews = ({reviews}) => {
   if (!reviews) {
-    return <FilmNav id={id} path={path} />;
+    return null;
   }
 
   const startReviews = reviews.slice(0, Math.round((reviews.length / 2)));
   const endReviews = reviews.slice(Math.round((reviews.length / 2)));
 
   return (
-    <React.Fragment>
-      <FilmNav id={id} path={path} />
+    <>
       <div className="movie-card__reviews movie-card__row">
         {reviews.length === 1
           ? <div className="movie-card__reviews-col">
@@ -74,12 +71,11 @@ const FilmReviews = ({path, reviews, id}) => {
           </React.Fragment>
         }
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
 FilmReviews.propTypes = {
-  path: PropTypes.string.isRequired,
   reviews: PropTypes.arrayOf(reviewsProp),
   id: PropTypes.number
 };

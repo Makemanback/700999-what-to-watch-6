@@ -16,7 +16,7 @@ const PageLogo = <Logo />;
 
 const AddReview = ({filmId}) => {
 
-  const {currentFilm} = useSelector(({FILM}) => FILM);
+  const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
 
   const dispatch = useDispatch();
 
@@ -39,12 +39,6 @@ const AddReview = ({filmId}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // dispatch(apiService.pushComment(commentData));
-    // postComment({
-    //   id: filmId,
-    //   comment: textComment,
-    //   rating: +commentRating
-    // });
     dispatch(apiService.pushComment({
       id: filmId,
       comment: textComment,
