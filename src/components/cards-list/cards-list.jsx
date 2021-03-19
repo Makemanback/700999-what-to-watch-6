@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, memo} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from '../film/film.prop';
@@ -7,7 +7,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import SmallCardContainer from "../small-card/small-card";
 
 const CardsList = ({films, loadMovieData, filmId}) => {
-
+  console.log(films, filmId)
   useEffect(() => {
     if (!films) {
       loadMovieData(filmId);
@@ -42,5 +42,13 @@ CardsList.propTypes = {
   filmId: PropTypes.number,
 };
 
-export default CardsList;
+// export default CardsList;
 
+
+
+export default memo(
+  CardsList,
+  ({films, loadMovieData, filmId},
+      {films: nextFilms, loadMovieData: nextLoadMovieData, filmId: nextFilmId}) => {
+    return films === nextFilms && loadMovieData === nextLoadMovieData && filmId === nextFilmId;
+  });
