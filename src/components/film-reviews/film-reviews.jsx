@@ -11,18 +11,16 @@ const FilmReviews = ({path, reviews, id}) => {
     return <FilmNav id={id} path={path} />;
   }
 
-  const comments = reviews;
-
-  const startReviews = comments.slice(0, Math.round((comments.length / 2)));
-  const endReviews = comments.slice(Math.round((comments.length / 2)));
+  const startReviews = reviews.slice(0, Math.round((reviews.length / 2)));
+  const endReviews = reviews.slice(Math.round((reviews.length / 2)));
 
   return (
     <React.Fragment>
       <FilmNav id={id} path={path} />
       <div className="movie-card__reviews movie-card__row">
-        {comments.length === 1
+        {reviews.length === 1
           ? <div className="movie-card__reviews-col">
-            {comments.map(({comment, user, rating, date, reviewId}) => (
+            {reviews.map(({comment, user, rating, date, reviewId}) => (
               <div className="review" key={reviewId}>
                 <blockquote className="review__quote">
                   <p className="review__text">{comment}</p>

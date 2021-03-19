@@ -9,7 +9,7 @@ import filmProp from '../film/film.prop';
 
 const apiService = new ApiService();
 
-const Catalog = ({films, isDataLoaded, filmsToShow, loadFilmData}) => {
+const Catalog = ({films, filmsToShow, loadFilmData}) => {
 
   const filmsShow = films.slice(0, filmsToShow);
 
@@ -20,7 +20,6 @@ const Catalog = ({films, isDataLoaded, filmsToShow, loadFilmData}) => {
       <GenresList />
       <CardsList
         films={filmsShow}
-        isDataLoaded={isDataLoaded}
         filmsToShow={filmsToShow}
         loadMovieData={loadFilmData} />
       <CatalogMore />
@@ -31,15 +30,13 @@ const Catalog = ({films, isDataLoaded, filmsToShow, loadFilmData}) => {
 
 Catalog.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
   loadFilmData: PropTypes.func.isRequired,
   filmsToShow: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({filteredFilms, isDataLoaded, filmsToShow}) => {
+const mapStateToProps = ({filteredFilms, filmsToShow}) => {
   return {
     films: filteredFilms,
-    isDataLoaded,
     filmsToShow,
   };
 };

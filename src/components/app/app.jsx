@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
+
+import {Path} from '../../const';
+import browserHistory from "../../browser-history";
+
+
 import Main from "../main/main";
 import AddReview from '../add-review/add-review';
-import Film from '../film/film';
+import FilmContainer from '../film-container/film-container';
 // import MyList from '../my-list/my-list';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
 import PrivateRoute from '../private-route/private-route';
-import {Path} from '../../const';
-import browserHistory from "../../browser-history";
 
 const App = () => {
 
@@ -21,7 +24,7 @@ const App = () => {
           const {path} = match;
           const filmId = +match.params.id;
 
-          return <Film path={path} filmId={filmId} />;
+          return <FilmContainer path={path} filmId={filmId} />;
         }}
       />
     );

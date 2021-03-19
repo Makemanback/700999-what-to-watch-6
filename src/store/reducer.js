@@ -7,7 +7,8 @@ const initialState = {
   filmsToShow: FILMS_ON_SCREEN,
   authorizationStatus: AuthorizationStatus.AUTH,
 
-  allFilms: [],
+  // allFilms: [],
+  allFilms: null,
   filteredFilms: [],
   genres: [],
 
@@ -16,7 +17,7 @@ const initialState = {
   currentFilmComments: null,
   currentFilmId: null,
 
-  isDataLoaded: false,
+  // isDataLoaded: false,
   isFilmFound: true,
 };
 
@@ -34,7 +35,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         allFilms: action.payload,
         filteredFilms: action.payload,
-        isDataLoaded: true
+        // isDataLoaded: true
       });
 
     case ActionType.CHANGE_GENRE:
@@ -90,14 +91,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         ...state,
         promoFilm: action.payload,
-        isDataLoaded: true,
+        // isDataLoaded: true,
         isFilmFound: true,
-      });
-
-    case ActionType.LOADING:
-      return extend(state, {
-        ...state,
-        isDataLoaded: false
       });
 
     case ActionType.RESET_FILM:
