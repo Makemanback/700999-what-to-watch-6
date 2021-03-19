@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from "../../store/api-actions";
-import filmProp from "../film/film.prop";
-import {ActionCreator} from "../../store/action";
+import {resetFilm} from "../../store/action";
 import {Path} from "../../const";
 
 import Film from '../film/film';
@@ -15,25 +14,24 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const FilmContainer = ({
-  films,
-  currentFilm,
-  path,
-  loadFilmsData,
-  authorizationStatus,
-  currentFilmComments,
-  filmId,
-  resetFilm,
-  filmsToShow,
-}) => {
+const FilmContainer = ({path, filmId}) => {
 
+  const {currentFilm, currentFilmComments} = useSelector(({FILM}) => FILM);
+  const {filteredFilms: films, filmsToShow} = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const {authorizationStatus} = useSelector(({USER}) => USER);
+
+  const loadFilmsData = () => dispatch(apiService.fetchFilm(filmId));
+
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!currentFilm) {
       loadFilmsData(filmId);
+      dispatch(apiService.fetchFilmComments(filmId));
+      dispatch(apiService.fetchFilmsList());
     }
   }, [currentFilm, filmId]);
 
-  useEffect(() => () => resetFilm(), [filmId]);
+  useEffect(() => () => dispatch(resetFilm()), [filmId]);
 
 
   if (!currentFilm) {
@@ -105,66 +103,8 @@ const FilmContainer = ({
 };
 
 FilmContainer.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
   path: PropTypes.string.isRequired,
-  currentFilm: filmProp,
-  loadFilmsData: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  currentFilmComments: PropTypes.array,
   filmId: PropTypes.number.isRequired,
-  resetFilm: PropTypes.func.isRequired,
-  filmsToShow: PropTypes.number.isRequired,
 };
 
-// const mapStateToProps = ({
-//   filteredFilms,
-//   currentFilm,
-//   authorizationStatus,
-//   currentFilmComments,
-//   currentFilmId,
-//   filmsToShow}) => {
-//   return {
-//     currentFilm,
-//     films: filteredFilms,
-//     authorizationStatus,
-//     currentFilmComments,
-//     currentFilmId,
-//     filmsToShow,
-//   };
-// };
-
-const mapStateToProps = ({FILM, ALL_FILMS, USER}) => {
-  return {
-    currentFilm: FILM.currentFilm,
-    currentFilmComments: FILM.currentFilmComments,
-    currentFilmId: FILM.currentFilmId,
-    films: ALL_FILMS.filteredFilms,
-    filmsToShow: ALL_FILMS.filmsToShow,
-    authorizationStatus: USER.authorizationStatus,
-  };
-};
-
-
-// const mapStateToProps = ({REDUCER}) => {
-//   return {
-//     currentFilm: REDUCER.currentFilm,
-//     films: REDUCER.filteredFilms,
-//     authorizationStatus: REDUCER.authorizationStatus,
-//     currentFilmComments: REDUCER.currentFilmComments,
-//     currentFilmId: REDUCER.currentFilmId,
-//     filmsToShow: REDUCER.filmsToShow,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmsData(id) {
-    dispatch(apiService.fetchFilm(id));
-    dispatch(apiService.fetchFilmComments(id));
-    dispatch(apiService.fetchFilmsList());
-  },
-  resetFilm() {
-    dispatch(ActionCreator.resetFilm());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilmContainer);
+export default FilmContainer;

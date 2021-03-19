@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AuthorizationStatus, Path} from '../../const';
 
 const UserBlockAvatar = () => {
@@ -12,7 +11,9 @@ const UserBlockAvatar = () => {
   );
 };
 
-const UserBlock = ({authorizationStatus}) => {
+const UserBlock = () => {
+
+  const {authorizationStatus} = useSelector(({USER}) => USER);
 
   const signedIn = authorizationStatus === AuthorizationStatus.AUTH
     ? <UserBlockAvatar />
@@ -25,20 +26,4 @@ const UserBlock = ({authorizationStatus}) => {
   );
 };
 
-UserBlock.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-// const mapStateToProps = ({authorizationStatus}) => ({
-//   authorizationStatus,
-// });
-
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-});
-
-// const mapStateToProps = ({REDUCER}) => ({
-//   authorizationStatus: REDUCER.authorizationStatus,
-// });
-
-export default connect(mapStateToProps)(UserBlock);
+export default UserBlock;

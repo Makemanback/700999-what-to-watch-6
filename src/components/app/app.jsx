@@ -34,15 +34,6 @@ const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={Path.DEFAULT}
-          render={({match}) => {
-            const {path} = match;
-            const filmId = +match.params.id;
-
-            return <Main path={path} filmId={filmId} />;
-          }}
-        />
-
         <Route exact path={Path.DEFAULT}>
           <Main />;
         </Route>
@@ -61,16 +52,20 @@ const App = () => {
 
         <PrivateRoute exact path={Path.FILM_REVIEW}
           render={({match}) => {
-            const {path} = match;
             const filmId = +match.params.id;
 
-            return <AddReview path={path} filmId={filmId} />;
+            return <AddReview filmId={filmId} />;
           }}
         />
 
-        <PrivateRoute exact path={Path.PLAYER}>
-          <Player />
-        </PrivateRoute>
+        <PrivateRoute exact path={Path.PLAYER}
+          render={({match}) => {
+            const {path} = match;
+            const filmId = +match.params.id;
+
+            return <Player path={path} filmId={filmId} />;
+          }}
+        />
 
         <Route>
           <NotFound />

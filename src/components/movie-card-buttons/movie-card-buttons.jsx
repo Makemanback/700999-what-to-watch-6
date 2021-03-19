@@ -27,7 +27,7 @@ const MovieCardButtons = ({authorizationStatus, id}) => {
         </svg>
         <span>My list</span>
       </button>
-        {addReview}
+      {addReview}
     </div>
   );
 };
@@ -38,8 +38,8 @@ MovieCardButtons.propTypes = {
 };
 
 export default memo(
-  MovieCardButtons,
+    MovieCardButtons,
     ({authorizationStatus, id},
-    {authorizationStatus: nextAuthorizationStatus, id: nextId}) => {
-    return authorizationStatus === nextAuthorizationStatus && id === nextId;
-});
+        {authorizationStatus: nextAuthorizationStatus, id: nextId}) => {
+      return authorizationStatus === nextAuthorizationStatus && id === nextId;
+    });

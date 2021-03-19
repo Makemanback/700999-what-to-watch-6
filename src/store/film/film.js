@@ -1,45 +1,47 @@
-import {ActionType} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+
+import {getFilm, getFilmId, loadComments, loadPromoFilm, resetFilm} from '../action';
 
 const initialState = {
   promoFilm: null,
-  currentFilmComments: null,
   currentFilm: null,
   currentFilmId: null,
+  currentFilmComments: null,
 };
 
-const film = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.GET_FILM:
-      return extend(state, {
-        ...state,
-        currentFilm: action.payload,
-        currentFilmId: action.payload.id,
-      });
+const film = createReducer(initialState, (builder) => {
+  builder.addCase(getFilm, (state, action) => {
+    return {
+      ...state,
+      currentFilm: action.payload,
+      currentFilmId: action.payload.id,
+    };
+  });
+  builder.addCase(getFilmId, (state, action) => {
+    return {
+      ...state,
+      currentFilmId: action.payload,
+    };
+  });
+  builder.addCase(loadComments, (state, action) => {
+    return {
+      ...state,
+      currentFilmComments: action.payload,
+    };
+  });
+  builder.addCase(loadPromoFilm, (state, action) => {
+    return {
+      ...state,
+      promoFilm: action.payload,
+    };
+  });
+  builder.addCase(resetFilm, (state) => {
+    return {
+      ...state,
+      currentFilm: initialState.currentFilm
+    };
+  });
+});
 
-    case ActionType.GET_FILM_ID:
-      return extend(state, {
-        ...state,
-        currentFilmId: action.payload,
-      });
-
-    case ActionType.GET_COMMENTS:
-      return extend(state, {
-        ...state,
-        currentFilmComments: action.payload,
-      });
-
-    case ActionType.GET_PROMO_FILM:
-      return extend(state, {
-        ...state,
-        promoFilm: action.payload,
-      });
-
-    case ActionType.RESET_FILM:
-      return extend(state, {
-        ...state,
-        currentFilm: initialState.currentFilm
-      });
-    }
-}
 
 export {film};

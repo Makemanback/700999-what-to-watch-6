@@ -15,8 +15,8 @@ const GenreItem = ({itemClass, index, changeGenreHandler, genre, setActive}) => 
         {genre}
       </Link>
     </li>
-  )
-}
+  );
+};
 
 GenreItem.propTypes = {
   itemClass: PropTypes.string.isRequired,
@@ -24,6 +24,6 @@ GenreItem.propTypes = {
   changeGenreHandler: PropTypes.func.isRequired,
   genre: PropTypes.string.isRequired,
   setActive: PropTypes.func.isRequired
-}
+};
 
 export default GenreItem;

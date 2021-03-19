@@ -1,4 +1,13 @@
-import {ActionCreator} from "./action";
+import {
+  loadFilms,
+  setGenres,
+  getFilm,
+  getFilmId,
+  loadComments,
+  loadPromoFilm,
+  requireAuthorization,
+  redirectToRoute
+} from "./action";
 import {AuthorizationStatus, Genre, Path} from "../const";
 import browserHistory from '../browser-history';
 
@@ -8,14 +17,14 @@ export default class ApiService {
       api
         .get(Path.FILMS)
         .then(({data}) => data.map(ApiService.adaptToClient))
-        .then((films) => dispatch(ActionCreator.loadFilms(films)))
+        .then((films) => dispatch(loadFilms(films)))
         .then(({payload}) => {
           const genres = [...new Set(
               payload
           .map(({genre}) => genre)
           )];
           genres.unshift(Genre.ALL_GENRES);
-          dispatch(ActionCreator.setGenres(genres));
+          dispatch(setGenres(genres));
         });
   }
 
@@ -24,7 +33,7 @@ export default class ApiService {
       api
         .get(Path.FILMS + id)
         .then(({data}) => ApiService.adaptToClient(data))
-        .then((film) => dispatch(ActionCreator.getFilm(film)))
+        .then((film) => dispatch(getFilm(film)))
         .catch(() => browserHistory.push(Path.NOT_FOUND));
   }
 
@@ -32,7 +41,7 @@ export default class ApiService {
     return (dispatch, _getState, api) =>
       api
         .get(Path.FILMS + id)
-        .then(({data}) => dispatch(ActionCreator.getFilmId(data.id)));
+        .then(({data}) => dispatch(getFilmId(data.id)));
   }
 
   fetchFilmComments(id) {
@@ -40,7 +49,7 @@ export default class ApiService {
       api
         .get(Path.COMMENTS + id)
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
-        .then((comments) => dispatch(ActionCreator.loadComments(comments)));
+        .then((comments) => dispatch(loadComments(comments)));
   }
 
   fetchPromoFilm() {
@@ -48,14 +57,14 @@ export default class ApiService {
       api
       .get(Path.FILM_PROMO)
       .then(({data}) => ApiService.adaptToClient(data))
-      .then((film) => dispatch(ActionCreator.loadPromoFilm(film)));
+      .then((film) => dispatch(loadPromoFilm(film)));
   }
 
   checkAuth() {
     return (dispatch, _getState, api) => (
       api
         .get(Path.LOGIN)
-        .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+        .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
         .catch(() => {})
     );
   }
@@ -64,8 +73,8 @@ export default class ApiService {
 
     return (dispatch, _getState, api) => (
       api.post(Path.LOGIN, {email, password})
-        .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-        .then(() => dispatch(ActionCreator.redirectToRoute(Path.DEFAULT)))
+        .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+        .then(() => dispatch(redirectToRoute(Path.DEFAULT)))
     );
   }
 
@@ -74,8 +83,8 @@ export default class ApiService {
     return (dispatch, _getState, api) => (
       api.post(Path.COMMENTS + id, {comment, rating})
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
-        .then((comments) => dispatch(ActionCreator.loadComments(comments)))
-        .then(() => dispatch(ActionCreator.redirectToRoute(Path.FILMS + id + Path.REVIEWS)))
+        .then((comments) => dispatch(loadComments(comments)))
+        .then(() => dispatch(redirectToRoute(Path.FILMS + id + Path.REVIEWS)))
     );
   }
 

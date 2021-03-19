@@ -1,11 +1,9 @@
-import React, {useEffect, useState, useMemo} from "react";
-import {connect} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import ApiService from "../../store/api-actions";
-import filmProp from "../film/film.prop";
-import {ActionCreator} from "../../store/action";
 
 import Logo from '../logo/logo';
 import Rating from "../rating/rating";
@@ -14,20 +12,20 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const PageLogo = <Logo />
+const PageLogo = <Logo />;
 
-const AddReview = ({
-  currentFilm,
-  filmId,
-  loadFilmsData,
-  postComment}) => {
+const AddReview = ({filmId}) => {
+
+  const {currentFilm} = useSelector(({FILM}) => FILM);
+
+  const dispatch = useDispatch();
 
   const [textComment, setTextComment] = useState(null);
   const [commentRating, setCommentRating] = useState(null);
 
   useEffect(() => {
     if (!currentFilm) {
-      loadFilmsData(filmId);
+      dispatch(apiService.fetchFilm(filmId));
     }
   }, [currentFilm, filmId]);
 
@@ -41,12 +39,17 @@ const AddReview = ({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    postComment({
+    // dispatch(apiService.pushComment(commentData));
+    // postComment({
+    //   id: filmId,
+    //   comment: textComment,
+    //   rating: +commentRating
+    // });
+    dispatch(apiService.pushComment({
       id: filmId,
       comment: textComment,
       rating: +commentRating
-    });
+    }));
   };
 
   return (
@@ -114,37 +117,7 @@ const AddReview = ({
 };
 
 AddReview.propTypes = {
-  title: PropTypes.string,
-  currentFilm: filmProp,
-  loadFilmsData: PropTypes.func.isRequired,
-  postComment: PropTypes.func.isRequired,
-  setCommentText: PropTypes.func.isRequired,
   filmId: PropTypes.number.isRequired
 };
 
-// const mapStateToProps = ({currentFilm}) => ({
-//   currentFilm
-// });
-
-const mapStateToProps = ({FILM}) => ({
-  currentFilm: FILM.currentFilm,
-});
-
-// const mapStateToProps = ({REDUCER}) => ({
-//   currentFilm: REDUCER.currentFilm,
-// });
-
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmsData(id) {
-    dispatch(apiService.fetchFilm(id));
-  },
-  postComment(commentData) {
-    dispatch(apiService.pushComment(commentData));
-  },
-  setCommentText(text) {
-    dispatch(ActionCreator.setCommentText(text));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+export default AddReview;

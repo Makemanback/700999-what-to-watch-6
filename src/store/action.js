@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE: `SHOW_MORE`,
@@ -12,47 +14,59 @@ export const ActionType = {
   RESET_FILM: `RESET_FILM`,
 };
 
-export const ActionCreator = {
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => {
+  return {
     payload: films
-  }),
-  changeGenre: (activeGenre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: activeGenre,
-  }),
-  showMore: () => ({
-    type: ActionType.SHOW_MORE,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  setGenres: (genres) => ({
-    type: ActionType.SET_GENRES,
-    payload: genres
-  }),
-  getFilm: (film) => ({
-    type: ActionType.GET_FILM,
+  };
+});
+
+export const getFilm = createAction(ActionType.GET_FILM, (film) => {
+  return {
     payload: film
-  }),
-  getFilmId: (id) => ({
-    type: ActionType.GET_FILM_ID,
+  };
+});
+
+export const getFilmId = createAction(ActionType.GET_FILM_ID, (id) => {
+  return {
     payload: id
-  }),
-  loadPromoFilm: (film) => ({
-    type: ActionType.GET_PROMO_FILM,
+  };
+});
+
+export const loadPromoFilm = createAction(ActionType.GET_PROMO_FILM, (film) => {
+  return {
     payload: film
-  }),
-  loadComments: (comments) => ({
-    type: ActionType.GET_COMMENTS,
+  };
+});
+
+export const loadComments = createAction(ActionType.GET_COMMENTS, (comments) => {
+  return {
     payload: comments
-  }),
-  resetFilm: () => ({
-    type: ActionType.RESET_FILM
-  }),
-};
+  };
+});
+
+export const setGenres = createAction(ActionType.SET_GENRES, (genres) => {
+  return {
+    payload: genres
+  };
+});
+
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (activeGenre) => {
+  return {
+    payload: activeGenre
+  };
+});
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => {
+  return {
+    payload: status,
+  };
+});
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
+    payload: url
+  };
+});
+
+export const resetFilm = createAction(ActionType.RESET_FILM);
+export const showMore = createAction(ActionType.SHOW_MORE);

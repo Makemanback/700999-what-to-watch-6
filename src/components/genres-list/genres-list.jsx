@@ -1,19 +1,22 @@
-import React, {useState, useEffect, memo, useCallback} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
-import {ActionCreator} from '../../store/action';
+import {changeGenre} from '../../store/action';
 
 import GenreItem from '../genre-item/genre-item';
 
-const GenresList = ({changeGenre, genres}) => {
+const GenresList = () => {
+
+  const {genres} = useSelector(({GENRES}) => GENRES);
+
+  const dispatch = useDispatch();
 
   const [activeTab, setActive] = useState(0);
 
   const changeGenreHandler = (evt) => {
     evt.preventDefault();
     const {target} = evt;
-    changeGenre(target.innerText);
+    dispatch(changeGenre(target.innerText));
   };
 
   return (
@@ -34,26 +37,4 @@ const GenresList = ({changeGenre, genres}) => {
   );
 };
 
-GenresList.propTypes = {
-  changeGenre: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};
-
-// const mapStateToProps = ({genres}) => ({
-//   genres
-// });
-const mapStateToProps = ({GENRES}) => ({
-  genres: GENRES.genres,
-});
-// const mapStateToProps = ({REDUCER}) => ({
-//   genres: REDUCER.genres,
-// });
-
-const mapDispatchToProps = (dispatch) => ({
-  changeGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-  },
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default GenresList;

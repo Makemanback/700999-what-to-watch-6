@@ -1,19 +1,20 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from "../../store/api-actions";
-import filmProp from '../film/film.prop';
 
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
-import { allFilms } from '../../store/all-films/all-films';
-
 
 const apiService = new ApiService();
 
-const Catalog = ({films, filmsToShow, loadFilmData}) => {
+const Catalog = () => {
+
+  const {filteredFilms: films, filmsToShow} = useSelector(({ALL_FILMS}) => ALL_FILMS);
+
+  const dispatch = useDispatch();
+  const loadFilmData = () => dispatch(apiService.fetchFilmsList());
 
   const filmsShow = films.slice(0, filmsToShow);
 
@@ -32,37 +33,4 @@ const Catalog = ({films, filmsToShow, loadFilmData}) => {
   );
 };
 
-Catalog.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
-  loadFilmData: PropTypes.func.isRequired,
-  filmsToShow: PropTypes.number.isRequired,
-};
-
-// const mapStateToProps = ({filteredFilms, filmsToShow}) => {
-//   return {
-//     films: filteredFilms,
-//     filmsToShow
-//   };
-// };
-
-const mapStateToProps = ({ALL_FILMS}) => {
-  return {
-    films: ALL_FILMS.filteredFilms,
-    filmsToShow: ALL_FILMS.filmsToShow,
-  };
-};
-
-// const mapStateToProps = ({REDUCER}) => {
-//   return {
-//     films: REDUCER.filteredFilms,
-//     filmsToShow: REDUCER.filmsToShow
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmData() {
-    dispatch(apiService.fetchFilmsList());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
+export default Catalog;

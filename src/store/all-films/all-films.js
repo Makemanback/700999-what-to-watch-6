@@ -1,4 +1,6 @@
-import {ActionType} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+
+import {changeGenre, loadFilms, showMore} from '../action';
 import {Genre, FILMS_ON_SCREEN} from '../../const';
 
 const initialState = {
@@ -8,29 +10,34 @@ const initialState = {
   filteredFilms: [],
 };
 
-const allFilms = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.LOAD_FILMS:
-      return extend(state, {
-        ...state,
-        allFilms: action.payload,
-        filteredFilms: action.payload,
-      });
+const filterFilms = (genre, allFilms) => {
+  return genre === Genre.ALL_GENRES ?
+    allFilms :
+    allFilms.filter((film) => film.genre === genre);
+};
 
-      case ActionType.CHANGE_GENRE:
-        return extend(state, {
-          ...state,
-          activeGenre: action.payload,
-          filteredFilms: filterFilms(action.payload, state.allFilms),
-          filmsToShow: FILMS_ON_SCREEN
-        });
-
-      case ActionType.SHOW_MORE:
-        return extend(state, {
-          ...state,
-          filmsToShow: state.filmsToShow + FILMS_ON_SCREEN
-        });
-    }
-}
+const allFilms = createReducer(initialState, (builder) => {
+  builder.addCase(loadFilms, (state, action) => {
+    return {
+      ...state,
+      allFilms: action.payload,
+      filteredFilms: action.payload,
+    };
+  });
+  builder.addCase(changeGenre, (state, action) => {
+    return {
+      ...state,
+      activeGenre: action.payload,
+      filteredFilms: filterFilms(action.payload, state.allFilms),
+      filmsToShow: FILMS_ON_SCREEN
+    };
+  });
+  builder.addCase(showMore, (state) => {
+    return {
+      ...state,
+      filmsToShow: state.filmsToShow + FILMS_ON_SCREEN
+    };
+  });
+});
 
 export {allFilms};
