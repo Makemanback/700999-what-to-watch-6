@@ -147,7 +147,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadFilmsData(id) {
     dispatch(apiService.fetchFilm(id));
     dispatch(apiService.fetchFilmComments(id));
-    dispatch(apiService.fetchFilmId(id));
+    // dispatch(apiService.fetchFilmId(id));
     dispatch(apiService.fetchFilmsList());
   },
   resetFilm() {
