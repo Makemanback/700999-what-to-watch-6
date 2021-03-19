@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from "./film.prop";
@@ -8,6 +8,7 @@ import Logo from '../logo/logo';
 import CardsList from '../cards-list/cards-list';
 import MovieCardButtons from '../movie-card-buttons/movie-card-buttons';
 import UserBlock from '../user-block/user-block';
+import FilmNav from "../film-nav/film-nav";
 
 const PageLogo = <Logo />;
 const User = <UserBlock />;
@@ -28,7 +29,10 @@ const Film = ({
   poster,
   filmGenre,
   released,
+  id,
 }) => {
+
+  const [activeTab, setActiveTab] = useState(movieOverview);
 
   return (
     <React.Fragment>
@@ -70,9 +74,15 @@ const Film = ({
 
             <div className="movie-card__desc">
 
-              {movieOverview}
-              {movieDetails}
-              {movieReviews}
+              <FilmNav
+                id={id}
+                setActiveTab={setActiveTab}
+                movieOverview={movieOverview}
+                movieDetails={movieDetails}
+                movieReviews={movieReviews}
+                activeTab={activeTab} />
+
+              {activeTab}
 
             </div>
           </div>
@@ -112,6 +122,7 @@ Film.propTypes = {
   filmGenre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
   filmId: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default Film;

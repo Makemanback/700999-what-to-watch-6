@@ -11,12 +11,13 @@ const apiService = new ApiService();
 
 const Catalog = () => {
 
-  const {filteredFilms: films, filmsToShow} = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const filmsToShow = useSelector(({ALL_FILMS}) => ALL_FILMS.filmsToShow);
+  const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
 
   const dispatch = useDispatch();
   const loadFilmData = () => dispatch(apiService.fetchFilmsList());
 
-  const filmsShow = films.slice(0, filmsToShow);
+  const filmsShow = filteredFilms.slice(0, filmsToShow);
 
   return (
     <section className="catalog">

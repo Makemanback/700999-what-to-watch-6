@@ -4,7 +4,6 @@ import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from "../../store/api-actions";
 import {resetFilm} from "../../store/action";
-import {Path} from "../../const";
 
 import Film from '../film/film';
 import FilmOverview from "../film-overview/film-overview";
@@ -16,13 +15,19 @@ const apiService = new ApiService();
 
 const FilmContainer = ({path, filmId}) => {
 
-  const {currentFilm, currentFilmComments} = useSelector(({FILM}) => FILM);
-  const {filteredFilms: films, filmsToShow} = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
+  const currentFilmComments = useSelector(({FILM}) => FILM.currentFilmComments);
+
+  const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
+  const filmsToShow = useSelector(({ALL_FILMS}) => ALL_FILMS.filmsToShow);
+
   const {authorizationStatus} = useSelector(({USER}) => USER);
 
   const loadFilmsData = () => dispatch(apiService.fetchFilm(filmId));
 
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!currentFilm) {
       loadFilmsData(filmId);
@@ -52,35 +57,19 @@ const FilmContainer = ({path, filmId}) => {
     backgroundImg
   } = film;
 
+  const movieOverview = <FilmOverview film={film}/>;
 
-  const exactFilms = films
+  const movieDetails = <FilmDetails film={film} />;
+
+  const movieReviews = <FilmReviews
+    reviews={currentFilmComments}
+    id={id}
+  />;
+
+
+  const exactFilms = filteredFilms
     .filter(({genre}) => genre === filmGenre)
     .slice(0, 4);
-
-
-  const {FILM_ID, MOVIE_DETAILS, MOVIE_REVIEWS} = Path;
-
-  const movieOverview = path === FILM_ID
-    ? <FilmOverview
-      film={film}
-      path={path}
-    />
-    : null;
-
-  const movieDetails = path === MOVIE_DETAILS
-    ? <FilmDetails
-      film={film}
-      path={path}
-    />
-    : null;
-
-  const movieReviews = path === MOVIE_REVIEWS
-    ? <FilmReviews
-      path={path}
-      reviews={currentFilmComments}
-      id={id}
-    />
-    : null;
 
 
   return (
@@ -98,7 +87,9 @@ const FilmContainer = ({path, filmId}) => {
       movieOverview={movieOverview}
       movieReviews={movieReviews}
       movieDetails={movieDetails}
-      filmId={filmId} />
+      filmId={filmId}
+      path={path}
+      id={id} />
   );
 };
 
