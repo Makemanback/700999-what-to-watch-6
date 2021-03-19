@@ -79,6 +79,7 @@ const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
 const mapDispatchToProps = (dispatch) => ({
   loadFilmsData() {
     dispatch(apiService.fetchPromoFilm());
+    dispatch(apiService.fetchFilmsList());
   },
 });
 

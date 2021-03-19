@@ -29,7 +29,7 @@ const FilmContainer = ({
   isFilmFound
 }) => {
 
-
+  console.log(films)
   // if (!isFilmFound) {
   //   return <NotFound />;
   // }

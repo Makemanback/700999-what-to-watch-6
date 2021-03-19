@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from '../film/film.prop';
+
 import LoadingScreen from '../loading-screen/loading-screen';
 import SmallCardContainer from "../small-card/small-card";
 

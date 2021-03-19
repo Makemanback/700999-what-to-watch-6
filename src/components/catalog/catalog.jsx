@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+
+import ApiService from "../../store/api-actions";
+import filmProp from '../film/film.prop';
+
 import GenresList from '../genres-list/genres-list';
 import CardsList from '../cards-list/cards-list';
 import CatalogMore from '../catalog-more/catalog-more';
-import ApiService from "../../store/api-actions";
-import filmProp from '../film/film.prop';
+
 
 const apiService = new ApiService();
 
