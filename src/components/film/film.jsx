@@ -94,7 +94,6 @@ const Film = ({
 
           <CardsList
             films={exactFilms}
-            filmsToShow={filmsToShow}
             loadMovieData={loadFilmsData}
             filmId={filmId} />
 
