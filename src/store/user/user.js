@@ -4,20 +4,9 @@ import {requireAuthorization} from '../action';
 import {AuthorizationStatus} from '../../const';
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  // authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.AUTH,
 };
-
-// const user = (state = initialState, action) => {
-//   switch (action.type) {
-//     case ActionType.REQUIRED_AUTHORIZATION:
-//       return {
-//         ...state,
-//         authorizationStatus: action.payload,
-//       };
-//   }
-
-//   return state;
-// };
 
 const user = createReducer(initialState, (builder) => {
   builder.addCase(requireAuthorization, (state, action) => {

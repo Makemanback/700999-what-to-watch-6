@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {changeGenre, loadFilms, showMore} from '../action';
+import {changeGenre, loadFavorite, loadFilms, showMore} from '../action';
 import {Genre, FILMS_ON_SCREEN} from '../../const';
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
   filmsToShow: FILMS_ON_SCREEN,
   allFilms: null,
   filteredFilms: [],
+  favoriteFilms: null,
 };
 
 const filterFilms = (genre, allFilms) => {
@@ -22,6 +23,12 @@ const allFilms = createReducer(initialState, (builder) => {
       ...state,
       allFilms: action.payload,
       filteredFilms: action.payload,
+    };
+  });
+  builder.addCase(loadFavorite, (state) => {
+    return {
+      ...state,
+      favoriteFilms: action.payload
     };
   });
   builder.addCase(changeGenre, (state, action) => {

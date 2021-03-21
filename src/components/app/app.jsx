@@ -9,27 +9,13 @@ import browserHistory from "../../browser-history";
 import Main from "../main/main";
 import AddReview from '../add-review/add-review';
 import FilmContainer from '../film-container/film-container';
-// import MyList from '../my-list/my-list';
+import MyList from '../my-list/my-list';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
 import PrivateRoute from '../private-route/private-route';
 
 const App = () => {
-
-  const renderFilm = (exactPath) => {
-    return (
-      <Route exact path={exactPath}
-        render={({match}) => {
-          const {path} = match;
-          const filmId = +match.params.id;
-
-          return <FilmContainer path={path} filmId={filmId} />;
-        }}
-      />
-    );
-  };
-
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -42,13 +28,21 @@ const App = () => {
           <SignIn />
         </Route>
 
-        {/* <PrivateRoute exact path={Path.MY_LIST}>
-          <MyList />
-        </PrivateRoute> */}
+        <PrivateRoute exact path={Path.MY_LIST}
+          render={({match}) => {
+            const filmId = +match.params.id;
 
-        {renderFilm(Path.FILM_ID)}
-        {renderFilm(Path.MOVIE_DETAILS)}
-        {renderFilm(Path.MOVIE_REVIEWS)}
+            return <MyList filmId={filmId} />
+          }}
+        />
+
+      <Route exact path={Path.FILM_ID}
+        render={({match}) => {
+          const filmId = +match.params.id;
+
+          return <FilmContainer filmId={filmId} />;
+        }}
+      />
 
         <PrivateRoute exact path={Path.FILM_REVIEW}
           render={({match}) => {

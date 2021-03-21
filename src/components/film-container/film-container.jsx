@@ -13,18 +13,16 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const FilmContainer = ({path, filmId}) => {
+const FilmContainer = ({filmId}) => {
 
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
   const currentFilmComments = useSelector(({FILM}) => FILM.currentFilmComments);
 
   const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
-  const filmsToShow = useSelector(({ALL_FILMS}) => ALL_FILMS.filmsToShow);
 
   const {authorizationStatus} = useSelector(({USER}) => USER);
 
   const loadFilmsData = () => dispatch(apiService.fetchFilm(filmId));
-
 
   const dispatch = useDispatch();
 
@@ -83,18 +81,15 @@ const FilmContainer = ({path, filmId}) => {
       exactFilms={exactFilms}
       authorizationStatus={authorizationStatus}
       loadFilmsData={loadFilmsData}
-      filmsToShow={filmsToShow}
       movieOverview={movieOverview}
       movieReviews={movieReviews}
       movieDetails={movieDetails}
       filmId={filmId}
-      path={path}
       id={id} />
   );
 };
 
 FilmContainer.propTypes = {
-  path: PropTypes.string.isRequired,
   filmId: PropTypes.number.isRequired,
 };
 

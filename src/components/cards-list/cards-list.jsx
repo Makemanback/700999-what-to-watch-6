@@ -7,7 +7,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import SmallCardContainer from "../small-card/small-card";
 
 const CardsList = ({films, loadMovieData, filmId}) => {
-  console.log(films, filmId)
+
   useEffect(() => {
     if (!films) {
       loadMovieData(filmId);

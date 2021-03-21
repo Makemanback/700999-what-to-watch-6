@@ -18,7 +18,6 @@ const Film = ({
   filmId,
   loadFilmsData,
   authorizationStatus,
-  filmsToShow,
   exactFilms,
   movieOverview,
   movieDetails,
@@ -94,7 +93,6 @@ const Film = ({
 
           <CardsList
             films={exactFilms}
-            filmsToShow={filmsToShow}
             loadMovieData={loadFilmsData}
             filmId={filmId} />
 
@@ -110,7 +108,6 @@ Film.propTypes = {
   currentFilm: filmProp,
   loadFilmsData: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  filmsToShow: PropTypes.number.isRequired,
   exactFilms: PropTypes.arrayOf(filmProp).isRequired,
   movieOverview: PropTypes.object,
   movieDetails: PropTypes.object,

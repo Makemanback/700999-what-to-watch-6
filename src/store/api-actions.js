@@ -6,8 +6,10 @@ import {
   loadComments,
   loadPromoFilm,
   requireAuthorization,
-  redirectToRoute
+  redirectToRoute,
+  loadFavorite
 } from "./action";
+
 import {AuthorizationStatus, Genre, Path} from "../const";
 import browserHistory from '../browser-history';
 
@@ -26,6 +28,18 @@ export default class ApiService {
           genres.unshift(Genre.ALL_GENRES);
           dispatch(setGenres(genres));
         });
+  }
+
+
+  fetchFavoriteFilms() {
+    return (dispatch, _getState, api) =>
+    api
+      // .get(Path.FAVORITE)
+      .get(Path.FILMS)
+      // .then((res) => console.log(res))
+      .then(({data}) => data.map(ApiService.adaptToClient))
+      .then((films) => dispatch(loadFilms(films)))
+      // .then((films) => dispatch(loadFavorite(films)))
   }
 
   fetchFilm(id) {
@@ -86,6 +100,23 @@ export default class ApiService {
         .then((comments) => dispatch(loadComments(comments)))
         .then(() => dispatch(redirectToRoute(Path.FILMS + id + Path.REVIEWS)))
     );
+  }
+
+  addToFavorite(film) {
+    const {isFavorite} = film;
+    return (dispatch, _getState, api) => (
+      api.post(Path.FILMS, {isFavorite})
+        .then(({data}) => data.map(ApiService.adaptToClient))
+        .then((films) => dispatch(loadFilms(films)))
+        .then(({payload}) => {
+          const genres = [...new Set(
+              payload
+          .map(({genre}) => genre)
+          )];
+          genres.unshift(Genre.ALL_GENRES);
+          dispatch(setGenres(genres));
+        })
+    )
   }
 
   static adaptToClient(film) {
