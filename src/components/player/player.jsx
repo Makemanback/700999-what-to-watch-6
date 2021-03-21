@@ -8,6 +8,7 @@ import ApiService from "../../store/api-actions";
 const apiService = new ApiService();
 
 const Player = ({filmId}) => {
+  const videoRef = useRef();
 
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
   const promoFilm = useSelector(({FILM}) => FILM.promoFilm);
@@ -37,7 +38,7 @@ const Player = ({filmId}) => {
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={image}></video>
+      <video ref={videoRef} src={videoLink} className="player__video" poster={image}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -54,7 +55,7 @@ const Player = ({filmId}) => {
           <button
             type="button"
             className="player__play"
-            onClick={() => console.log(`play`)}>
+            onClick={() => videoRef.current.play()}>
             <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref="#play-s"/>
             </svg>
