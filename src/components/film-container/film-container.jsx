@@ -57,6 +57,7 @@ const FilmContainer = ({path, filmId}) => {
     backgroundImg
   } = film;
 
+  // создать компонент отдельный
   const movieOverview = <FilmOverview film={film}/>;
 
   const movieDetails = <FilmDetails film={film} />;

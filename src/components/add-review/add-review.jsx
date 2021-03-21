@@ -81,6 +81,7 @@ const AddReview = ({filmId}) => {
       </div>
 
       <div className="add-review">
+        {/* создать компонент form */}
         <form
           action=""
           className="add-review__form"

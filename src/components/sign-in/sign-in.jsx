@@ -9,6 +9,7 @@ import Logo from '../logo/logo';
 const apiService = new ApiService();
 
 const SignIn = ({onSubmit}) => {
+  // написать логику если auth - redirect на главную страницу
   const loginRef = useRef();
   const passwordRef = useRef();
 

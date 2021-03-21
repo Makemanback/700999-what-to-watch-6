@@ -98,7 +98,6 @@ const Film = ({
             filmId={filmId} />
 
         </section>
-
         {PageFooter}
       </div>
     </React.Fragment>
