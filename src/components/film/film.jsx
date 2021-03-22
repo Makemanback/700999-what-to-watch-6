@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import filmProp from "./film.prop";
@@ -8,7 +8,8 @@ import Logo from '../logo/logo';
 import CardsList from '../cards-list/cards-list';
 import MovieCardButtons from '../movie-card-buttons/movie-card-buttons';
 import UserBlock from '../user-block/user-block';
-import FilmNav from "../film-nav/film-nav";
+import FilmCard from '../film-card/film-card';
+
 
 const PageLogo = <Logo />;
 const User = <UserBlock />;
@@ -18,21 +19,14 @@ const Film = ({
   filmId,
   loadFilmsData,
   authorizationStatus,
-  filmsToShow,
   exactFilms,
-  movieOverview,
-  movieDetails,
-  movieReviews,
   background,
   backgroundImg,
   title,
   poster,
   filmGenre,
   released,
-  id,
 }) => {
-
-  const [activeTab, setActiveTab] = useState(movieOverview);
 
   return (
     <React.Fragment>
@@ -72,19 +66,8 @@ const Film = ({
               <img src={poster} alt={`${title} poster`} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
+            <FilmCard />
 
-              <FilmNav
-                id={id}
-                setActiveTab={setActiveTab}
-                movieOverview={movieOverview}
-                movieDetails={movieDetails}
-                movieReviews={movieReviews}
-                activeTab={activeTab} />
-
-              {activeTab}
-
-            </div>
           </div>
         </div>
       </section>
@@ -110,9 +93,6 @@ Film.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   filmsToShow: PropTypes.number.isRequired,
   exactFilms: PropTypes.arrayOf(filmProp).isRequired,
-  movieOverview: PropTypes.object,
-  movieDetails: PropTypes.object,
-  movieReviews: PropTypes.object,
   background: PropTypes.string.isRequired,
   backgroundImg: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -120,7 +100,6 @@ Film.propTypes = {
   filmGenre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
   filmId: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired
 };
 
 export default Film;

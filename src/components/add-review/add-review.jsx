@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import ApiService from "../../store/api-actions";
 
 import Logo from '../logo/logo';
-import Rating from "../rating/rating";
 import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
+import ReviewForm from '../review-form/review-form';
 
 const apiService = new ApiService();
 
@@ -19,9 +19,6 @@ const AddReview = ({filmId}) => {
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
 
   const dispatch = useDispatch();
-
-  const [textComment, setTextComment] = useState(null);
-  const [commentRating, setCommentRating] = useState(null);
 
   useEffect(() => {
     if (!currentFilm) {
@@ -36,15 +33,6 @@ const AddReview = ({filmId}) => {
   }
 
   const {title, poster, backgroundImg, background} = currentFilm;
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch(apiService.pushComment({
-      id: filmId,
-      comment: textComment,
-      rating: +commentRating
-    }));
-  };
 
   return (
     <section
@@ -81,30 +69,7 @@ const AddReview = ({filmId}) => {
       </div>
 
       <div className="add-review">
-        {/* создать компонент form */}
-        <form
-          action=""
-          className="add-review__form"
-          onSubmit={handleSubmit}>
-          <Rating setCommentRating={setCommentRating} />
-
-          <div className="add-review__text">
-            <textarea
-              onChange={({target}) => setTextComment(target.value)}
-              className="add-review__textarea"
-              name="review-text"
-              id="review-text"
-              placeholder="Review text"></textarea>
-            <div className="add-review__submit">
-              <button
-                className="add-review__btn"
-                type="submit">
-                  Post
-              </button>
-            </div>
-
-          </div>
-        </form>
+        <ReviewForm filmId={filmId} />
       </div>
 
     </section>

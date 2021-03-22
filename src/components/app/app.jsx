@@ -5,7 +5,6 @@ import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import {Path} from '../../const';
 import browserHistory from "../../browser-history";
 
-
 import Main from "../main/main";
 import AddReview from '../add-review/add-review';
 import FilmContainer from '../film-container/film-container';
@@ -17,20 +16,6 @@ import PrivateRoute from '../private-route/private-route';
 
 const App = () => {
 
-  const renderFilm = (exactPath) => {
-    return (
-      <Route exact path={exactPath}
-        render={({match}) => {
-          const {path} = match;
-          const filmId = +match.params.id;
-
-          return <FilmContainer path={path} filmId={filmId} />;
-        }}
-      />
-    );
-  };
-
-
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -39,16 +24,20 @@ const App = () => {
         </Route>
 
         <Route exact path={Path.LOGIN}>
-          <SignIn />
+          <SignIn history={browserHistory} />
         </Route>
 
         {/* <PrivateRoute exact path={Path.MY_LIST}>
           <MyList />
         </PrivateRoute> */}
 
-        {renderFilm(Path.FILM_ID)}
-        {renderFilm(Path.MOVIE_DETAILS)}
-        {renderFilm(Path.MOVIE_REVIEWS)}
+        <Route exact path={Path.FILM_ID}
+        render={({match}) => {
+          const filmId = +match.params.id;
+
+          return <FilmContainer filmId={filmId} />;
+        }}
+        />
 
         <PrivateRoute exact path={Path.FILM_REVIEW}
           render={({match}) => {

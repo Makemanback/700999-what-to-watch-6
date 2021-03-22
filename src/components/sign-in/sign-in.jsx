@@ -10,11 +10,11 @@ import browserHistory from "../../browser-history";
 import Main from '../main/main'
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
+import PublicRoute from '../public-route/public-route';
 
 const apiService = new ApiService();
 
 const SignIn = () => {
-  // написать логику если auth - redirect на главную страницу
 
   const {authorizationStatus} = useSelector(({USER}) => USER);
 
@@ -26,9 +26,6 @@ const SignIn = () => {
     return (
       <Main />
     )
-    browserHistory.push(Path.DEFAULT)
-    return null
-    // dispatch(redirectToRoute(Path.DEFAULT))
   }
 
 
