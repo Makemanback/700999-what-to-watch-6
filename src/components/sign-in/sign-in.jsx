@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import ApiService from "../../store/api-actions";
 
 import Footer from '../footer/footer';
@@ -10,6 +10,9 @@ const apiService = new ApiService();
 
 const SignIn = ({onSubmit}) => {
   // написать логику если auth - redirect на главную страницу
+  const dispatch = useDispatch()
+  const {authorizationStatus} = useSelector(({USER}) => USER);
+
   const loginRef = useRef();
   const passwordRef = useRef();
 
