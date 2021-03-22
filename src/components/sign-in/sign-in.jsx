@@ -1,13 +1,10 @@
 import React, {useRef} from "react";
-import {Route, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 import ApiService from "../../store/api-actions";
 import {AuthorizationStatus, Path} from '../../const';
-import {redirectToRoute} from '../../store/action';
-import browserHistory from "../../browser-history";
 
-import Main from '../main/main';
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
@@ -22,7 +19,7 @@ const SignIn = () => {
   const passwordRef = useRef();
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return <Redirect to={Path.DEFAULT} />
+    return <Redirect to={Path.DEFAULT} />;
   }
 
 
