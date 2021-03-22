@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 
 import ApiService from "../../store/api-actions";
@@ -25,29 +26,33 @@ const ReviewForm = ({filmId}) => {
 
   return (
     <form
-    action=""
-    className="add-review__form"
-    onSubmit={handleSubmit}>
-    <Rating setCommentRating={setCommentRating} />
+      action=""
+      className="add-review__form"
+      onSubmit={handleSubmit}>
+      <Rating setCommentRating={setCommentRating} />
 
-    <div className="add-review__text">
-      <textarea
-        onChange={({target}) => setTextComment(target.value)}
-        className="add-review__textarea"
-        name="review-text"
-        id="review-text"
-        placeholder="Review text"></textarea>
-      <div className="add-review__submit">
-        <button
-          className="add-review__btn"
-          type="submit">
+      <div className="add-review__text">
+        <textarea
+          onChange={({target}) => setTextComment(target.value)}
+          className="add-review__textarea"
+          name="review-text"
+          id="review-text"
+          placeholder="Review text"></textarea>
+        <div className="add-review__submit">
+          <button
+            className="add-review__btn"
+            type="submit">
             Post
-        </button>
-      </div>
+          </button>
+        </div>
 
-    </div>
-  </form>
-  )
-}
+      </div>
+    </form>
+  );
+};
+
+ReviewForm.propTypes = {
+  filmId: PropTypes.number.isRequired
+};
 
 export default ReviewForm;

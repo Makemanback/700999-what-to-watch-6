@@ -1,4 +1,4 @@
-import React, {useEffect, memo, useMemo} from "react";
+import React, {useEffect, memo} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from '../film/film.prop';
@@ -8,11 +8,9 @@ import SmallCardContainer from "../small-card/small-card";
 
 const CardsList = ({films, loadMovieData, filmId}) => {
 
-  const load = useMemo(() => loadMovieData(filmId), [filmId])
   useEffect(() => {
     if (!films) {
-      // loadMovieData(filmId);
-      load
+      loadMovieData(filmId);
     }
   }, [films]);
 
@@ -23,22 +21,15 @@ const CardsList = ({films, loadMovieData, filmId}) => {
     );
   }
 
-  const renderCards = useMemo(() => films.map(({id, image, title, video}) => {
-    return (
-      <SmallCardContainer key={id} id={id} image={image} title={title} video={video} />
-    );
-  }), [films]);
-
   return (
     <div className="catalog__movies-list">
 
       {
-        // films.map(({id, image, title, video}) => {
-        //   return (
-        //     <SmallCardContainer key={id} id={id} image={image} title={title} video={video} />
-        //   );
-        // })
-        renderCards
+        films.map(({id, image, title, video}) => {
+          return (
+            <SmallCardContainer key={id} id={id} image={image} title={title} video={video} />
+          );
+        })
       }
 
     </div>
@@ -51,11 +42,11 @@ CardsList.propTypes = {
   filmId: PropTypes.number,
 };
 
-// export default CardsList;
+export default CardsList;
 
-export default memo(
-  CardsList,
-  ({films, filmId},
-      {films: nextFilms, filmId: nextFilmId}) => {
-    return films === nextFilms && filmId === nextFilmId;
-  });
+// export default memo(
+//     CardsList,
+//     ({films, filmId},
+//         {films: nextFilms, filmId: nextFilmId}) => {
+//       return films === nextFilms && filmId === nextFilmId;
+//     });

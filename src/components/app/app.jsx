@@ -32,11 +32,11 @@ const App = () => {
         </PrivateRoute> */}
 
         <Route exact path={Path.FILM_ID}
-        render={({match}) => {
-          const filmId = +match.params.id;
+          render={({match}) => {
+            const filmId = +match.params.id;
 
-          return <FilmContainer filmId={filmId} />;
-        }}
+            return <FilmContainer filmId={filmId} />;
+          }}
         />
 
         <PrivateRoute exact path={Path.FILM_REVIEW}

@@ -27,15 +27,15 @@ const FilmCard = () => {
   return (
     <div className="movie-card__desc">
       <FilmNav
-                id={id}
-                setActiveTab={setActiveTab}
-                movieOverview={movieOverview}
-                movieDetails={movieDetails}
-                movieReviews={movieReviews}
-                activeTab={activeTab} />
+        id={id}
+        setActiveTab={setActiveTab}
+        movieOverview={movieOverview}
+        movieDetails={movieDetails}
+        movieReviews={movieReviews}
+        activeTab={activeTab} />
       {activeTab}
     </div>
-  )
-}
+  );
+};
 
 export default FilmCard;

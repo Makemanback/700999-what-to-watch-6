@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import filmProp from "../film/film.prop";
+
 import Footer from '../footer/footer';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
-import filmProp from "../film/film.prop";
 import UserBlock from "../user-block/user-block";
 
 const MyList = ({films}) => {

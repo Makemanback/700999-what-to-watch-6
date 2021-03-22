@@ -7,10 +7,9 @@ import {AuthorizationStatus, Path} from '../../const';
 import {redirectToRoute} from '../../store/action';
 import browserHistory from "../../browser-history";
 
-import Main from '../main/main'
+import Main from '../main/main';
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
-import PublicRoute from '../public-route/public-route';
 
 const apiService = new ApiService();
 
@@ -18,14 +17,14 @@ const SignIn = () => {
 
   const {authorizationStatus} = useSelector(({USER}) => USER);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return (
       <Main />
-    )
+    );
   }
 
 
@@ -35,7 +34,7 @@ const SignIn = () => {
     dispatch(apiService.login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    }))
+    }));
   };
 
   return (

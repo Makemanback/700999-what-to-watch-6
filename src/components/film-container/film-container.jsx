@@ -46,7 +46,6 @@ const FilmContainer = ({filmId}) => {
     title,
     genre: filmGenre,
     released,
-    id,
     background,
     poster,
     backgroundImg
