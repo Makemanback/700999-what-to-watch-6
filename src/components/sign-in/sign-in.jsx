@@ -1,28 +1,44 @@
 import React, {useRef} from "react";
-import PropTypes from "prop-types";
-import {connect, useDispatch, useSelector} from "react-redux";
-import ApiService from "../../store/api-actions";
+import {Route, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
 
+import ApiService from "../../store/api-actions";
+import {AuthorizationStatus, Path} from '../../const';
+import {redirectToRoute} from '../../store/action';
+import browserHistory from "../../browser-history";
+
+import Main from '../main/main'
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
 const apiService = new ApiService();
 
-const SignIn = ({onSubmit}) => {
+const SignIn = () => {
   // написать логику если auth - redirect на главную страницу
-  const dispatch = useDispatch()
+
   const {authorizationStatus} = useSelector(({USER}) => USER);
 
+  const dispatch = useDispatch()
   const loginRef = useRef();
   const passwordRef = useRef();
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return (
+      <Main />
+    )
+    browserHistory.push(Path.DEFAULT)
+    return null
+    // dispatch(redirectToRoute(Path.DEFAULT))
+  }
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(apiService.login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }))
   };
 
   return (
@@ -81,14 +97,4 @@ const SignIn = ({onSubmit}) => {
   );
 };
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(apiService.login(authData));
-  }
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

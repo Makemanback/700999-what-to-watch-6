@@ -84,7 +84,7 @@ export default class ApiService {
       api.post(Path.COMMENTS + id, {comment, rating})
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
         .then((comments) => dispatch(loadComments(comments)))
-        .then(() => dispatch(redirectToRoute(Path.FILMS + id + Path.REVIEWS)))
+        .then(() => dispatch(redirectToRoute(Path.FILMS + id)))
     );
   }
 
