@@ -26,7 +26,6 @@ const Catalog = () => {
       <GenresList />
       <CardsList
         films={filmsShow}
-        filmsToShow={filmsToShow}
         loadMovieData={loadFilmData} />
       <CatalogMore />
 

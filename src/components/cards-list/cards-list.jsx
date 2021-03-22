@@ -42,13 +42,11 @@ CardsList.propTypes = {
   filmId: PropTypes.number,
 };
 
-// export default CardsList;
+export default CardsList;
 
-
-
-export default memo(
-  CardsList,
-  ({films, loadMovieData, filmId},
-      {films: nextFilms, loadMovieData: nextLoadMovieData, filmId: nextFilmId}) => {
-    return films === nextFilms && loadMovieData === nextLoadMovieData && filmId === nextFilmId;
-  });
+// export default memo(
+//     CardsList,
+//     ({films, filmId},
+//         {films: nextFilms, filmId: nextFilmId}) => {
+//       return films === nextFilms && filmId === nextFilmId;
+//     });

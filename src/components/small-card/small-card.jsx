@@ -2,9 +2,12 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-import Video from "../video/video";
 import browserHistory from "../../browser-history";
+import {Path} from '../../const';
 
+import Video from "../video/video";
+
+const {FILMS} = Path;
 
 const SmallCard = ({
   id,
@@ -36,7 +39,7 @@ const SmallCard = ({
       <h3 className="small-movie-card__title">
         <Link
           className="small-movie-card__link"
-          to={`/films/${id}`}>
+          to={FILMS + id}>
           {title}
         </Link>
       </h3>
@@ -45,6 +48,7 @@ const SmallCard = ({
 };
 
 const SmallCardContainer = ({id, image, title, video}) => {
+
   const [isVideo, setVideo] = useState(false);
   let timeOutId = null;
 
@@ -67,7 +71,7 @@ const SmallCardContainer = ({id, image, title, video}) => {
   };
 
   const handleClickCard = () => {
-    return browserHistory.push(`/films/${id}`);
+    return browserHistory.push(FILMS + id);
   };
 
   useEffect(() => {

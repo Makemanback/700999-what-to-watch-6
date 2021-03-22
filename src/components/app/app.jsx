@@ -5,7 +5,6 @@ import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import {Path} from '../../const';
 import browserHistory from "../../browser-history";
 
-
 import Main from "../main/main";
 import AddReview from '../add-review/add-review';
 import FilmContainer from '../film-container/film-container';
@@ -25,7 +24,7 @@ const App = () => {
         </Route>
 
         <Route exact path={Path.LOGIN}>
-          <SignIn />
+          <SignIn history={browserHistory} />
         </Route>
 
         <PrivateRoute exact path={Path.MY_LIST}

@@ -34,12 +34,9 @@ export default class ApiService {
   fetchFavoriteFilms() {
     return (dispatch, _getState, api) =>
     api
-      // .get(Path.FAVORITE)
-      .get(Path.FILMS)
-      // .then((res) => console.log(res))
+      .get(Path.FAVORITE)
       .then(({data}) => data.map(ApiService.adaptToClient))
-      .then((films) => dispatch(loadFilms(films)))
-      // .then((films) => dispatch(loadFavorite(films)))
+      .then((films) => dispatch(loadFavorite(films)))
   }
 
   fetchFilm(id) {
@@ -98,24 +95,22 @@ export default class ApiService {
       api.post(Path.COMMENTS + id, {comment, rating})
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
         .then((comments) => dispatch(loadComments(comments)))
-        .then(() => dispatch(redirectToRoute(Path.FILMS + id + Path.REVIEWS)))
+        .then(() => dispatch(redirectToRoute(Path.FILMS + id)))
     );
   }
 
   addToFavorite(film) {
-    const {isFavorite} = film;
+    const {isFavorite, id} = film;
+
+    let changeFavorite;
+    isFavorite ? changeFavorite = `/0` : changeFavorite = `/1`;
+    const route = Path.FAVORITE + id + changeFavorite;
+    console.log(route)
     return (dispatch, _getState, api) => (
-      api.post(Path.FILMS, {isFavorite})
-        .then(({data}) => data.map(ApiService.adaptToClient))
-        .then((films) => dispatch(loadFilms(films)))
-        .then(({payload}) => {
-          const genres = [...new Set(
-              payload
-          .map(({genre}) => genre)
-          )];
-          genres.unshift(Genre.ALL_GENRES);
-          dispatch(setGenres(genres));
-        })
+      api.post(route, {isFavorite})
+      .then(({data}) => ApiService.adaptToClient(data))
+      // .then((films) => console.log(films))
+      // .then((films) => dispatch(loadFavorite(films)))
     )
   }
 

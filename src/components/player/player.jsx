@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import ApiService from "../../store/api-actions";
 
+import LoadingScreen from '../loading-screen/loading-screen';
+
 const apiService = new ApiService();
 
 const Player = ({filmId}) => {
@@ -15,23 +17,23 @@ const Player = ({filmId}) => {
 
   const dispatch = useDispatch();
 
-  const loadFilmsData = () => dispatch(apiService.fetchFilm(filmId));
-
   useEffect(() => {
     if (!promoFilm) {
       dispatch(apiService.fetchPromoFilm());
-      dispatch(apiService.fetchFilmsList());
     }
   }, [promoFilm]);
 
   useEffect(() => {
     if (!currentFilm) {
-      loadFilmsData(filmId);
-      dispatch(apiService.fetchFilmComments(filmId));
-      dispatch(apiService.fetchFilmsList());
+      dispatch(apiService.fetchFilm(filmId));
     }
   }, [currentFilm, filmId]);
 
+  if (!currentFilm || !promoFilm) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
 
   const {image, videoLink} = currentFilm ? currentFilm : promoFilm;

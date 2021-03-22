@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {changeGenre, loadFavorite, loadFilms, showMore} from '../action';
+import {addToFavorite, changeGenre, loadFavorite, loadFilms, showMore} from '../action';
 import {Genre, FILMS_ON_SCREEN} from '../../const';
 
 const initialState = {
@@ -25,12 +25,18 @@ const allFilms = createReducer(initialState, (builder) => {
       filteredFilms: action.payload,
     };
   });
-  builder.addCase(loadFavorite, (state) => {
+  builder.addCase(loadFavorite, (state, action) => {
     return {
       ...state,
       favoriteFilms: action.payload
     };
   });
+  // builder.addCase(addToFavorite, (state, action) => {
+  //   return {
+  //     ...state,
+  //     favoriteFilms: [state.favoriteFilms, action.payload]
+  //   };
+  // });
   builder.addCase(changeGenre, (state, action) => {
     return {
       ...state,

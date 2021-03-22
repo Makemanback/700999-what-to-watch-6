@@ -18,26 +18,24 @@ const PageUserBlock = <UserBlock />;
 
 const MyList = ({filmId}) => {
 
-  const allFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.allFilms)
+  const favoriteFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.favoriteFilms)
 
   const dispatch = useDispatch();
 
   const loadFilmsData = () => dispatch(apiService.fetchFavoriteFilms());
 
   useEffect(() => {
-    if (!allFilms) {
+    if (!favoriteFilms) {
       loadFilmsData();
     }
-  }, [allFilms, filmId]);
+  }, [favoriteFilms, filmId]);
 
-  if (!allFilms) {
+  if (!favoriteFilms) {
     return (
       <LoadingScreen />
     );
   }
 
-  const myList = allFilms
-                  // .filter(({isFavorite}) => !isFavorite);
 
   return (
     <div className="user-page">
@@ -52,10 +50,10 @@ const MyList = ({filmId}) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        {/* <CardsList
-          films={myList}
+        <CardsList
+          films={favoriteFilms}
           filmId={filmId}
-          loadMovieData={loadFilmsData} /> */}
+          loadMovieData={loadFilmsData} />
       </section>
 
       <Footer />
