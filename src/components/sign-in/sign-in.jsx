@@ -22,9 +22,7 @@ const SignIn = () => {
   const passwordRef = useRef();
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return (
-      <Main />
-    );
+    return <Redirect to={Path.DEFAULT} />
   }
 
 
