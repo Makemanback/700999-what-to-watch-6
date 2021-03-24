@@ -1,31 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {connect} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
+import {useParams} from 'react-router-dom';
 
 import ApiService from "../../store/api-actions";
-import filmProp from "../film/film.prop";
-import {ActionCreator} from "../../store/action";
 
 import Logo from '../logo/logo';
-import Rating from "../rating/rating";
 import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
+import ReviewForm from '../review-form/review-form';
 
 const apiService = new ApiService();
 
-const AddReview = ({
-  currentFilm,
-  filmId,
-  loadFilmsData,
-  postComment}) => {
+const PageLogo = <Logo />;
 
-  const [textComment, setTextComment] = useState(null);
-  const [commentRating, setCommentRating] = useState(null);
+const AddReview = () => {
+
+  const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
+
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const filmId = +id;
 
   useEffect(() => {
     if (!currentFilm) {
-      loadFilmsData(filmId);
+      dispatch(apiService.fetchFilm(filmId));
     }
   }, [currentFilm, filmId]);
 
@@ -36,16 +35,6 @@ const AddReview = ({
   }
 
   const {title, poster, backgroundImg, background} = currentFilm;
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    postComment({
-      id: filmId,
-      comment: textComment,
-      rating: +commentRating
-    });
-  };
 
   return (
     <section
@@ -60,7 +49,7 @@ const AddReview = ({
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
+          {PageLogo}
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
@@ -82,58 +71,11 @@ const AddReview = ({
       </div>
 
       <div className="add-review">
-        <form
-          action=""
-          className="add-review__form"
-          onSubmit={handleSubmit}>
-          <Rating setCommentRating={setCommentRating} />
-
-          <div className="add-review__text">
-            <textarea
-              onChange={({target}) => setTextComment(target.value)}
-              className="add-review__textarea"
-              name="review-text"
-              id="review-text"
-              placeholder="Review text"></textarea>
-            <div className="add-review__submit">
-              <button
-                className="add-review__btn"
-                type="submit">
-                  Post
-              </button>
-            </div>
-
-          </div>
-        </form>
+        <ReviewForm filmId={filmId} />
       </div>
 
     </section>
   );
 };
 
-AddReview.propTypes = {
-  title: PropTypes.string,
-  currentFilm: filmProp,
-  loadFilmsData: PropTypes.func.isRequired,
-  postComment: PropTypes.func.isRequired,
-  setCommentText: PropTypes.func.isRequired,
-  filmId: PropTypes.number.isRequired
-};
-
-const mapStateToProps = ({currentFilm}) => ({
-  currentFilm,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmsData(id) {
-    dispatch(apiService.fetchFilm(id));
-  },
-  postComment(commentData) {
-    dispatch(apiService.pushComment(commentData));
-  },
-  setCommentText(text) {
-    dispatch(ActionCreator.setCommentText(text));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+export default AddReview;

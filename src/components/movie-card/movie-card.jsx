@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import ApiService from "../../store/api-actions";
 
 import MovieCardInfo from '../movie-card-info/movie-card-info';
@@ -9,11 +8,20 @@ import UserBlock from "../user-block/user-block";
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
+const PageLogo = <Logo />;
+const User = <UserBlock />;
 
-const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
+const MovieCard = () => {
+
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
+  const promoFilm = useSelector(({FILM}) => FILM.promoFilm);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!promoFilm) {
-      loadFilmsData();
+      dispatch(apiService.fetchPromoFilm());
+      dispatch(apiService.fetchFilmsList());
     }
   }, [promoFilm]);
 
@@ -43,9 +51,9 @@ const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header movie-card__head">
-        <Logo />
+        {PageLogo}
 
-        <UserBlock />
+        {User}
       </header>
 
       <MovieCardInfo
@@ -60,25 +68,4 @@ const MovieCard = ({promoFilm, loadFilmsData, authorizationStatus}) => {
   );
 };
 
-MovieCard.propTypes = {
-  promoFilm: PropTypes.object,
-  loadFilmsData: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
-};
-
-const mapStateToProps = ({promoFilm, currentFilm, authorizationStatus}) => {
-  return {
-    promoFilm,
-    currentFilm,
-    authorizationStatus
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmsData() {
-    dispatch(apiService.fetchFilmsList());
-    dispatch(apiService.fetchPromoFilm());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MovieCard);
+export default MovieCard;

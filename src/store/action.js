@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE: `SHOW_MORE`,
@@ -9,58 +11,44 @@ export const ActionType = {
   GET_FILM_ID: `GET_FILM_ID`,
   GET_COMMENTS: `GET_COMMENTS`,
   GET_PROMO_FILM: `GET_PROMO_FILM`,
-  LOADING: `LOADING`,
   RESET_FILM: `RESET_FILM`,
-  NOT_FOUND: `NOT_FOUND`,
 };
 
-export const ActionCreator = {
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films
-  }),
-  changeGenre: (activeGenre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: activeGenre,
-  }),
-  showMore: () => ({
-    type: ActionType.SHOW_MORE,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  setGenres: (genres) => ({
-    type: ActionType.SET_GENRES,
-    payload: genres
-  }),
-  getFilm: (film) => ({
-    type: ActionType.GET_FILM,
-    payload: film
-  }),
-  getFilmId: (id) => ({
-    type: ActionType.GET_FILM_ID,
-    payload: id
-  }),
-  loadPromoFilm: (film) => ({
-    type: ActionType.GET_PROMO_FILM,
-    payload: film
-  }),
-  loadComments: (comments) => ({
-    type: ActionType.GET_COMMENTS,
-    payload: comments
-  }),
-  loading: () => ({
-    type: ActionType.LOADING
-  }),
-  resetFilm: () => ({
-    type: ActionType.RESET_FILM
-  }),
-  notFound: () => ({
-    type: ActionType.NOT_FOUND
-  }),
-};
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films
+}));
+
+export const getFilm = createAction(ActionType.GET_FILM, (film) => ({
+  payload: film
+}));
+
+export const getFilmId = createAction(ActionType.GET_FILM_ID, (id) => ({
+  payload: id
+}));
+
+export const loadPromoFilm = createAction(ActionType.GET_PROMO_FILM, (film) => ({
+  payload: film
+}));
+
+export const loadComments = createAction(ActionType.GET_COMMENTS, (comments) => ({
+  payload: comments
+}));
+
+export const setGenres = createAction(ActionType.SET_GENRES, (genres) => ({
+  payload: genres
+}));
+
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (activeGenre) => ({
+  payload: activeGenre
+}));
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status
+}));
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url
+}));
+
+export const resetFilm = createAction(ActionType.RESET_FILM);
+export const showMore = createAction(ActionType.SHOW_MORE);

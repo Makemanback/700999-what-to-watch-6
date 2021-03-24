@@ -26,9 +26,13 @@ export const Path = {
   MY_LIST: `/mylist`,
   FILM_ID: `/films/:id`,
   FILM_REVIEW: `/films/:id/review`,
-  MOVIE_REVIEWS: `/films/:id/reviews`,
   PLAYER: `/player/:id`,
-  MOVIE_DETAILS: `/films/:id/details`
+  MOVIE_DETAILS: `/films/:id/details`,
+  NOT_FOUND: `/not-found`,
+  FILMS: `/films/`,
+  COMMENTS: `/comments/`,
+  FILM_PROMO: `/films/promo`,
+  REVIEWS: `/reviews`
 };
 
 export const Level = {

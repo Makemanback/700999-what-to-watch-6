@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from "prop-types";
 
 import {RATINGS} from '../../const';
@@ -47,4 +47,6 @@ RatingStar.propTypes = {
   setCommentRating: PropTypes.func.isRequired
 };
 
-export default Rating;
+export default memo(Rating, (prevProps, nextProps) => {
+  return prevProps.setCommentRating === nextProps.setCommentRating;
+});

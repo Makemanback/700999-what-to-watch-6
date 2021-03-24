@@ -1,12 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
+
 import Footer from '../footer/footer';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
-import filmProp from "../film/film.prop";
 import UserBlock from "../user-block/user-block";
 
-const MyList = ({films}) => {
+const MyList = () => {
+
+  const allFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.allFilms);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -20,17 +23,12 @@ const MyList = ({films}) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <CardsList films={films} />
+        <CardsList films={allFilms} />
       </section>
 
       <Footer />
     </div>
   );
-};
-
-
-MyList.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired
 };
 
 

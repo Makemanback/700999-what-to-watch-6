@@ -1,61 +1,70 @@
-import {ActionCreator} from "./action";
-import {AuthorizationStatus, Genre} from "../const";
-
+import {
+  loadFilms,
+  setGenres,
+  getFilm,
+  getFilmId,
+  loadComments,
+  loadPromoFilm,
+  requireAuthorization,
+  redirectToRoute
+} from "./action";
+import {AuthorizationStatus, Genre, Path} from "../const";
+import browserHistory from '../browser-history';
 
 export default class ApiService {
   fetchFilmsList() {
     return (dispatch, _getState, api) =>
       api
-        .get(`/films`)
+        .get(Path.FILMS)
         .then(({data}) => data.map(ApiService.adaptToClient))
-        .then((films) => dispatch(ActionCreator.loadFilms(films)))
+        .then((films) => dispatch(loadFilms(films)))
         .then(({payload}) => {
           const genres = [...new Set(
               payload
           .map(({genre}) => genre)
           )];
           genres.unshift(Genre.ALL_GENRES);
-          dispatch(ActionCreator.setGenres(genres));
+          dispatch(setGenres(genres));
         });
   }
 
   fetchFilm(id) {
     return (dispatch, _getState, api) =>
       api
-        .get(`/films/${id}`)
+        .get(Path.FILMS + id)
         .then(({data}) => ApiService.adaptToClient(data))
-        .then((film) => dispatch(ActionCreator.getFilm(film)))
-        .catch(() => dispatch(ActionCreator.notFound()));
+        .then((film) => dispatch(getFilm(film)))
+        .catch(() => browserHistory.push(Path.NOT_FOUND));
   }
 
   fetchFilmId(id) {
     return (dispatch, _getState, api) =>
       api
-        .get(`/films/${id}`)
-        .then(({data}) => dispatch(ActionCreator.getFilmId(data.id)));
+        .get(Path.FILMS + id)
+        .then(({data}) => dispatch(getFilmId(data.id)));
   }
 
   fetchFilmComments(id) {
     return (dispatch, _getState, api) =>
       api
-        .get(`/comments/${id}`)
+        .get(Path.COMMENTS + id)
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
-        .then((comments) => dispatch(ActionCreator.loadComments(comments)));
+        .then((comments) => dispatch(loadComments(comments)));
   }
 
   fetchPromoFilm() {
     return (dispatch, _getState, api) =>
       api
-      .get(`/films/promo`)
+      .get(Path.FILM_PROMO)
       .then(({data}) => ApiService.adaptToClient(data))
-      .then((film) => dispatch(ActionCreator.loadPromoFilm(film)));
+      .then((film) => dispatch(loadPromoFilm(film)));
   }
 
   checkAuth() {
     return (dispatch, _getState, api) => (
       api
-        .get(`/login`)
-        .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+        .get(Path.LOGIN)
+        .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
         .catch(() => {})
     );
   }
@@ -63,19 +72,19 @@ export default class ApiService {
   login({login: email, password}) {
 
     return (dispatch, _getState, api) => (
-      api.post(`/login`, {email, password})
-        .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-        .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
+      api.post(Path.LOGIN, {email, password})
+        .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+        .then(() => dispatch(redirectToRoute(Path.DEFAULT)))
     );
   }
 
   pushComment(commentData) {
     const {id, comment, rating} = commentData;
     return (dispatch, _getState, api) => (
-      api.post(`/comments/${id}`, {comment, rating})
+      api.post(Path.COMMENTS + id, {comment, rating})
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
-        .then((comments) => dispatch(ActionCreator.loadComments(comments)))
-        .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}/reviews`)))
+        .then((comments) => dispatch(loadComments(comments)))
+        .then(() => dispatch(redirectToRoute(Path.FILMS + id)))
     );
   }
 
@@ -124,13 +133,4 @@ export default class ApiService {
 
     return adaptedReview;
   }
-
-  // static adaptReviewToServer(review) {
-  //   return Object.assign(
-  //       {},
-  //       review,
-  //       {
-  //         date: new Date().toISOString(),
-  //       });
-  // }
 }

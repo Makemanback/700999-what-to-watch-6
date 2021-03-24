@@ -2,19 +2,20 @@ import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from '../film/film.prop';
+
 import LoadingScreen from '../loading-screen/loading-screen';
 import SmallCardContainer from "../small-card/small-card";
 
-const CardsList = ({films, isDataLoaded, loadMovieData, filmId}) => {
+const CardsList = ({films, loadMovieData, filmId}) => {
 
   useEffect(() => {
-    if (!isDataLoaded) {
+    if (!films) {
       loadMovieData(filmId);
     }
-  }, [isDataLoaded]);
+  }, [films]);
 
 
-  if (!isDataLoaded) {
+  if (!films) {
     return (
       <LoadingScreen />
     );
@@ -37,10 +38,8 @@ const CardsList = ({films, isDataLoaded, loadMovieData, filmId}) => {
 
 CardsList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
   loadMovieData: PropTypes.func.isRequired,
   filmId: PropTypes.number,
 };
 
 export default CardsList;
-

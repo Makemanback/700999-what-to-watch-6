@@ -1,40 +1,29 @@
 import React from "react";
-import PropTypes from "prop-types";
-import filmProp from '../film/film.prop';
-import {connect} from "react-redux";
-import {ActionCreator} from '../../store/action';
+import {useDispatch, useSelector} from "react-redux";
 
-const CatalogMore = ({films, filmsToShow, onShowMore}) => {
+import {getFilteredFilms} from '../../store/all-films/selectors';
+import {showMore} from '../../store/action';
 
-  if (filmsToShow > films.length) {
+const CatalogMore = () => {
+
+  const dispatch = useDispatch();
+
+  const allFilmsStore = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const {filmsToShow} = allFilmsStore;
+
+  const filteredFilms = getFilteredFilms(allFilmsStore);
+
+  if (filmsToShow > filteredFilms.length) {
     return null;
   }
 
   return (
     <div className="catalog__more">
       <button
-        onClick={() => onShowMore()}
+        onClick={() => dispatch(showMore())}
         className="catalog__button" type="button">Show more</button>
     </div>
   );
 };
 
-const mapStateToProps = ({filteredFilms, filmsToShow, onShowMore}) => ({
-  films: filteredFilms,
-  filmsToShow,
-  onShowMore
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onShowMore() {
-    dispatch(ActionCreator.showMore());
-  }
-});
-
-CatalogMore.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
-  filmsToShow: PropTypes.number.isRequired,
-  onShowMore: PropTypes.func.isRequired
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CatalogMore);
+export default CatalogMore;

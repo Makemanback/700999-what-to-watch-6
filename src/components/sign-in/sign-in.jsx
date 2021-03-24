@@ -1,24 +1,35 @@
 import React, {useRef} from "react";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+
 import ApiService from "../../store/api-actions";
+import {AuthorizationStatus, Path} from '../../const';
 
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
 const apiService = new ApiService();
 
-const SignIn = ({onSubmit}) => {
+const SignIn = () => {
+
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
+
+  const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={Path.DEFAULT} />;
+  }
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(apiService.login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -77,14 +88,4 @@ const SignIn = ({onSubmit}) => {
   );
 };
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(apiService.login(authData));
-  }
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;
