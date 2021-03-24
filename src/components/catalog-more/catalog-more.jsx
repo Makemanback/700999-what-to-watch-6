@@ -1,13 +1,17 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
+
+import {getFilteredFilms} from '../../store/all-films/selectors';
 import {showMore} from '../../store/action';
 
 const CatalogMore = () => {
 
   const dispatch = useDispatch();
 
-  const filmsToShow = useSelector(({ALL_FILMS}) => ALL_FILMS.filmsToShow);
-  const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
+  const allFilmsStore = useSelector(({ALL_FILMS}) => ALL_FILMS);
+  const {filmsToShow} = allFilmsStore;
+
+  const filteredFilms = getFilteredFilms(allFilmsStore);
 
   if (filmsToShow > filteredFilms.length) {
     return null;

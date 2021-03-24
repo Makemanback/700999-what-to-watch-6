@@ -13,7 +13,7 @@ const UserBlockAvatar = () => {
 
 const UserBlock = () => {
 
-  const {authorizationStatus} = useSelector(({USER}) => USER);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const signedIn = authorizationStatus === AuthorizationStatus.AUTH
     ? <UserBlockAvatar />

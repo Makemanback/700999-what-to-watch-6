@@ -8,7 +8,7 @@ import browserHistory from "../../browser-history";
 import Main from "../main/main";
 import AddReview from '../add-review/add-review';
 import FilmContainer from '../film-container/film-container';
-// import MyList from '../my-list/my-list';
+import MyList from '../my-list/my-list';
 import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import NotFound from "../not-found/not-found";
@@ -27,24 +27,24 @@ const App = () => {
           <SignIn history={browserHistory} />
         </Route>
 
-        {/* <PrivateRoute exact path={Path.MY_LIST}>
-          <MyList />
-        </PrivateRoute> */}
-
-        <Route exact path={Path.FILM_ID}
+        <PrivateRoute exact path={Path.MY_LIST}
           render={({match}) => {
             const filmId = +match.params.id;
 
-            return <FilmContainer filmId={filmId} />;
+            return <MyList filmId={filmId} />;
           }}
         />
 
-        <PrivateRoute exact path={Path.FILM_REVIEW}
-          render={({match}) => {
-            const filmId = +match.params.id;
+        <Route
+          exact
+          path={Path.FILM_ID}
+          render={() => <FilmContainer />}
+        />
 
-            return <AddReview filmId={filmId} />;
-          }}
+        <PrivateRoute
+          exact
+          path={Path.FILM_REVIEW}
+          render={() => <AddReview />}
         />
 
         <PrivateRoute exact path={Path.PLAYER}

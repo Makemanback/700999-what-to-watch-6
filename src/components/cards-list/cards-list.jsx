@@ -43,10 +43,3 @@ CardsList.propTypes = {
 };
 
 export default CardsList;
-
-// export default memo(
-//     CardsList,
-//     ({films, filmId},
-//         {films: nextFilms, filmId: nextFilmId}) => {
-//       return films === nextFilms && filmId === nextFilmId;
-//     });

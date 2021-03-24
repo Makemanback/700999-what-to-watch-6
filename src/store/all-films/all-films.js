@@ -7,13 +7,6 @@ const initialState = {
   activeGenre: Genre.ALL_GENRES,
   filmsToShow: FILMS_ON_SCREEN,
   allFilms: null,
-  filteredFilms: [],
-};
-
-const filterFilms = (genre, allFilms) => {
-  return genre === Genre.ALL_GENRES ?
-    allFilms :
-    allFilms.filter((film) => film.genre === genre);
 };
 
 const allFilms = createReducer(initialState, (builder) => {
@@ -21,14 +14,12 @@ const allFilms = createReducer(initialState, (builder) => {
     return {
       ...state,
       allFilms: action.payload,
-      filteredFilms: action.payload,
     };
   });
   builder.addCase(changeGenre, (state, action) => {
     return {
       ...state,
       activeGenre: action.payload,
-      filteredFilms: filterFilms(action.payload, state.allFilms),
       filmsToShow: FILMS_ON_SCREEN
     };
   });

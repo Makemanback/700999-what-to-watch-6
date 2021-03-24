@@ -12,7 +12,7 @@ const apiService = new ApiService();
 
 const SignIn = () => {
 
-  const {authorizationStatus} = useSelector(({USER}) => USER);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const dispatch = useDispatch();
   const loginRef = useRef();
