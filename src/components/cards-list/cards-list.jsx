@@ -1,4 +1,4 @@
-import React, {useEffect, memo} from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 
 import filmProp from '../film/film.prop';
@@ -43,10 +43,3 @@ CardsList.propTypes = {
 };
 
 export default CardsList;
-
-// export default memo(
-//     CardsList,
-//     ({films, filmId},
-//         {films: nextFilms, filmId: nextFilmId}) => {
-//       return films === nextFilms && filmId === nextFilmId;
-//     });

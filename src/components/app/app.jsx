@@ -43,12 +43,14 @@ const App = () => {
         }}
       />
 
-        <PrivateRoute exact path={Path.FILM_REVIEW}
+        {/* <PrivateRoute exact path={Path.FILM_REVIEW}
           render={({match}) => {
-            const filmId = +match.params.id;
+            const filmId = +match.params.id; */}
 
-            return <AddReview filmId={filmId} />;
-          }}
+        <PrivateRoute
+          exact
+          path={Path.FILM_REVIEW}
+          render={() => <AddReview />}
         />
 
         <PrivateRoute exact path={Path.PLAYER}

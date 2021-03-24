@@ -7,7 +7,7 @@ import GenreItem from '../genre-item/genre-item';
 
 const GenresList = () => {
 
-  const {genres} = useSelector(({GENRES}) => GENRES);
+  const genres = useSelector(({GENRES}) => GENRES.genres);
 
   const dispatch = useDispatch();
 

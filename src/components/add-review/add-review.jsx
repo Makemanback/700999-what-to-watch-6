@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
+import {useParams} from 'react-router-dom';
 
 import ApiService from "../../store/api-actions";
 
@@ -14,11 +14,13 @@ const apiService = new ApiService();
 
 const PageLogo = <Logo />;
 
-const AddReview = ({filmId}) => {
+const AddReview = () => {
 
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
 
   const dispatch = useDispatch();
+  const {id} = useParams();
+  const filmId = +id;
 
   useEffect(() => {
     if (!currentFilm) {
@@ -74,10 +76,6 @@ const AddReview = ({filmId}) => {
 
     </section>
   );
-};
-
-AddReview.propTypes = {
-  filmId: PropTypes.number.isRequired
 };
 
 export default AddReview;

@@ -18,15 +18,18 @@ const PageFooter = <Footer />;
 const Film = ({
   filmId,
   loadFilmsData,
-  authorizationStatus,
   exactFilms,
-  background,
-  backgroundImg,
-  title,
-  poster,
-  filmGenre,
-  released,
+  currentFilm
 }) => {
+
+  const {
+    title,
+    genre: filmGenre,
+    released,
+    background,
+    poster,
+    backgroundImg
+  } = currentFilm;
 
   return (
     <React.Fragment>
@@ -55,7 +58,7 @@ const Film = ({
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <MovieCardButtons authorizationStatus={authorizationStatus} id={filmId} />
+              <MovieCardButtons id={filmId} />
             </div>
           </div>
         </div>
@@ -90,14 +93,7 @@ const Film = ({
 Film.propTypes = {
   currentFilm: filmProp,
   loadFilmsData: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
   exactFilms: PropTypes.arrayOf(filmProp).isRequired,
-  background: PropTypes.string.isRequired,
-  backgroundImg: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  released: PropTypes.number.isRequired,
   filmId: PropTypes.number.isRequired,
 };
 

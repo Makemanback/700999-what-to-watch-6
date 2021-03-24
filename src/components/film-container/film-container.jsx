@@ -1,22 +1,24 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {useSelector, useDispatch} from "react-redux";
+import {useParams} from 'react-router-dom';
 
 import ApiService from "../../store/api-actions";
 import {resetFilm} from "../../store/action";
+import {getFilteredFilms} from '../../store/all-films/selectors';
 
 import Film from '../film/film';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-const FilmContainer = ({filmId}) => {
+const FilmContainer = () => {
+
+  const {id} = useParams();
+  const filmId = +id;
+
+  const allFilmsStore = useSelector(({ALL_FILMS}) => ALL_FILMS);
 
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
-
-  const filteredFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.filteredFilms);
-
-  const {authorizationStatus} = useSelector(({USER}) => USER);
 
   const loadFilmsData = () => dispatch(apiService.fetchFilm(filmId));
 
@@ -24,7 +26,7 @@ const FilmContainer = ({filmId}) => {
 
   useEffect(() => {
     if (!currentFilm) {
-      loadFilmsData(filmId);
+      loadFilmsData();
       dispatch(apiService.fetchFilmComments(filmId));
       dispatch(apiService.fetchFilmsList());
     }
@@ -39,16 +41,9 @@ const FilmContainer = ({filmId}) => {
     );
   }
 
-  const film = currentFilm;
+  const {genre: filmGenre} = currentFilm;
 
-  const {
-    title,
-    genre: filmGenre,
-    released,
-    background,
-    poster,
-    backgroundImg
-  } = film;
+  const filteredFilms = getFilteredFilms(allFilmsStore);
 
   const exactFilms = filteredFilms
     .filter(({genre}) => genre === filmGenre)
@@ -57,22 +52,12 @@ const FilmContainer = ({filmId}) => {
 
   return (
     <Film
-      title={title}
-      released={released}
-      background={background}
-      backgroundImg={backgroundImg}
-      filmGenre={filmGenre}
-      poster={poster}
+      currentFilm={currentFilm}
       exactFilms={exactFilms}
-      authorizationStatus={authorizationStatus}
       loadFilmsData={loadFilmsData}
       filmId={filmId}
     />
   );
-};
-
-FilmContainer.propTypes = {
-  filmId: PropTypes.number.isRequired,
 };
 
 export default FilmContainer;

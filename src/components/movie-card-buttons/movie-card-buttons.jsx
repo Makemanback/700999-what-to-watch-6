@@ -8,7 +8,9 @@ import {AuthorizationStatus, Path} from '../../const';
 
 const apiService = new ApiService();
 
-const MovieCardButtons = ({authorizationStatus, id}) => {
+const MovieCardButtons = ({id}) => {
+
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const dispatch = useDispatch();
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
@@ -48,13 +50,12 @@ const MovieCardButtons = ({authorizationStatus, id}) => {
 };
 
 MovieCardButtons.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired
 };
 
 export default memo(
     MovieCardButtons,
-    ({authorizationStatus, id},
-        {authorizationStatus: nextAuthorizationStatus, id: nextId}) => {
-      return authorizationStatus === nextAuthorizationStatus && id === nextId;
+    ({id},
+        {id: nextId}) => {
+      return id === nextId;
     });

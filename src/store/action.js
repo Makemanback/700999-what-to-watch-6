@@ -16,71 +16,45 @@ export const ActionType = {
   ADD_TO_FAVORITE: `ADD_TO_FAVORITE`
 };
 
-export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => {
-  return {
-    payload: films
-  };
-});
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films
+}));
 
-export const getFilm = createAction(ActionType.GET_FILM, (film) => {
-  return {
-    payload: film
-  };
-});
+export const getFilm = createAction(ActionType.GET_FILM, (film) => ({
+  payload: film
+}));
 
-export const getFilmId = createAction(ActionType.GET_FILM_ID, (id) => {
-  return {
-    payload: id
-  };
-});
+export const getFilmId = createAction(ActionType.GET_FILM_ID, (id) => ({
+  payload: id
+}));
 
-export const loadPromoFilm = createAction(ActionType.GET_PROMO_FILM, (film) => {
-  return {
-    payload: film
-  };
-});
+export const loadPromoFilm = createAction(ActionType.GET_PROMO_FILM, (film) => ({
+  payload: film
+}));
 
-export const loadComments = createAction(ActionType.GET_COMMENTS, (comments) => {
-  return {
-    payload: comments
-  };
-});
+export const loadComments = createAction(ActionType.GET_COMMENTS, (comments) => ({
+  payload: comments
+}));
 
-export const setGenres = createAction(ActionType.SET_GENRES, (genres) => {
-  return {
-    payload: genres
-  };
-});
+export const setGenres = createAction(ActionType.SET_GENRES, (genres) => ({
+  payload: genres
+}));
 
-export const changeGenre = createAction(ActionType.CHANGE_GENRE, (activeGenre) => {
-  return {
-    payload: activeGenre
-  };
-});
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (activeGenre) => ({
+  payload: activeGenre
+}));
 
-export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => {
-  return {
-    payload: status,
-  };
-});
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status
+}));
 
-export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
-  return {
-    payload: url
-  };
-});
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url
+}));
 
-export const loadFavorite = createAction(ActionType.GET_FAVORITE, (films) => {
-  return {
-    payload: films
-  }
-});
-
-export const addToFavorite = createAction(ActionType.ADD_TO_FAVORITE, (film) => {
-  return {
-    payload: film
-  }
-})
+export const loadFavorite = createAction(ActionType.GET_FAVORITE, (films) => ({
+  payload: films
+}));
 
 export const resetFilm = createAction(ActionType.RESET_FILM);
 export const showMore = createAction(ActionType.SHOW_MORE);

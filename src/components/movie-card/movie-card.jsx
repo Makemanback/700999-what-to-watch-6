@@ -13,7 +13,7 @@ const User = <UserBlock />;
 
 const MovieCard = () => {
 
-  const {authorizationStatus} = useSelector(({USER}) => USER);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
   const promoFilm = useSelector(({FILM}) => FILM.promoFilm);
 
   const dispatch = useDispatch();

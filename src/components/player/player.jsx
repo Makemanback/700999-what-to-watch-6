@@ -38,6 +38,11 @@ const Player = ({filmId}) => {
 
   const {image, videoLink} = currentFilm ? currentFilm : promoFilm;
 
+  const resumeVideo = (evt) => {
+    videoRef.current.play()
+    console.log(videoRef.current.play())
+  }
+
   return (
     <div className="player">
       <video ref={videoRef} src={videoLink} className="player__video" poster={image}></video>
@@ -57,7 +62,7 @@ const Player = ({filmId}) => {
           <button
             type="button"
             className="player__play"
-            onClick={() => videoRef.current.play()}>
+            onClick={(evt) => resumeVideo(evt)}>
             <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref="#play-s"/>
             </svg>
@@ -65,7 +70,10 @@ const Player = ({filmId}) => {
           </button>
           <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen">
+          <button
+            onClick={() => videoRef.current.requestFullscreen()}
+            type="button"
+            className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"/>
             </svg>

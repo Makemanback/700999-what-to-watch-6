@@ -1,13 +1,10 @@
 import React, {useRef} from "react";
-import {Route, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 import ApiService from "../../store/api-actions";
 import {AuthorizationStatus, Path} from '../../const';
-import {redirectToRoute} from '../../store/action';
-import browserHistory from "../../browser-history";
 
-import Main from '../main/main';
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
@@ -15,16 +12,14 @@ const apiService = new ApiService();
 
 const SignIn = () => {
 
-  const {authorizationStatus} = useSelector(({USER}) => USER);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return (
-      <Main />
-    );
+    return <Redirect to={Path.DEFAULT} />;
   }
 
 

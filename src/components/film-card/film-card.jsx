@@ -8,32 +8,48 @@ import FilmReviews from '../film-reviews/film-reviews';
 
 const FilmCard = () => {
 
+  const Tabs = {
+    OVERVIEW: `OVERVIEW`,
+    DETAILS: `DETAILS`,
+    REVIEWS: `REVIEWS`
+  };
+
   const currentFilm = useSelector(({FILM}) => FILM.currentFilm);
   const currentFilmComments = useSelector(({FILM}) => FILM.currentFilmComments);
 
   const {id} = currentFilm;
 
-  const movieOverview = <FilmOverview film={currentFilm}/>;
+  const [activeTab, setActiveTab] = useState(Tabs.OVERVIEW);
 
-  const movieDetails = <FilmDetails film={currentFilm} />;
+  let tab;
 
-  const movieReviews = <FilmReviews
-    reviews={currentFilmComments}
-    id={id}
-  />;
+  switch (activeTab) {
+    case Tabs.OVERVIEW:
+      tab = <FilmOverview film={currentFilm}/>;
+      break;
+    case Tabs.DETAILS:
+      tab = <FilmDetails film={currentFilm} />;
+      break;
+    case Tabs.REVIEWS:
+      tab = <FilmReviews
+        reviews={currentFilmComments}
+        id={id}
+      />;
+      break;
+    default:
+      tab = <FilmOverview film={currentFilm}/>;
+  }
 
-  const [activeTab, setActiveTab] = useState(movieOverview);
 
   return (
     <div className="movie-card__desc">
       <FilmNav
         id={id}
         setActiveTab={setActiveTab}
-        movieOverview={movieOverview}
-        movieDetails={movieDetails}
-        movieReviews={movieReviews}
+        Tabs={Tabs}
         activeTab={activeTab} />
-      {activeTab}
+      {tab}
+
     </div>
   );
 };
