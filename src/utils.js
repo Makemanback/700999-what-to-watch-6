@@ -24,29 +24,29 @@ export const timeConvert = (time) => {
 
 export const formatTime = (time) => {
   let fulltime;
-  let h = Math.floor(time / (60 * 60)),
-      dm = time % (60 * 60),
-      m = Math.floor(dm / 60),
-      ds = dm % 60,
-      s = Math.ceil(ds);
+  let h = Math.floor(time / (60 * 60));
+  let dm = time % (60 * 60);
+  let m = Math.floor(dm / 60);
+  let ds = dm % 60;
+  let s = Math.ceil(ds);
   if (s === 60) {
-      s = 0;
-      m = m + 1;
+    s = 0;
+    m = m + 1;
   }
   if (s < 10) {
-      s = `0${s}`;
+    s = `0${s}`;
   }
   if (m === 60) {
-      m = 0;
-      h = h + 1;
+    m = 0;
+    h = h + 1;
   }
   if (m < 10) {
-      m = `0${m}`;
+    m = `0${m}`;
   }
   if (h === 0) {
-      fulltime = `${m}:${s}`;
+    fulltime = `${m}:${s}`;
   } else {
-      fulltime = `${h}:${m}:${s}`;
+    fulltime = `${h}:${m}:${s}`;
   }
   return fulltime;
-}
+};

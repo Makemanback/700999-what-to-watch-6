@@ -20,27 +20,23 @@ const App = () => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={Path.DEFAULT}>
-          <Main />;
+          <Main />
         </Route>
 
         <Route exact path={Path.LOGIN}>
           <SignIn history={browserHistory} />
         </Route>
 
-        <PrivateRoute exact path={Path.MY_LIST}
-          render={({match}) => {
-            const filmId = +match.params.id;
-
-            return <MyList filmId={filmId} />;
-          }}
+        <PrivateRoute
+          exact
+          path={Path.MY_LIST}
+          render={() => <MyList />}
         />
 
-        <Route exact path={Path.FILM_ID}
-          render={({match}) => {
-            const filmId = +match.params.id;
-
-            return <FilmContainer filmId={filmId} />;
-          }}
+        <Route
+          exact
+          path={Path.FILM_ID}
+          render={() => <FilmContainer />}
         />
 
         <PrivateRoute
@@ -49,12 +45,10 @@ const App = () => {
           render={() => <AddReview />}
         />
 
-        <PrivateRoute exact path={Path.PLAYER}
-          render={({match}) => {
-            const {path} = match;
-
-            return <Player path={path} />;
-          }}
+        <PrivateRoute
+          exact
+          path={Path.PLAYER}
+          render={() => <Player />}
         />
 
         <Route>

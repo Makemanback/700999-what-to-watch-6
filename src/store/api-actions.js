@@ -103,8 +103,13 @@ export default class ApiService {
     const {isFavorite, id} = film;
 
     let changeFavorite;
-    isFavorite ? changeFavorite = `/0` : changeFavorite = `/1`;
+    if (isFavorite) {
+      changeFavorite = `/0`;
+    } else {
+      changeFavorite = `/1`;
+    }
     const route = Path.FAVORITE + id + changeFavorite;
+
     return (_dispatch, _getState, api) => (
       api.post(route, {isFavorite})
       .then(({data}) => ApiService.adaptToClient(data))

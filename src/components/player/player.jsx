@@ -1,30 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
-import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 
 import ApiService from "../../store/api-actions";
 import {formatTime} from '../../utils';
+import browserHistory from '../../browser-history';
+import {Path} from '../../const';
+
 import LoadingScreen from '../loading-screen/loading-screen';
+import PlayButton from '../play-button/play-button';
 
 const apiService = new ApiService();
 
-const PlayButton = ({isPlaying}) => {
-
-  if (isPlaying) {
-    return (
-      <svg viewBox="0 0 19 19" width="19" height="19">
-        <use xlinkHref="#play-s"/>
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 19 19" width="19" height="19">
-      <use xlinkHref="#pause"/>
-    </svg>
-  );
-};
 
 const Player = () => {
   const videoRef = useRef();
@@ -77,8 +64,8 @@ const Player = () => {
 
   const changeVideoProgress = () => {
     setTime(videoRef.current.currentTime);
-    setToggler((videoRef.current.currentTime / videoRef.current.duration) * 100 )
-  }
+    setToggler((videoRef.current.currentTime / videoRef.current.duration) * 100);
+  };
 
   return (
     <div className="player">
@@ -88,12 +75,14 @@ const Player = () => {
         className="player__video"
         poster={image}
         onTimeUpdate={() => changeVideoProgress()}>
-        </video>
+      </video>
 
       <button
         type="button"
         className="player__exit"
-        onClick={() => {}}>Exit</button>
+        onClick={() => browserHistory.push(Path.FILMS + filmId)}>
+          Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -128,10 +117,6 @@ const Player = () => {
       </div>
     </div>
   );
-};
-
-Player.propTypes = {
-  filmId: PropTypes.number.isRequired
 };
 
 export default Player;

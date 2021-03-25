@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {useSelector, useDispatch} from "react-redux";
+import {useParams} from 'react-router-dom';
 
-import filmProp from "../film/film.prop";
 import ApiService from "../../store/api-actions";
 
 import Footer from '../footer/footer';
@@ -16,11 +15,14 @@ const apiService = new ApiService();
 const PageLogo = <Logo />;
 const PageUserBlock = <UserBlock />;
 
-const MyList = ({filmId}) => {
+const MyList = () => {
 
   const favoriteFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.favoriteFilms);
 
   const dispatch = useDispatch();
+
+  const {id} = useParams();
+  const filmId = +id;
 
   const loadFilmsData = () => dispatch(apiService.fetchFavoriteFilms());
 
@@ -60,11 +62,5 @@ const MyList = ({filmId}) => {
     </div>
   );
 };
-
-
-MyList.propTypes = {
-  filmId: PropTypes.number.isRequired
-};
-
 
 export default MyList;
