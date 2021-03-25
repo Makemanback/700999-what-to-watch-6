@@ -8,7 +8,6 @@ import browserHistory from '../../browser-history';
 import {Path} from '../../const';
 
 import LoadingScreen from '../loading-screen/loading-screen';
-import PlayButton from '../play-button/play-button';
 
 const apiService = new ApiService();
 
@@ -24,7 +23,7 @@ const Player = () => {
   const {id} = useParams();
   const filmId = +id;
 
-  const [isPlaying, setPlaying] = useState(true);
+  const [playButton, setPlaying] = useState(<use xlinkHref="#play-s"/>);
   const [playerTime, setTime] = useState(0);
   const [playerToggler, setToggler] = useState(0);
 
@@ -48,17 +47,13 @@ const Player = () => {
 
   const {image, videoLink} = currentFilm ? currentFilm : promoFilm;
 
-  let playButton = <PlayButton isPlaying={isPlaying} />;
-
   const resumeVideo = () => {
     if (videoRef.current.paused) {
-      setPlaying(false);
+      setPlaying(<use xlinkHref="#pause"/>);
       videoRef.current.play();
-      playButton = <PlayButton isPlaying={isPlaying} />;
     } else {
-      setPlaying(true);
+      setPlaying(<use xlinkHref="#play-s"/>);
       videoRef.current.pause();
-      playButton = <PlayButton isPlaying={isPlaying} />;
     }
   };
 
@@ -99,7 +94,9 @@ const Player = () => {
             type="button"
             className="player__play"
             onClick={() => resumeVideo()}>
-            {playButton}
+              <svg viewBox="0 0 19 19" width="19" height="19">
+                {playButton}
+              </svg>
             <span>Play</span>
           </button>
           <div className="player__name">Transpotting</div>
