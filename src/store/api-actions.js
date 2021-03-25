@@ -33,10 +33,10 @@ export default class ApiService {
 
   fetchFavoriteFilms() {
     return (dispatch, _getState, api) =>
-    api
+      api
       .get(Path.FAVORITE)
       .then(({data}) => data.map(ApiService.adaptToClient))
-      .then((films) => dispatch(loadFavorite(films)))
+      .then((films) => dispatch(loadFavorite(films)));
   }
 
   fetchFilm(id) {
@@ -108,7 +108,7 @@ export default class ApiService {
     return (_dispatch, _getState, api) => (
       api.post(route, {isFavorite})
       .then(({data}) => ApiService.adaptToClient(data))
-    )
+    );
   }
 
   static adaptToClient(film) {

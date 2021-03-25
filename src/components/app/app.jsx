@@ -31,21 +31,17 @@ const App = () => {
           render={({match}) => {
             const filmId = +match.params.id;
 
-            return <MyList filmId={filmId} />
+            return <MyList filmId={filmId} />;
           }}
         />
 
-      <Route exact path={Path.FILM_ID}
-        render={({match}) => {
-          const filmId = +match.params.id;
-
-          return <FilmContainer filmId={filmId} />;
-        }}
-      />
-
-        {/* <PrivateRoute exact path={Path.FILM_REVIEW}
+        <Route exact path={Path.FILM_ID}
           render={({match}) => {
-            const filmId = +match.params.id; */}
+            const filmId = +match.params.id;
+
+            return <FilmContainer filmId={filmId} />;
+          }}
+        />
 
         <PrivateRoute
           exact
@@ -56,9 +52,8 @@ const App = () => {
         <PrivateRoute exact path={Path.PLAYER}
           render={({match}) => {
             const {path} = match;
-            const filmId = +match.params.id;
 
-            return <Player path={path} filmId={filmId} />;
+            return <Player path={path} />;
           }}
         />
 

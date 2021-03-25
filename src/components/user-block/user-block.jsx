@@ -31,7 +31,7 @@ const UserBlock = () => {
         to={Path.MY_LIST}
         onClick={() => dispatch(apiService.fetchFavoriteFilms())}
         className="user-block__link">
-          {signedIn}
+        {signedIn}
       </Link>
     </div>
   );

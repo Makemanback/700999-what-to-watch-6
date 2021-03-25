@@ -18,7 +18,7 @@ const PageUserBlock = <UserBlock />;
 
 const MyList = ({filmId}) => {
 
-  const favoriteFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.favoriteFilms)
+  const favoriteFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.favoriteFilms);
 
   const dispatch = useDispatch();
 
