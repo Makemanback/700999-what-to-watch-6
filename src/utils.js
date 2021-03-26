@@ -19,34 +19,35 @@ export const timeConvert = (time) => {
   const rhours = Math.floor(hours);
   const minutes = (hours - rhours) * 60;
   const rminutes = Math.round(minutes);
-  return `${rhours}h ${rminutes}m`;
+  return `${rhours}hours ${rminutes}minutes`;
 };
 
-export const formatTime = (time) => {
+export const formatPlayerTime = (time) => {
   let fulltime;
-  let h = Math.floor(time / (60 * 60));
-  let dm = time % (60 * 60);
-  let m = Math.floor(dm / 60);
-  let ds = dm % 60;
-  let s = Math.ceil(ds);
-  if (s === 60) {
-    s = 0;
-    m = m + 1;
+  let hours = Math.floor(time / (60 * 60));
+  let dividedMinutes = time % (60 * 60);
+  let minutes = Math.floor(dividedMinutes / 60);
+  let dividedSeconds = dividedMinutes % 60;
+  let seconds = Math.ceil(dividedSeconds);
+
+  if (seconds === 60) {
+    seconds = 0;
+    minutes = minutes + 1;
   }
-  if (s < 10) {
-    s = `0${s}`;
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
   }
-  if (m === 60) {
-    m = 0;
-    h = h + 1;
+  if (minutes === 60) {
+    minutes = 0;
+    hours = hours + 1;
   }
-  if (m < 10) {
-    m = `0${m}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
-  if (h === 0) {
-    fulltime = `${m}:${s}`;
+  if (hours === 0) {
+    fulltime = `${minutes}:${seconds}`;
   } else {
-    fulltime = `${h}:${m}:${s}`;
+    fulltime = `${hours}:${minutes}:${seconds}`;
   }
   return fulltime;
 };

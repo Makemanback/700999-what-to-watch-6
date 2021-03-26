@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 
 import ApiService from "../../store/api-actions";
-import {formatTime} from '../../utils';
+import {formatPlayerTime} from '../../utils';
 import browserHistory from '../../browser-history';
 import {Path} from '../../const';
 
@@ -86,7 +86,7 @@ const Player = () => {
             <div className="player__toggler" style={{left: `${playerToggler}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">
-            {formatTime(playerTime)}
+            {formatPlayerTime(playerTime)}
           </div>
         </div>
         <div className="player__controls-row">
@@ -94,9 +94,9 @@ const Player = () => {
             type="button"
             className="player__play"
             onClick={() => resumeVideo()}>
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                {playButton}
-              </svg>
+            <svg viewBox="0 0 19 19" width="19" height="19">
+              {playButton}
+            </svg>
             <span>Play</span>
           </button>
           <div className="player__name">Transpotting</div>

@@ -99,16 +99,8 @@ export default class ApiService {
     );
   }
 
-  addToFavorite(film) {
-    const {isFavorite, id} = film;
-
-    let changeFavorite;
-    if (isFavorite) {
-      changeFavorite = `/0`;
-    } else {
-      changeFavorite = `/1`;
-    }
-    const route = Path.FAVORITE + id + changeFavorite;
+  addToFavorite(isFavorite, id) {
+    const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
 
     return (_dispatch, _getState, api) => (
       api.post(route, {isFavorite})

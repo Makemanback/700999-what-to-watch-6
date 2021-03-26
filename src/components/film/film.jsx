@@ -28,7 +28,8 @@ const Film = ({
     released,
     background,
     poster,
-    backgroundImg
+    backgroundImg,
+    isFavorite
   } = currentFilm;
 
   return (
@@ -58,7 +59,7 @@ const Film = ({
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <MovieCardButtons id={filmId} />
+              <MovieCardButtons filmId={filmId} isFavorite={isFavorite} />
             </div>
           </div>
         </div>

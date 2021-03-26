@@ -4,8 +4,7 @@ import {requireAuthorization} from '../action';
 import {AuthorizationStatus} from '../../const';
 
 const initialState = {
-  // authorizationStatus: AuthorizationStatus.NO_AUTH,
-  authorizationStatus: AuthorizationStatus.AUTH,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 const user = createReducer(initialState, (builder) => {

@@ -13,7 +13,6 @@ const User = <UserBlock />;
 
 const MovieCard = () => {
 
-  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
   const promoFilm = useSelector(({FILM}) => FILM.promoFilm);
 
   const dispatch = useDispatch();
@@ -31,16 +30,15 @@ const MovieCard = () => {
     );
   }
 
-  const film = promoFilm;
-
   const {
     backgroundImg,
     poster,
     released,
     genre,
     title,
-    id
-  } = film;
+    id: filmId,
+    isFavorite
+  } = promoFilm;
 
   return (
     <section className="movie-card">
@@ -61,8 +59,8 @@ const MovieCard = () => {
         genre={genre}
         year={released}
         poster={poster}
-        authorizationStatus={authorizationStatus}
-        id={id}
+        isFavorite={isFavorite}
+        filmId={filmId}
       />
     </section>
   );
