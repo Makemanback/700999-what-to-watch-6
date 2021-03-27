@@ -1,10 +1,11 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from '../../store/api-actions';
 import {AuthorizationStatus, Path} from '../../const';
+import browserHistory from '../../browser-history';
 
 const apiService = new ApiService();
 
@@ -14,7 +15,6 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
 
   const dispatch = useDispatch();
 
-
   const addReview = authorizationStatus === AuthorizationStatus.AUTH
     ? <Link
       to={`/films/${filmId}/review`}
@@ -23,14 +23,13 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
     </Link>
     : null;
 
-
   const addToFavorite = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-       return dispatch(apiService.addToFavorite(isFavorite, filmId))
-     } else {
-        return <Redirect to={Path.LOGIN} />
-     }
-  }
+      dispatch(apiService.addToFavorite(isFavorite, filmId));
+    } else {
+      browserHistory.push(Path.LOGIN);
+    }
+  };
 
   return (
     <div className="movie-card__buttons">

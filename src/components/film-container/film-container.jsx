@@ -34,8 +34,9 @@ const FilmContainer = () => {
 
   useEffect(() => () => dispatch(resetFilm()), [filmId]);
 
+  const filteredFilms = getFilteredFilms(allFilmsStore);
 
-  if (!currentFilm) {
+  if (!currentFilm || !filteredFilms) {
     return (
       <LoadingScreen />
     );
@@ -43,12 +44,9 @@ const FilmContainer = () => {
 
   const {genre: filmGenre} = currentFilm;
 
-  const filteredFilms = getFilteredFilms(allFilmsStore);
-
   const exactFilms = filteredFilms
     .filter(({genre}) => genre === filmGenre)
     .slice(0, 4);
-
 
   return (
     <Film
