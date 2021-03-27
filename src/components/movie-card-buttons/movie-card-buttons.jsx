@@ -1,6 +1,6 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from '../../store/api-actions';
@@ -24,6 +24,14 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
     : null;
 
 
+  const addToFavorite = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+       return dispatch(apiService.addToFavorite(isFavorite, filmId))
+     } else {
+        return <Redirect to={Path.LOGIN} />
+     }
+  }
+
   return (
     <div className="movie-card__buttons">
       <Link to={Path.FILM_PLAYER + filmId} className="btn btn--play movie-card__button" type="button">
@@ -33,7 +41,7 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
         <span>Play</span>
       </Link>
       <button
-        onClick={() => dispatch(apiService.addToFavorite(isFavorite, filmId))}
+        onClick={() => addToFavorite()}
         className="btn btn--list movie-card__button"
         type="button">
         <svg viewBox="0 0 19 20" width="19" height="20">
