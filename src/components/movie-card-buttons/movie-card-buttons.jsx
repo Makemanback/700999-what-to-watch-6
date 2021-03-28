@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, {memo, useState} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux";
@@ -10,6 +10,16 @@ import browserHistory from '../../browser-history';
 const apiService = new ApiService();
 
 const MovieCardButtons = ({filmId, isFavorite}) => {
+
+  const plusButton = <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add" />
+                    </svg>;
+  const checkMarkButton = <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M2.40513 5.35353L6.1818 8.90902L15.5807 0L18 2.80485L6.18935 14L0 8.17346L2.40513 5.35353Z" fill="#EEE5B5"/>
+                          </svg>;
+
+
+  const [inFavoriteList, setFavoriteButton] = useState(plusButton);
 
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
@@ -23,13 +33,24 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
     </Link>
     : null;
 
+
+const setBtn = () => {
+  if (isFavorite) {
+    setFavoriteButton(plusButton);
+  } else {
+    setFavoriteButton(checkMarkButton);
+  }
+}
+
   const addToFavorite = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       dispatch(apiService.addToFavorite(isFavorite, filmId));
+      // setBtn();
     } else {
       browserHistory.push(Path.LOGIN);
     }
   };
+
 
   return (
     <div className="movie-card__buttons">
@@ -43,9 +64,7 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
         onClick={() => addToFavorite()}
         className="btn btn--list movie-card__button"
         type="button">
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#add" />
-        </svg>
+        {inFavoriteList}
         <span>My list</span>
       </button>
       {addReview}
