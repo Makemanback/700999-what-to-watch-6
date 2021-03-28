@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from '../../store/api-actions';
 import {AuthorizationStatus, Path} from '../../const';
+import browserHistory from '../../browser-history';
 
 const apiService = new ApiService();
 
@@ -14,7 +15,6 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
 
   const dispatch = useDispatch();
 
-
   const addReview = authorizationStatus === AuthorizationStatus.AUTH
     ? <Link
       to={`/films/${filmId}/review`}
@@ -23,6 +23,13 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
     </Link>
     : null;
 
+  const addToFavorite = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      dispatch(apiService.addToFavorite(isFavorite, filmId));
+    } else {
+      browserHistory.push(Path.LOGIN);
+    }
+  };
 
   return (
     <div className="movie-card__buttons">
@@ -33,7 +40,7 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
         <span>Play</span>
       </Link>
       <button
-        onClick={() => dispatch(apiService.addToFavorite(isFavorite, filmId))}
+        onClick={() => addToFavorite()}
         className="btn btn--list movie-card__button"
         type="button">
         <svg viewBox="0 0 19 20" width="19" height="20">
