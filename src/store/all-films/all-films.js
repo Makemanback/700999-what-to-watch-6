@@ -1,12 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {changeGenre, loadFilms, showMore} from '../action';
+import {changeGenre, loadFavorite, loadFilms, showMore} from '../action';
 import {Genre, FILMS_ON_SCREEN} from '../../const';
 
 const initialState = {
   activeGenre: Genre.ALL_GENRES,
   filmsToShow: FILMS_ON_SCREEN,
-  allFilms: null,
+  allFilms: null
 };
 
 const allFilms = createReducer(initialState, (builder) => {
@@ -14,6 +14,12 @@ const allFilms = createReducer(initialState, (builder) => {
     return {
       ...state,
       allFilms: action.payload,
+    };
+  });
+  builder.addCase(loadFavorite, (state, action) => {
+    return {
+      ...state,
+      favoriteFilms: action.payload
     };
   });
   builder.addCase(changeGenre, (state, action) => {

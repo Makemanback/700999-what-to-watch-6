@@ -1,31 +1,48 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 
-import {AuthorizationStatus} from '../../const';
+import ApiService from '../../store/api-actions';
+import {AuthorizationStatus, Path} from '../../const';
+import browserHistory from '../../browser-history';
 
-const MovieCardButtons = ({id}) => {
+const apiService = new ApiService();
+
+const MovieCardButtons = ({filmId, isFavorite}) => {
 
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
+  const dispatch = useDispatch();
+
   const addReview = authorizationStatus === AuthorizationStatus.AUTH
     ? <Link
-      to={`/films/${id}/review`}
+      to={`/films/${filmId}/review`}
       className="btn movie-card__button">
           Add review
     </Link>
     : null;
 
+  const addToFavorite = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      dispatch(apiService.addToFavorite(isFavorite, filmId));
+    } else {
+      browserHistory.push(Path.LOGIN);
+    }
+  };
+
   return (
     <div className="movie-card__buttons">
-      <button className="btn btn--play movie-card__button" type="button">
+      <Link to={Path.FILM_PLAYER + filmId} className="btn btn--play movie-card__button" type="button">
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s" />
         </svg>
         <span>Play</span>
-      </button>
-      <button className="btn btn--list movie-card__button" type="button">
+      </Link>
+      <button
+        onClick={() => addToFavorite()}
+        className="btn btn--list movie-card__button"
+        type="button">
         <svg viewBox="0 0 19 20" width="19" height="20">
           <use xlinkHref="#add" />
         </svg>
@@ -37,12 +54,13 @@ const MovieCardButtons = ({id}) => {
 };
 
 MovieCardButtons.propTypes = {
-  id: PropTypes.number.isRequired
+  filmId: PropTypes.number.isRequired,
+  isFavorite: PropTypes.bool.isRequired
 };
 
 export default memo(
     MovieCardButtons,
-    ({id},
-        {id: nextId}) => {
-      return id === nextId;
+    ({filmId},
+        {filmId: nextFilmId}) => {
+      return filmId === nextFilmId;
     });

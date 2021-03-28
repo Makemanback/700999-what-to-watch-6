@@ -19,5 +19,35 @@ export const timeConvert = (time) => {
   const rhours = Math.floor(hours);
   const minutes = (hours - rhours) * 60;
   const rminutes = Math.round(minutes);
-  return `${rhours}h ${rminutes}m`;
+  return `${rhours}hours ${rminutes}minutes`;
+};
+
+export const formatPlayerTime = (time) => {
+  let fulltime;
+  let hours = Math.floor(time / (60 * 60));
+  let dividedMinutes = time % (60 * 60);
+  let minutes = Math.floor(dividedMinutes / 60);
+  let dividedSeconds = dividedMinutes % 60;
+  let seconds = Math.ceil(dividedSeconds);
+
+  if (seconds === 60) {
+    seconds = 0;
+    minutes = minutes + 1;
+  }
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+  if (minutes === 60) {
+    minutes = 0;
+    hours = hours + 1;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (hours === 0) {
+    fulltime = `${minutes}:${seconds}`;
+  } else {
+    fulltime = `${hours}:${minutes}:${seconds}`;
+  }
+  return fulltime;
 };

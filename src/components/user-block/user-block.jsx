@@ -1,7 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+
+import ApiService from '../../store/api-actions';
 import {AuthorizationStatus, Path} from '../../const';
+
+const apiService = new ApiService();
 
 const UserBlockAvatar = () => {
   return (
@@ -13,6 +17,8 @@ const UserBlockAvatar = () => {
 
 const UserBlock = () => {
 
+  const dispatch = useDispatch();
+
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const signedIn = authorizationStatus === AuthorizationStatus.AUTH
@@ -21,7 +27,12 @@ const UserBlock = () => {
 
   return (
     <div className="user-block">
-      <Link to={Path.LOGIN} className="user-block__link">{signedIn}</Link>
+      <Link
+        to={Path.MY_LIST}
+        onClick={() => dispatch(apiService.fetchFavoriteFilms())}
+        className="user-block__link">
+        {signedIn}
+      </Link>
     </div>
   );
 };

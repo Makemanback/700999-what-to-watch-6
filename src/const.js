@@ -32,7 +32,9 @@ export const Path = {
   FILMS: `/films/`,
   COMMENTS: `/comments/`,
   FILM_PROMO: `/films/promo`,
-  REVIEWS: `/reviews`
+  REVIEWS: `/reviews`,
+  FILM_PLAYER: `/player/`,
+  FAVORITE: `/favorite/`
 };
 
 export const Level = {

@@ -6,8 +6,10 @@ import {
   loadComments,
   loadPromoFilm,
   requireAuthorization,
-  redirectToRoute
+  redirectToRoute,
+  loadFavorite
 } from "./action";
+
 import {AuthorizationStatus, Genre, Path} from "../const";
 import browserHistory from '../browser-history';
 
@@ -26,6 +28,15 @@ export default class ApiService {
           genres.unshift(Genre.ALL_GENRES);
           dispatch(setGenres(genres));
         });
+  }
+
+
+  fetchFavoriteFilms() {
+    return (dispatch, _getState, api) =>
+      api
+      .get(Path.FAVORITE)
+      .then(({data}) => data.map(ApiService.adaptToClient))
+      .then((films) => dispatch(loadFavorite(films)));
   }
 
   fetchFilm(id) {
@@ -85,6 +96,15 @@ export default class ApiService {
         .then(({data}) => data.map(ApiService.adaptReviewToClient))
         .then((comments) => dispatch(loadComments(comments)))
         .then(() => dispatch(redirectToRoute(Path.FILMS + id)))
+    );
+  }
+
+  addToFavorite(isFavorite, id) {
+    const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
+
+    return (_dispatch, _getState, api) => (
+      api.post(route, {isFavorite})
+      .then(({data}) => ApiService.adaptToClient(data))
     );
   }
 

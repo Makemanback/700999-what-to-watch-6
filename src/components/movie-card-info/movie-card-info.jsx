@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 
-const MovieCardInfo = ({title, genre, year, poster, authorizationStatus, id}) => {
+const MovieCardInfo = ({title, genre, year, poster, filmId, isFavorite}) => {
 
   return (
     <div className="movie-card__wrap">
@@ -19,7 +19,7 @@ const MovieCardInfo = ({title, genre, year, poster, authorizationStatus, id}) =>
             <span className="movie-card__year">{year}</span>
           </p>
 
-          <MovieCardButtons authorizationStatus={authorizationStatus} id={id} />
+          <MovieCardButtons filmId={filmId} isFavorite={isFavorite} />
         </div>
       </div>
     </div>
@@ -31,8 +31,8 @@ MovieCardInfo.propTypes = {
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   poster: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired
+  filmId: PropTypes.number.isRequired,
+  isFavorite: PropTypes.bool.isRequired
 };
 
 export default MovieCardInfo;
