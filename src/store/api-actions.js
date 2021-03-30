@@ -7,7 +7,9 @@ import {
   loadPromoFilm,
   requireAuthorization,
   redirectToRoute,
-  loadFavorite
+  loadFavorite,
+  addToFavorite,
+  removeFromFavorite
 } from "./action";
 
 import {AuthorizationStatus, Genre, Path} from "../const";
@@ -99,12 +101,30 @@ export default class ApiService {
     );
   }
 
-  addToFavorite(isFavorite, id) {
-    const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
+  // changeFavorite(isFavorite, id) {
+  //   const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
 
-    return (_dispatch, _getState, api) => (
-      api.post(route, {isFavorite})
+  //   return (dispatch, _getState, api) => (
+  //     api.post(route, {isFavorite})
+  //     .then(({data}) => dispatch(addToFavorite(data)))
+  //     .then((data) => ApiService.adaptToClient(data))
+  //   );
+  // }
+
+  addToFavoriteList(isFavorite, id) {
+
+    return (dispatch, _getState, api) => (
+      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
       .then(({data}) => ApiService.adaptToClient(data))
+      .then((film) => dispatch(addToFavorite(film)))
+    );
+  }
+
+  removeFromFavoriteList(isFavorite, id) {
+
+    return (dispatch, _getState, api) => (
+      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
+      .then(({data}) => dispatch(removeFromFavorite(data)))
     );
   }
 

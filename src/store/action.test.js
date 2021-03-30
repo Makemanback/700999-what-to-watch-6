@@ -85,7 +85,7 @@ describe(`Action creators work correctly`, () => {
     expect(getFilmId(id)).toEqual(expectedAction)
   });
 
-  it(`Action creator for get film returns action with an object of the promo film`, () => {
+  it(`Action creator for load promo film returns action with an object of the promo film`, () => {
     const promoFilm = {
         genre: `Drama`,
         released: 1984,
@@ -113,7 +113,53 @@ describe(`Action creators work correctly`, () => {
     expect(loadPromoFilm(promoFilm)).toEqual(expectedAction)
   });
 
-  it(`Action creator for reset film returns action with undefined payload`, () => {
+  it(`Action creator for load comments returns action with an array of the film's comments`, () => {
+    const comments = [
+      {
+        user: `user`,
+        id:	13,
+        name:	`Zak`,
+        rating:	1.4,
+        comment:	`This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
+        date:	`2021-03-07T08:04:28.658Z`
+      }
+    ]
+
+    const expectedAction = {
+      type: ActionType.GET_COMMENTS,
+      payload: comments
+    };
+
+    expect(loadComments(comments)).toEqual(expectedAction)
+  });
+
+  it(`Action creator for set genres returns action with an array of the films genres`, () => {
+    const genres = [
+      `Drama`,
+      `Comedy`,
+      `Thriller`
+    ]
+
+    const expectedAction = {
+      type: ActionType.SET_GENRES,
+      payload: genres
+    };
+
+    expect(setGenres(genres)).toEqual(expectedAction)
+  });
+
+  it(`Action creator for change genre returns action with new active genre`, () => {
+    const genre = `Drama`
+
+    const expectedAction = {
+      type: ActionType.CHANGE_GENRE,
+      payload: genre
+    };
+
+    expect(changeGenre(genre)).toEqual(expectedAction)
+  });
+
+  it(`Action creator for reset film returns action with null payload`, () => {
     const expectedAction = {
       type: ActionType.RESET_FILM,
     };

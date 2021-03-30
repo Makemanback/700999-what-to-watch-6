@@ -13,7 +13,8 @@ export const ActionType = {
   GET_PROMO_FILM: `GET_PROMO_FILM`,
   RESET_FILM: `RESET_FILM`,
   GET_FAVORITE: `GET_FAVORITE`,
-  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`
+  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
+  REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`
 };
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
@@ -55,6 +56,16 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) 
 export const loadFavorite = createAction(ActionType.GET_FAVORITE, (films) => ({
   payload: films
 }));
+
+export const removeFromFavorite = createAction(ActionType.REMOVE_FROM_FAVORITE, (film) => ({
+  payload: film
+}));
+
+export const addToFavorite = createAction(ActionType.ADD_TO_FAVORITE, (film) => ({
+  payload: film
+}));
+
+
 
 export const resetFilm = createAction(ActionType.RESET_FILM);
 export const showMore = createAction(ActionType.SHOW_MORE);

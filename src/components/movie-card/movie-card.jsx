@@ -61,6 +61,7 @@ const MovieCard = () => {
         poster={poster}
         isFavorite={isFavorite}
         filmId={filmId}
+        film={promoFilm}
       />
     </section>
   );
