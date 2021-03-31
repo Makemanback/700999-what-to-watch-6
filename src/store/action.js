@@ -59,18 +59,6 @@ export const loadFavorite = createAction(ActionType.GET_FAVORITE, (films) => ({
   payload: films
 }));
 
-export const addToFavorite = createAction(ActionType.ADD_TO_FAVORITE, (film) => ({
-  payload: film
-}));
-
-export const addToFavoritePromoFilm = createAction(ActionType.ADD_TO_FAVORITE_PROMO_FILM, (film) => ({
-  payload: film
-}));
-
-export const addFavoriteCurrentFilm = createAction(ActionType.ADD_TO_FAVORITE_CURRENT_FILM, (film) => ({
-  payload: film
-}));
-
 export const addToFavoriteFilm = createAction(ActionType.ADD_TO_FAVORITE_FILM, (film) => ({
   payload: film
 }));

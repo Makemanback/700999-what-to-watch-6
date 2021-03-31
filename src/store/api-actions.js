@@ -8,8 +8,6 @@ import {
   requireAuthorization,
   redirectToRoute,
   loadFavorite,
-  addToFavorite,
-  removeFromFavorite,
   addToFavoriteFilm
 } from "./action";
 
@@ -107,29 +105,8 @@ export default class ApiService {
 
     return (dispatch, _getState, api) => (
       api.post(route, {isFavorite})
-      .then(({data}) => ApiService.adaptToClient(data))
-      .then((film) => dispatch(addToFavoriteFilm(film)))
-    );
-  }
-
-  getFavoriteFilm(currentFilmId) {
-    return (dispatch, _getState, api) =>
-    api
-    .get(Path.FAVORITE)
-    .then(({data}) => data.map(ApiService.adaptToClient))
-    .then((films) => films.find(({id}) => id === currentFilmId))
-    .then((film) => dispatch(addToFavoriteFilm(film)))
-  }
-
-  addToFavoriteList(isFavorite, id) {
-    return (dispatch, _getState, api) => (
-      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
-    );
-  }
-
-  removeFromFavoriteList(isFavorite, id) {
-    return (dispatch, _getState, api) => (
-      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
+        .then(({data}) => ApiService.adaptToClient(data))
+        .then((film) => dispatch(addToFavoriteFilm(film)))
     );
   }
 

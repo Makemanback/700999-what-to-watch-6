@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 
-const MovieCardInfo = ({title, genre, year, poster, filmId, isFavorite, film}) => {
+const MovieCardInfo = ({title, genre, year, poster, filmId, isFavorite}) => {
 
   return (
     <div className="movie-card__wrap">
@@ -19,7 +19,7 @@ const MovieCardInfo = ({title, genre, year, poster, filmId, isFavorite, film}) =
             <span className="movie-card__year">{year}</span>
           </p>
 
-          <MovieCardButtons title={title} film={film} filmId={filmId} isFavorite={isFavorite} />
+          <MovieCardButtons filmId={filmId} isFavorite={isFavorite} />
         </div>
       </div>
     </div>

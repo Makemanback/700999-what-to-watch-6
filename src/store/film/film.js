@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {addToFavoriteFilm, removeFromFavoriteFilm, getFilm, getFilmId, loadComments, loadPromoFilm, resetFilm} from '../action';
+import {addToFavoriteFilm, getFilm, getFilmId, loadComments, loadPromoFilm, resetFilm} from '../action';
 
 const initialState = {
   promoFilm: null,
@@ -8,14 +8,6 @@ const initialState = {
   currentFilmId: null,
   currentFilmComments: null,
 };
-
-const chose = (currentFilm, promoFilm) => {
-  if (!currentFilm) {
-    return promoFilm
-  } else {
-    return currentFilm
-  }
-}
 
 const film = createReducer(initialState, (builder) => {
   builder.addCase(getFilm, (state, action) => {
@@ -50,19 +42,17 @@ const film = createReducer(initialState, (builder) => {
     };
   });
   builder.addCase(addToFavoriteFilm, (state, action) => {
-    console.log(action.payload)
-    return {
+    const newState = {
       ...state,
-      promoFilm: action.payload,
       currentFilm: action.payload
     };
+
+    if (action.payload.id === state.promoFilm.id) {
+      newState.promoFilm = action.payload;
+    }
+
+    return newState;
   });
-  // builder.addCase(addToFavoriteCurrentFilm, (state, action) => {
-  //   return {
-  //     ...state,
-  //     currentFilm: action.payload,
-  //   };
-  // });
 });
 
 

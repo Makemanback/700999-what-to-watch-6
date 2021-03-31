@@ -7,11 +7,11 @@ import {
   loadComments,
   setGenres,
   changeGenre,
-  requireAuthorization,
-  redirectToRoute,
-  loadFavorite,
+  // requireAuthorization,
+  // redirectToRoute,
+  // loadFavorite,
   resetFilm,
-  showMore
+  // showMore
 } from './action';
 
 describe(`Action creators work correctly`, () => {
@@ -36,42 +36,42 @@ describe(`Action creators work correctly`, () => {
         scoresCount: 22299,
         videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
       },
-    ]
+    ];
 
     const expectedAction = {
       type: ActionType.LOAD_FILMS,
       payload: films
     };
 
-    expect(loadFilms(films)).toEqual(expectedAction)
+    expect(loadFilms(films)).toEqual(expectedAction);
   });
 
   it(`Action creator for get film returns action with an object of the film`, () => {
     const film = {
-        genre: `Drama`,
-        released: 1984,
-        description: `lorem impsum`,
-        director: `Spielberg Stephen`,
-        starring: `Tom Hank, John Travolta`,
-        id: 1,
-        image: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        video: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        title: `It`,
-        runTime: 200,
-        background: `#F1E9CE`,
-        backgroundImg: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        isFavorite: false,
-        poster: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        scoresCount: 22299,
-        videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-      }
+      genre: `Drama`,
+      released: 1984,
+      description: `lorem impsum`,
+      director: `Spielberg Stephen`,
+      starring: `Tom Hank, John Travolta`,
+      id: 1,
+      image: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      video: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      title: `It`,
+      runTime: 200,
+      background: `#F1E9CE`,
+      backgroundImg: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      isFavorite: false,
+      poster: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      scoresCount: 22299,
+      videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+    };
 
     const expectedAction = {
       type: ActionType.GET_FILM,
       payload: film
     };
 
-    expect(getFilm(film)).toEqual(expectedAction)
+    expect(getFilm(film)).toEqual(expectedAction);
   });
 
   it(`Action creator for get film id returns action with an id of the film`, () => {
@@ -82,35 +82,35 @@ describe(`Action creators work correctly`, () => {
       payload: 1
     };
 
-    expect(getFilmId(id)).toEqual(expectedAction)
+    expect(getFilmId(id)).toEqual(expectedAction);
   });
 
   it(`Action creator for load promo film returns action with an object of the promo film`, () => {
     const promoFilm = {
-        genre: `Drama`,
-        released: 1984,
-        description: `lorem impsum`,
-        director: `Spielberg Stephen`,
-        starring: `Tom Hank, John Travolta`,
-        id: 1,
-        image: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        video: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        title: `It`,
-        runTime: 200,
-        background: `#F1E9CE`,
-        backgroundImg: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        isFavorite: false,
-        poster: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-        scoresCount: 22299,
-        videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-      }
+      genre: `Drama`,
+      released: 1984,
+      description: `lorem impsum`,
+      director: `Spielberg Stephen`,
+      starring: `Tom Hank, John Travolta`,
+      id: 1,
+      image: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      video: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      title: `It`,
+      runTime: 200,
+      background: `#F1E9CE`,
+      backgroundImg: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      isFavorite: false,
+      poster: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
+      scoresCount: 22299,
+      videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+    };
 
     const expectedAction = {
       type: ActionType.GET_PROMO_FILM,
       payload: promoFilm
     };
 
-    expect(loadPromoFilm(promoFilm)).toEqual(expectedAction)
+    expect(loadPromoFilm(promoFilm)).toEqual(expectedAction);
   });
 
   it(`Action creator for load comments returns action with an array of the film's comments`, () => {
@@ -123,14 +123,14 @@ describe(`Action creators work correctly`, () => {
         comment:	`This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.`,
         date:	`2021-03-07T08:04:28.658Z`
       }
-    ]
+    ];
 
     const expectedAction = {
       type: ActionType.GET_COMMENTS,
       payload: comments
     };
 
-    expect(loadComments(comments)).toEqual(expectedAction)
+    expect(loadComments(comments)).toEqual(expectedAction);
   });
 
   it(`Action creator for set genres returns action with an array of the films genres`, () => {
@@ -138,25 +138,25 @@ describe(`Action creators work correctly`, () => {
       `Drama`,
       `Comedy`,
       `Thriller`
-    ]
+    ];
 
     const expectedAction = {
       type: ActionType.SET_GENRES,
       payload: genres
     };
 
-    expect(setGenres(genres)).toEqual(expectedAction)
+    expect(setGenres(genres)).toEqual(expectedAction);
   });
 
   it(`Action creator for change genre returns action with new active genre`, () => {
-    const genre = `Drama`
+    const genre = `Drama`;
 
     const expectedAction = {
       type: ActionType.CHANGE_GENRE,
       payload: genre
     };
 
-    expect(changeGenre(genre)).toEqual(expectedAction)
+    expect(changeGenre(genre)).toEqual(expectedAction);
   });
 
   it(`Action creator for reset film returns action with null payload`, () => {

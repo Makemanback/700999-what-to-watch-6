@@ -29,6 +29,7 @@ const FilmContainer = () => {
       loadFilmsData();
       dispatch(apiService.fetchFilmComments(filmId));
       dispatch(apiService.fetchFilmsList());
+      dispatch(apiService.fetchPromoFilm());
     }
   }, [currentFilm, filmId]);
 
