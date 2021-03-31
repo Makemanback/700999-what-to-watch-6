@@ -9,7 +9,8 @@ import {
   redirectToRoute,
   loadFavorite,
   addToFavorite,
-  removeFromFavorite
+  removeFromFavorite,
+  addToFavoriteFilm
 } from "./action";
 
 import {AuthorizationStatus, Genre, Path} from "../const";
@@ -101,30 +102,34 @@ export default class ApiService {
     );
   }
 
-  // changeFavorite(isFavorite, id) {
-  //   const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
-
-  //   return (dispatch, _getState, api) => (
-  //     api.post(route, {isFavorite})
-  //     .then(({data}) => dispatch(addToFavorite(data)))
-  //     .then((data) => ApiService.adaptToClient(data))
-  //   );
-  // }
-
-  addToFavoriteList(isFavorite, id) {
+  changeFavorite(isFavorite, id) {
+    const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
 
     return (dispatch, _getState, api) => (
-      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
+      api.post(route, {isFavorite})
       .then(({data}) => ApiService.adaptToClient(data))
-      .then((film) => dispatch(addToFavorite(film)))
+      .then((film) => dispatch(addToFavoriteFilm(film)))
+    );
+  }
+
+  getFavoriteFilm(currentFilmId) {
+    return (dispatch, _getState, api) =>
+    api
+    .get(Path.FAVORITE)
+    .then(({data}) => data.map(ApiService.adaptToClient))
+    .then((films) => films.find(({id}) => id === currentFilmId))
+    .then((film) => dispatch(addToFavoriteFilm(film)))
+  }
+
+  addToFavoriteList(isFavorite, id) {
+    return (dispatch, _getState, api) => (
+      api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
     );
   }
 
   removeFromFavoriteList(isFavorite, id) {
-
     return (dispatch, _getState, api) => (
       api.post(Path.FAVORITE + id + `/${Number(isFavorite)}`, {isFavorite})
-      .then(({data}) => dispatch(removeFromFavorite(data)))
     );
   }
 

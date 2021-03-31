@@ -14,7 +14,7 @@ const User = <UserBlock />;
 const MovieCard = () => {
 
   const promoFilm = useSelector(({FILM}) => FILM.promoFilm);
-
+  console.log(promoFilm, 'movie card')
   const dispatch = useDispatch();
 
   useEffect(() => {

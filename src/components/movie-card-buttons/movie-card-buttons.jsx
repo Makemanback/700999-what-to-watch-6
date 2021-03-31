@@ -4,13 +4,13 @@ import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from "react-redux";
 
 import ApiService from '../../store/api-actions';
-import {addToFavorite, removeFromFavorite} from '../../store/action';
+import {addToFavoriteFilm, removeFromFavoriteFilm, loadPromoFilm} from '../../store/action';
 import {AuthorizationStatus, Path} from '../../const';
 import browserHistory from '../../browser-history';
 
 const apiService = new ApiService();
 
-const MovieCardButtons = ({filmId, isFavorite, film}) => {
+const MovieCardButtons = ({title, filmId, isFavorite, film}) => {
 
   const plusButton = <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add" />
@@ -24,6 +24,7 @@ const MovieCardButtons = ({filmId, isFavorite, film}) => {
 
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
   const favoriteFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.favoriteFilms)
+  const filmCopy = useSelector(({FILM}) => FILM.filmCopy)
 
   const dispatch = useDispatch();
 
@@ -46,12 +47,14 @@ const setBtn = () => {
 
   const changeFavoriteStatus = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
+      console.log(isFavorite)
+      dispatch(apiService.changeFavorite(isFavorite, filmId));
+        // dispatch(apiService.getFavoriteFilm(filmId))
 
-      if (isFavorite) {
-        dispatch(apiService.removeFromFavoriteList(isFavorite, filmId));
-      } else {
-        dispatch(apiService.addToFavoriteList(isFavorite, filmId));
-      }
+        // 1. посылаем запрос на сервер post, делаем фильм favorite = true
+        // 2. promo или current - забираем с сервера get
+        // 3. проверяем - если promo или current favorite, то удаляем из favorite
+        // 4. посылаем запрос на сервер post, делаем фильм favorite = false
 
     } else {
       browserHistory.push(Path.LOGIN);

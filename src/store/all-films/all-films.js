@@ -26,18 +26,24 @@ const allFilms = createReducer(initialState, (builder) => {
       allFilms: action.payload,
     };
   });
-  builder.addCase(addToFavorite, (state, action) => {
+  builder.addCase(loadFavorite, (state, action) => {
     return {
       ...state,
-      favoriteFilms: [...state.favoriteFilms, action.payload]
+      favoriteFilms: action.payload
     };
   });
-  builder.addCase(removeFromFavorite, (state, action) => {
-    return {
-      ...state,
-      favoriteFilms: removeFilm(state.favoriteFilms, action.payload)
-    };
-  });
+  // builder.addCase(addToFavorite, (state, action) => {
+  //   return {
+  //     ...state,
+  //     favoriteFilms: [...state.favoriteFilms, action.payload]
+  //   };
+  // });
+  // builder.addCase(removeFromFavorite, (state, action) => {
+  //   return {
+  //     ...state,
+  //     favoriteFilms: removeFilm(state.favoriteFilms, action.payload)
+  //   };
+  // });
   builder.addCase(changeGenre, (state, action) => {
     return {
       ...state,

@@ -19,7 +19,7 @@ const MovieCardInfo = ({title, genre, year, poster, filmId, isFavorite, film}) =
             <span className="movie-card__year">{year}</span>
           </p>
 
-          <MovieCardButtons film={film} filmId={filmId} isFavorite={isFavorite} />
+          <MovieCardButtons title={title} film={film} filmId={filmId} isFavorite={isFavorite} />
         </div>
       </div>
     </div>

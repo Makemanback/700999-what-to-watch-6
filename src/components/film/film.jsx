@@ -59,7 +59,7 @@ const Film = ({
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <MovieCardButtons film={currentFilm} filmId={filmId} isFavorite={isFavorite} />
+              <MovieCardButtons title={title} film={currentFilm} filmId={filmId} isFavorite={isFavorite} />
             </div>
           </div>
         </div>

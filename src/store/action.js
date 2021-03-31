@@ -14,7 +14,9 @@ export const ActionType = {
   RESET_FILM: `RESET_FILM`,
   GET_FAVORITE: `GET_FAVORITE`,
   ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
-  REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`
+  ADD_TO_FAVORITE_PROMO_FILM: `ADD_TO_FAVORITE_PROMO_FILM`,
+  ADD_TO_FAVORITE_CURRENT_FILM: `ADD_TO_FAVORITE_CURRENT_FILM`,
+  ADD_TO_FAVORITE_FILM: `ADD_TO_FAVORITE_FILM`
 };
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
@@ -57,14 +59,21 @@ export const loadFavorite = createAction(ActionType.GET_FAVORITE, (films) => ({
   payload: films
 }));
 
-export const removeFromFavorite = createAction(ActionType.REMOVE_FROM_FAVORITE, (film) => ({
-  payload: film
-}));
-
 export const addToFavorite = createAction(ActionType.ADD_TO_FAVORITE, (film) => ({
   payload: film
 }));
 
+export const addToFavoritePromoFilm = createAction(ActionType.ADD_TO_FAVORITE_PROMO_FILM, (film) => ({
+  payload: film
+}));
+
+export const addFavoriteCurrentFilm = createAction(ActionType.ADD_TO_FAVORITE_CURRENT_FILM, (film) => ({
+  payload: film
+}));
+
+export const addToFavoriteFilm = createAction(ActionType.ADD_TO_FAVORITE_FILM, (film) => ({
+  payload: film
+}));
 
 
 export const resetFilm = createAction(ActionType.RESET_FILM);
