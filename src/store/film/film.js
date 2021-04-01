@@ -47,7 +47,7 @@ const film = createReducer(initialState, (builder) => {
       currentFilm: action.payload
     };
 
-    if (action.payload.id === state.promoFilm.id) {
+    if (state.promoFilm !== null && action.payload.id === state.promoFilm.id) {
       newState.promoFilm = action.payload;
     }
 

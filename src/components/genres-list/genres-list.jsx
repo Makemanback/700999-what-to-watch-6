@@ -8,6 +8,12 @@ import GenreItem from '../genre-item/genre-item';
 const GenresList = () => {
 
   const genres = useSelector(({GENRES}) => GENRES.genres);
+  const allFilms = useSelector(({ALL_FILMS}) => ALL_FILMS.allFilms);
+
+  // const Genres = allFilms.map(({genre}) => [...new Set(genre)]).push(`All films`);
+  // const Genres = [...new Set(allFilms.map(({genre}) => genre))];
+  // const allGenres = Genres.unshift(`All films`)
+  // console.log(allGenres)
 
   const dispatch = useDispatch();
 
