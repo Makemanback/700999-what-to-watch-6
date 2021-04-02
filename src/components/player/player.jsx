@@ -11,7 +11,6 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 const apiService = new ApiService();
 
-
 const Player = () => {
   const videoRef = useRef();
 

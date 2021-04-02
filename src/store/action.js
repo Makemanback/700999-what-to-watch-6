@@ -1,22 +1,19 @@
 import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
-  CHANGE_GENRE: `CHANGE_GENRE`,
-  SHOW_MORE: `SHOW_MORE`,
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  LOAD_FILMS: `LOAD_FILMS`,
-  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
-  SET_GENRES: `SET_GENRES`,
-  GET_FILM: `GET_FILM`,
-  GET_FILM_ID: `GET_FILM_ID`,
-  GET_COMMENTS: `GET_COMMENTS`,
-  GET_PROMO_FILM: `GET_PROMO_FILM`,
-  RESET_FILM: `RESET_FILM`,
-  GET_FAVORITE: `GET_FAVORITE`,
-  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
-  ADD_TO_FAVORITE_PROMO_FILM: `ADD_TO_FAVORITE_PROMO_FILM`,
-  ADD_TO_FAVORITE_CURRENT_FILM: `ADD_TO_FAVORITE_CURRENT_FILM`,
-  ADD_TO_FAVORITE_FILM: `ADD_TO_FAVORITE_FILM`
+  CHANGE_GENRE: `genre/changeGenre`,
+  SHOW_MORE: `allFilms/showMore`,
+  LOAD_FILMS: `allFilms/loadFilms`,
+  REDIRECT_TO_ROUTE: `user/redirectToRoute`,
+  SET_GENRES: `allFilms/setGenres`,
+  GET_FILM: `film/getFilm`,
+  GET_FILM_ID: `film/getFilmId`,
+  GET_COMMENTS: `allFilms/getComments`,
+  GET_PROMO_FILM: `film/getPromoFilm`,
+  RESET_FILM: `film/resetFilm`,
+  GET_FAVORITE: `allFilms/getFavorite`,
+  ADD_TO_FAVORITE_FILM: `film/addToFavoriteFilm`,
+  REQUIRED_AUTHORIZATION: `user/requireAuthorization`
 };
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({

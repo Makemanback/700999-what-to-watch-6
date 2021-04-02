@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import filmProp from '../film/film.prop';
 
 import LoadingScreen from '../loading-screen/loading-screen';
-import SmallCardContainer from "../small-card/small-card";
+import SmallCardContainer from "../small-card-container/small-card-container";
 
 const CardsList = ({films, loadMovieData, filmId}) => {
 
