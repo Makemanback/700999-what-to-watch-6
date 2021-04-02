@@ -11,7 +11,6 @@ const apiService = new ApiService();
 
 const MovieCardButtons = ({filmId, isFavorite}) => {
 
-
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   const dispatch = useDispatch();

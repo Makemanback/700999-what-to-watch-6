@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 
 import {Path} from '../../const';
 import browserHistory from "../../browser-history";
@@ -17,7 +17,6 @@ import PrivateRoute from '../private-route/private-route';
 const App = () => {
 
   return (
-    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={Path.DEFAULT}>
           <Main />
@@ -55,7 +54,6 @@ const App = () => {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
   );
 };
 
