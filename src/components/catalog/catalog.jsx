@@ -12,8 +12,6 @@ import LoadingScreen from '../loading-screen/loading-screen';
 const apiService = new ApiService();
 
 const Catalog = () => {
-
-
   const allFilmsStore = useSelector(({ALL_FILMS}) => ALL_FILMS);
   const {filmsToShow} = allFilmsStore;
 

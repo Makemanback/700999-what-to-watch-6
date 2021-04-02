@@ -44,3 +44,4 @@ export const Level = {
   NORMAL: `Normal`,
   BAD: `Bad`,
 };
+

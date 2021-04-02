@@ -1,7 +1,5 @@
 import {Level} from './const';
 
-export const extend = (a, b) => Object.assign({}, a, b);
-
 export const filmLevel = (rating) => {
   if (rating === 10) {
     return Level.AWESOME;

@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-import browserHistory from "../../browser-history";
 import {Path} from '../../const';
 
 import Video from "../video/video";
@@ -47,51 +46,6 @@ const SmallCard = ({
   );
 };
 
-const SmallCardContainer = ({id, image, title, video}) => {
-
-  const [isVideo, setVideo] = useState(false);
-  let timeOutId = null;
-
-  const handleHoverCard = () => {
-    if (timeOutId !== null) {
-      clearTimeout(timeOutId);
-    }
-
-    timeOutId = setTimeout(
-        () => {
-          setVideo(true);
-        }, 1000
-    );
-  };
-
-  const handleHoverOutCard = () => {
-    clearTimeout(timeOutId);
-    timeOutId = null;
-    setVideo(false);
-  };
-
-  const handleClickCard = () => {
-    return browserHistory.push(FILMS + id);
-  };
-
-  useEffect(() => {
-    return () => clearTimeout(timeOutId);
-  });
-
-  return (
-    <SmallCard
-      id={id}
-      image={image}
-      title={title}
-      video={video}
-      handleHoverCard={handleHoverCard}
-      handleHoverOutCard={handleHoverOutCard}
-      handleClickCard={handleClickCard}
-      isVideo={isVideo} />
-  );
-};
-
-
 SmallCard.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
@@ -103,12 +57,5 @@ SmallCard.propTypes = {
   isVideo: PropTypes.bool.isRequired
 };
 
-SmallCardContainer.propTypes = {
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  video: PropTypes.string.isRequired,
-};
-
-export default SmallCardContainer;
+export default SmallCard;
 

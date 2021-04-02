@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Video render correctly 1`] = `
+<div>
+  <video
+    alt="video-title"
+    autoplay=""
+    height="175"
+    src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4"
+    width="280"
+  />
+</div>
+`;

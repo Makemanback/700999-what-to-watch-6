@@ -6,7 +6,8 @@ import {Genre, FILMS_ON_SCREEN} from '../../const';
 const initialState = {
   activeGenre: Genre.ALL_GENRES,
   filmsToShow: FILMS_ON_SCREEN,
-  allFilms: null
+  allFilms: null,
+  favoriteFilms: []
 };
 
 const allFilms = createReducer(initialState, (builder) => {
