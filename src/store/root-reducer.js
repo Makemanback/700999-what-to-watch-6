@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import {combineReducers} from '@reduxjs/toolkit';
 
 import {user} from './user/user';
 import {allFilms} from './all-films/all-films';

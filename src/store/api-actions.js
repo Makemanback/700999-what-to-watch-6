@@ -7,7 +7,8 @@ import {
   loadPromoFilm,
   requireAuthorization,
   redirectToRoute,
-  loadFavorite
+  loadFavorite,
+  addToFavoriteFilm
 } from "./action";
 
 import {AuthorizationStatus, Genre, Path} from "../const";
@@ -99,12 +100,13 @@ export default class ApiService {
     );
   }
 
-  addToFavorite(isFavorite, id) {
+  changeFavorite(isFavorite, id) {
     const route = Path.FAVORITE + id + `/${Number(!isFavorite)}`;
 
-    return (_dispatch, _getState, api) => (
+    return (dispatch, _getState, api) => (
       api.post(route, {isFavorite})
-      .then(({data}) => ApiService.adaptToClient(data))
+        .then(({data}) => ApiService.adaptToClient(data))
+        .then((film) => dispatch(addToFavoriteFilm(film)))
     );
   }
 
