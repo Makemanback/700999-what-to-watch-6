@@ -6,25 +6,6 @@ import {createAPI} from '../../api/api';
 import ApiService from '../api-actions';
 import {Path} from '../../const';
 
-const mockFilm = {
-  genre: `Drama`,
-  released: 1984,
-  description: `lorem impsum`,
-  director: `Spielberg Stephen`,
-  starring: `Tom Hank, John Travolta`,
-  id: 1,
-  image: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-  video: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-  title: `It`,
-  runTime: 200,
-  background: `#F1E9CE`,
-  backgroundImg: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-  isFavorite: false,
-  poster: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg`,
-  scoresCount: 22299,
-  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-};
-
 describe(`Reducer 'film' work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(film(undefined, {}))
@@ -145,30 +126,4 @@ describe(`Async operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
-
-  it(`Should make a correct API call to change favorite film's status`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-
-    const id = 1;
-    const favoriteStatus = `/1`;
-    const isFavorite = true;
-
-    const changeFavoriteLoader = apiService.changeFavorite(isFavorite, id);
-
-    apiMock
-      .onPost(Path.FAVORITE + id + favoriteStatus, {isFavorite})
-      .reply(200, [{fake: true}]);
-
-    return changeFavoriteLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1)
-      .then((film) => {
-        const result = addToFavoriteFilm(film);
-        dispatch(result);
-      });
-      });
-  });
-
-
 });
