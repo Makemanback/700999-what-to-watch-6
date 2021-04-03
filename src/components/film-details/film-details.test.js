@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import FilmDetails from './film-details';
 
 const film = {
@@ -27,6 +27,11 @@ const film = {
 };
 
 test(`Should FilmDetails render correctly`, () => {
-  const {container} = render(<FilmDetails film={film} />);
-  expect(container).toMatchSnapshot();
+  render(<FilmDetails film={film} />);
+
+  expect(screen.getByText(/Director/i)).toBeInTheDocument();
+  expect(screen.getByText(/Starring/i)).toBeInTheDocument();
+  expect(screen.getByText(/Run Time/i)).toBeInTheDocument();
+  expect(screen.getByText(/Genre/i)).toBeInTheDocument();
+  expect(screen.getByText(/Released/i)).toBeInTheDocument();
 });

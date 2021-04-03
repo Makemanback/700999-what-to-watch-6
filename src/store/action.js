@@ -13,7 +13,7 @@ export const ActionType = {
   RESET_FILM: `film/resetFilm`,
   GET_FAVORITE: `allFilms/getFavorite`,
   ADD_TO_FAVORITE_FILM: `film/addToFavoriteFilm`,
-  REQUIRED_AUTHORIZATION: `user/requireAuthorization`
+  REQUIRED_AUTHORIZATION: `user/requireAuthorization`,
 };
 
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({

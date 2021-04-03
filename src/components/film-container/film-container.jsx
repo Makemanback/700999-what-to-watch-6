@@ -45,8 +45,9 @@ const FilmContainer = () => {
   const {genre: filmGenre} = currentFilm;
 
   const exactFilms = filteredFilms
-    .filter(({genre}) => genre === filmGenre)
+    .filter(({genre, id: filteredFilmId}) => genre === filmGenre && filteredFilmId !== filmId)
     .slice(0, 4);
+
 
   return (
     <Film

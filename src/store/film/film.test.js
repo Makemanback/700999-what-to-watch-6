@@ -151,8 +151,8 @@ describe(`Async operation work correctly`, () => {
     const dispatch = jest.fn();
 
     const id = 1;
-    const favoriteStatus = `/1`;
-    const isFavorite = true;
+    let favoriteStatus = `/0`;
+    let isFavorite = true;
 
     const changeFavoriteLoader = apiService.changeFavorite(isFavorite, id);
 
@@ -162,13 +162,7 @@ describe(`Async operation work correctly`, () => {
 
     return changeFavoriteLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1)
-      .then((film) => {
-        const result = addToFavoriteFilm(film);
-        dispatch(result);
-      });
+        expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
-
-
 });

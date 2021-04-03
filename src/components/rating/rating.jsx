@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {RATINGS} from '../../const';
 
-const RatingStar = ({item, setCommentRating}) => {
+export const RatingStar = ({item, setCommentRating}) => {
 
   return (
     <>
@@ -13,7 +13,8 @@ const RatingStar = ({item, setCommentRating}) => {
         id={`star-${item}`}
         type="radio"
         name="rating"
-        value={item}/>
+        value={item}
+        data-testid="rating"/>
       <label
         className="rating__label"
         htmlFor={`star-${item}`}>

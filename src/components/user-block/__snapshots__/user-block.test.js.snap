@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should UserBlock render correctly 1`] = `
+<div>
+  <div
+    class="user-block"
+  >
+    <a
+      class="user-block__link"
+      href="/mylist"
+    >
+      <div
+        class="user-block__avatar"
+      >
+        <img
+          alt="User avatar"
+          height="63"
+          src="img/avatar.jpg"
+          width="63"
+        />
+      </div>
+    </a>
+  </div>
+</div>
+`;

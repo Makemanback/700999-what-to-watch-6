@@ -9,7 +9,7 @@ const Main = () => {
   return (
     <React.Fragment>
 
-      <MovieCard />
+      <MovieCard data-testid="movie-card" />
 
       <div className="page-content">
         <Catalog />

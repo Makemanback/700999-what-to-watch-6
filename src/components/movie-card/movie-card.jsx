@@ -43,7 +43,7 @@ const MovieCard = () => {
   return (
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src={backgroundImg} alt={title} />
+        <img src={backgroundImg} alt={title} data-testid="background" />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>

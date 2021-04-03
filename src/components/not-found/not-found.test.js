@@ -1,16 +1,18 @@
 import React from 'react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {render} from '@testing-library/react';
+import {screen, render} from '@testing-library/react';
 import NotFound from './not-found';
 
 test(`Should NotFound render correctly`, () => {
   const history = createMemoryHistory();
-  const {container} = render(
+
+  render(
       <Router history={history}>
         <NotFound />
       </Router>
   );
 
-  expect(container).toMatchSnapshot();
+  expect(screen.getByText(/Not found/i)).toBeInTheDocument();
+  expect(screen.getByText(/Go to the main page/i)).toBeInTheDocument();
 });

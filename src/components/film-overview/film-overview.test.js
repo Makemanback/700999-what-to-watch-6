@@ -28,7 +28,7 @@ const film = {
 
 test(`Should FilmReviews render correctly`, () => {
   const {container} = render(
-        <FilmOverview film={film} />
+      <FilmOverview film={film} />
   );
 
   expect(container).toMatchSnapshot();

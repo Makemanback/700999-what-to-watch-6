@@ -1,8 +1,8 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import LoadingScreen from './loading-screen';
 
 test(`Should LoadingScreen render correctly`, () => {
-  const {container} = render(<LoadingScreen />);
-  expect(container).toMatchSnapshot();
+  render(<LoadingScreen />);
+  expect(screen.getByText(`Loading ...`)).toBeInTheDocument();
 });

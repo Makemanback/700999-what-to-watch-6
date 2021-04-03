@@ -17,43 +17,43 @@ import PrivateRoute from '../private-route/private-route';
 const App = () => {
 
   return (
-      <Switch>
-        <Route exact path={Path.DEFAULT}>
-          <Main />
-        </Route>
+    <Switch>
+      <Route exact path={Path.DEFAULT}>
+        <Main />
+      </Route>
 
-        <Route exact path={Path.LOGIN}>
-          <SignIn history={browserHistory} />
-        </Route>
+      <Route exact path={Path.LOGIN}>
+        <SignIn history={browserHistory} />
+      </Route>
 
-        <PrivateRoute
-          exact
-          path={Path.MY_LIST}
-          render={() => <MyList />}
-        />
+      <PrivateRoute
+        exact
+        path={Path.MY_LIST}
+        render={() => <MyList />}
+      />
 
-        <Route
-          exact
-          path={Path.FILM_ID}
-          render={() => <FilmContainer />}
-        />
+      <Route
+        exact
+        path={Path.FILM_ID}
+        render={() => <FilmContainer />}
+      />
 
-        <PrivateRoute
-          exact
-          path={Path.FILM_REVIEW}
-          render={() => <AddReview />}
-        />
+      <PrivateRoute
+        exact
+        path={Path.FILM_REVIEW}
+        render={() => <AddReview />}
+      />
 
-        <PrivateRoute
-          exact
-          path={Path.PLAYER}
-          render={() => <Player />}
-        />
+      <PrivateRoute
+        exact
+        path={Path.PLAYER}
+        render={() => <Player />}
+      />
 
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+      <Route>
+        <NotFound />
+      </Route>
+    </Switch>
   );
 };
 

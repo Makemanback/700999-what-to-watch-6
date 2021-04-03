@@ -14,21 +14,29 @@ const ReviewForm = ({filmId}) => {
 
   const [textComment, setTextComment] = useState(null);
   const [commentRating, setCommentRating] = useState(null);
+  const [isPostButtonDisabled, setPostButtonAvailability] = useState(false);
 
   const handleSubmit = (evt) => {
+    setPostButtonAvailability(true);
     evt.preventDefault();
+
     dispatch(apiService.pushComment({
       id: filmId,
       comment: textComment,
       rating: +commentRating
-    }));
+    })).catch(() => setPostButtonAvailability(false));
+
+    if (!commentRating || !textComment) {
+      setPostButtonAvailability(false);
+    }
   };
 
   return (
     <form
       action=""
       className="add-review__form"
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+    >
       <Rating setCommentRating={setCommentRating} />
 
       <div className="add-review__text">
@@ -40,8 +48,10 @@ const ReviewForm = ({filmId}) => {
           placeholder="Review text"></textarea>
         <div className="add-review__submit">
           <button
+            disabled={isPostButtonDisabled}
             className="add-review__btn"
-            type="submit">
+            type="submit"
+          >
             Post
           </button>
         </div>
