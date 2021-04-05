@@ -2,7 +2,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import {render, screen} from '@testing-library/react';
 
-import {RatingStar, Rating} from './Rating';
+import {RatingStar, Rating} from './rating';
 
 describe(`Test Rating`, () => {
   it(`Should RatingStar render correctly`, () => {
