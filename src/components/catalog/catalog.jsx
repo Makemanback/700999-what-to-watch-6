@@ -29,7 +29,7 @@ const Catalog = () => {
   const filmsShow = filteredFilms.slice(0, filmsToShow);
 
   return (
-    <section className="catalog" data-testid="catalog">
+    <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <GenresList />

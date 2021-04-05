@@ -41,7 +41,7 @@ const MovieCard = () => {
   } = promoFilm;
 
   return (
-    <section className="movie-card" data-testid="moviecard">
+    <section className="movie-card">
       <div className="movie-card__bg">
         <img src={backgroundImg} alt={title} data-testid="background" />
       </div>

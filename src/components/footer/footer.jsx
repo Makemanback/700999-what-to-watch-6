@@ -5,7 +5,7 @@ const PageLogo = <Logo />;
 
 const Footer = () => {
   return (
-    <footer className="page-footer" data-testid="footer">
+    <footer className="page-footer">
       {PageLogo}
 
       <div className="copyright">
