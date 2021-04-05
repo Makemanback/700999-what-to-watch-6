@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {RATINGS} from '../../const';
 
-export const RatingStar = ({item, setCommentRating}) => {
+const RatingStar = ({item, setCommentRating}) => {
 
   return (
     <>
@@ -48,6 +48,7 @@ RatingStar.propTypes = {
   setCommentRating: PropTypes.func.isRequired
 };
 
+export {Rating, RatingStar};
 export default memo(Rating, (prevProps, nextProps) => {
   return prevProps.setCommentRating === nextProps.setCommentRating;
 });
