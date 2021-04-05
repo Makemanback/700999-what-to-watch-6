@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import FilmReviews from './film-reviews';
 
 const reviews = [
@@ -18,7 +18,7 @@ const reviews = [
       id: 1,
       name: `makeman`
     },
-    rating: 6,
+    rating: 4,
     comment: `ewwfd`,
     date: `2021-04-02T07:36:03.591Z`,
     reviewId: 2
@@ -26,9 +26,21 @@ const reviews = [
 ];
 
 test(`Should FilmReviews render correctly`, () => {
-  const {container} = render(
+  render(
       <FilmReviews reviews={reviews} />
   );
+  expect(screen);
 
-  expect(container).toMatchSnapshot();
+  reviews.forEach(({comment}) => {
+    expect(screen.getByText(`${comment}`)).toBeInTheDocument();
+  });
+
+  reviews.forEach(({rating}) => {
+    expect(screen.getByText(`${rating}`)).toBeInTheDocument();
+  });
+
+  reviews.forEach(({user}) => {
+    expect(screen.getByText(`${user.name}`)).toBeInTheDocument();
+  });
+
 });
