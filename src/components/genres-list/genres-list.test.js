@@ -1,29 +1,30 @@
 import React from 'react';
-import {render} from '@testing-library/react';
 import {Router} from 'react-router-dom';
+import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import {AuthorizationStatus} from '../../const';
-
-import UserBlock from './user-block';
+import GenresList from './genres-list';
 
 const mockStore = configureStore({});
-test(`Should UserBlock render correctly`, () => {
 
+const genres = [`Drama`, `Horror`, `Comedy`];
+
+test(`Should GenresList render correctly`, () => {
   const store = mockStore({
-    USER: {authorizationStatus: AuthorizationStatus.AUTH}
+    GENRES: {genres},
   });
-
   const history = createMemoryHistory();
+
   const {container} = render(
       <redux.Provider store={store}>
         <Router history={history}>
-          <UserBlock />
+          <GenresList />
         </Router>
       </redux.Provider>
   );
 
   expect(container).toMatchSnapshot();
 });
+

@@ -18,7 +18,8 @@ const MovieCardButtons = ({filmId, isFavorite}) => {
   const addReview = authorizationStatus === AuthorizationStatus.AUTH
     ? <Link
       to={`/films/${filmId}/review`}
-      className="btn movie-card__button">
+      className="btn movie-card__button"
+      data-testid="add-review">
           Add review
     </Link>
     : null;

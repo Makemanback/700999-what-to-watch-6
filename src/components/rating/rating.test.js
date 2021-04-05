@@ -18,5 +18,5 @@ describe(`Test Rating`, () => {
   it(`Should Rating render correctly`, () => {
     const setCommentRating = jest.fn();
     render(<Rating setCommentRating={setCommentRating} />);
+  });
 });
-})

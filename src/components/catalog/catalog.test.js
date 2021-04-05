@@ -1,10 +1,13 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-import CardsList from './cards-list';
+import Catalog from './catalog';
+
+const mockStore = configureStore({});
 
 const mockFilms = [
   {
@@ -55,20 +58,23 @@ const mockFilms = [
   },
 ];
 
-const filmId = 1;
+describe(`Component 'Catalog' pass the test `, () => {
+  const history = createMemoryHistory();
 
-describe(`Test 'CardsList' component`, () => {
-  jest.spyOn(redux, `useSelector`);
-  jest.spyOn(redux, `useDispatch`);
-  const loadMovieData = jest.fn();
-
-  it(`Render 'CardsList' correctly`, () => {
-    const history = createMemoryHistory();
+  const store = mockStore({
+    ALL_FILMS: {filmsToShow: 8, allFilms: mockFilms},
+    GENRES: {genres: []}
+  });
+  it(`Catalog renders correctly`, () => {
 
     render(
-        <Router history={history}>
-          <CardsList films={mockFilms} loadMovieData={loadMovieData} filmId={filmId} />
-        </Router>
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <Catalog />
+          </Router>
+        </redux.Provider>
     );
+
+    expect(screen.getByText(`Catalog`)).toBeInTheDocument();
   });
 });

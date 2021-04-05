@@ -21,7 +21,9 @@ const CatalogMore = () => {
     <div className="catalog__more">
       <button
         onClick={() => dispatch(showMore())}
-        className="catalog__button" type="button">Show more</button>
+        className="catalog__button"
+        type="button"
+      >Show more</button>
     </div>
   );
 };

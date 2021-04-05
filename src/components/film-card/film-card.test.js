@@ -1,17 +1,17 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
+import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import {AuthorizationStatus} from '../../const';
 
-import MovieCard from './movie-card';
+import FilmCard from './film-card';
 
 const mockStore = configureStore({});
 
-const mockPromoFilm = {
+const currentFilm = {
   description: `Macbeth, the Thane of Glamis, receives a prophecy from a trio of witches that one day he will become King of Scotland. Consumed by ambition and spurred to action by his wife, Macbeth murders his king and takes the throne for himself.`,
   rating: 3.3,
   director: `Justin Kurzel`,
@@ -35,23 +35,23 @@ const mockPromoFilm = {
   videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`
 };
 
+const curentFilmComments = [];
 
-test(`Should MovieCard render correctly`, () => {
-
+test(`Should FilmCard render correctly`, () => {
   const store = mockStore({
-    FILM: {promoFilm: mockPromoFilm},
+    FILM: {currentFilm, curentFilmComments},
     USER: {authorizationStatus: AuthorizationStatus.AUTH}
   });
-
   const history = createMemoryHistory();
-  render(
+
+  const {container} = render(
       <redux.Provider store={store}>
         <Router history={history}>
-          <MovieCard />
+          <FilmCard />
         </Router>
       </redux.Provider>
   );
 
-  expect(screen.getByText(`WTW`)).toBeInTheDocument();
-  expect(screen.getByTestId(`background`)).toBeInTheDocument();
+  expect(container).toMatchSnapshot();
 });
+

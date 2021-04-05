@@ -14,8 +14,9 @@ test(`Should Logo render correctly`, () => {
 
   expect(screen.getByText(`T`)).toBeInTheDocument();
 
-// эта строчка должна находить все текстовые узлы W
-  expect(screen.getByText(`W`)).toBeInTheDocument();
+  expect(screen.getAllByText(`W`).forEach((item) => {
+    expect(item).toBeInTheDocument();
+  }));
 
   expect(screen.getByTestId(`logo-link`)).toBeInTheDocument();
 });
